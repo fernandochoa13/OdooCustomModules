@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t
+        t-name="ao_courses.AttachmentsThumbnailViewer"
+        t-inherit="portal.Chatter.Attachments"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div/div" position="replace">
+            <div t-if="attachments.length" class="row">
+                <div t-foreach="attachments" t-as="attachment" class="col-lg-6 col-md-6 col-sm-12 px-1">
+                    <div class="o_portal_chatter_attachment mb-2 position-relative text-center h-100 d-flex align-items-center" t-att-data-id="attachment.id">
+                        <button t-if="showDelete and attachment.state == 'pending'" class="o_portal_chatter_attachment_delete btn btn-sm btn-outline-danger" title="Delete">
+                            <i class="fa fa-times"/>
+                        </button>
+                        <a class="pb-1" t-attf-href="/web/content/#{attachment.id}?download=true&amp;access_token=#{attachment.access_token}" target="_blank">
+                            <div class="h-100">
+                                <t t-if="attachment.access_token">
+                                    <img class="w-100" width="100" t-attf-src="/web/content/#{attachment.id}?access_token=#{attachment.access_token}"/>
+                                </t>
+                                <t t-else="">
+                                    <div class='oe_attachment_embedded o_image' t-att-title="attachment.name" t-att-data-mimetype="attachment.mimetype"/>
+                                </t>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

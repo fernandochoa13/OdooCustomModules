@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_plus_properties,ao_properties.plus_properties,model_plus_properties,base.group_user,1,1,1,1
+access_plus_property_model,ao_properties.plus_property_model,model_plus_property_model,base.group_user,1,1,1,1
+access_land_acquisition,ao_properties.land_acquisition,model_land_acquisition,base.group_user,1,1,1,1
+access_land_acquisition_tag,ao_properties.land_acquisition_tag,model_land_acquisition_tag,base.group_user,1,1,1,1
+access_land_acquisition_stage,ao_properties.land_acquisition_stage,model_land_acquisition_stage,base.group_user,1,1,1,1
+access_plus_properties_public,ao_properties.plus_properties.public,model_plus_properties,,1,0,0,0
+access_plus_attachments,plus.ao_properties.attachments.public,base.model_ir_attachment,,1,0,0,0
+access_plus_companies,plus.ao_properties.companies.public,base.model_res_company,,1,0,0,0

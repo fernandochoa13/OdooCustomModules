@@ -1,0 +1,114 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ao_sales
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-29 21:14+0000\n"
+"PO-Revision-Date: 2023-09-29 21:14+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__interest__acquire
+msgid "Acquire lands in Florida"
+msgstr "Adquirir terrenos en Florida"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__interest__build
+msgid "Build"
+msgstr "Construir"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__interest__buy
+msgid "Buy finished houses"
+msgstr "Comprar casas terminadas"
+
+#. module: ao_sales
+#: model:ir.model.fields,field_description:ao_sales.field_crm_lead__city_of_interest_construction
+#: model:ir.model.fields,field_description:ao_sales.field_crm_lead__city_of_interest_advice
+#: model_terms:ir.ui.view,arch_db:ao_sales.ao_sales_crm_lead_view_search_view
+msgid "City of Interest for Construction?"
+msgstr "¿Ciudad de Interés para Construcción?"
+
+#. module: ao_sales
+#: model:ir.model.fields,field_description:ao_sales.field_crm_lead__city_of_interest
+msgid "City of interest"
+msgstr "¿Ciudad De Interes?"
+
+#. module: ao_sales
+#: model:ir.model.fields,field_description:ao_sales.field_crm_lead__has_capital
+#: model_terms:ir.ui.view,arch_db:ao_sales.ao_sales_crm_lead_view_search_view
+msgid "Has Capital?"
+msgstr "¿Cuenta con capital?"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__pre_approved__no
+msgid "No, I need help"
+msgstr "No, necesito ayuda"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__has_capital__no
+msgid "I don't have much saved"
+msgstr "No tengo mucho ahorrado"
+
+#. module: ao_sales
+#: model:ir.model.fields,field_description:ao_sales.field_crm_lead__interest
+msgid "Interest?"
+msgstr "¿Interes?"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__interest__invest
+msgid "Invest passively with ADAN"
+msgstr "Invertir pasivamente con ADAN"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__interest__invest_real
+msgid "Passively investing in real estate"
+msgstr "Invertir pasivamente en real estate"
+
+#. module: ao_sales
+#: model_terms:ir.ui.view,arch_db:ao_sales.ao_sales_crm_lead_view_form
+msgid "Investment"
+msgstr "Inversión"
+
+#. module: ao_sales
+#: model:ir.model,name:ao_sales.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Lead/Oportunidad"
+
+#. module: ao_sales
+#: model:ir.model.fields,field_description:ao_sales.field_crm_lead__pre_approved
+msgid "Pre-Approved?"
+msgstr "¿Pre-aprobado?"
+
+#. module: ao_sales
+#: model_terms:ir.ui.view,arch_db:ao_sales.ao_sales_crm_lead_view_form
+msgid "Properties Survey"
+msgstr "Encuesta de Propiedades"
+
+#. module: ao_sales
+#: model_terms:ir.ui.view,arch_db:ao_sales.ao_sales_crm_lead_view_form
+msgid "Purchase/Construction"
+msgstr "Compra/Construcción"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__pre_approved__yes
+msgid "Yes, I already know the price range I qualify for"
+msgstr "Si, ya sé el rango de precio para el que califico"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__has_capital__yes
+msgid "Yes, I have the capital or I am pre-approved"
+msgstr "Si, cuento con el capital o estoy pre-aprobado"
+
+#. module: ao_sales
+#: model:ir.model.fields.selection,name:ao_sales.selection__crm_lead__has_capital__have_10
+msgid "I have between 10k and 25k saved to invest"
+msgstr "Tengo entre 10k y 25k ahorrado para invertir"

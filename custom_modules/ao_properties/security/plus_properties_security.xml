@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.rule" id="ir_rule_plus_properties_public">
+            <field name="name">Properties: Website public</field>
+            <field name="model_id" ref="ao_properties.model_plus_properties"/>
+            <field name="domain_force">[('website_published', '=', True)]</field>
+            <field name="groups" eval="[(4, ref('base.group_public')), (4, ref('base.group_portal'))]"/>
+        </record>
+        <record model="ir.rule" id="ir_rule_plus_properties_multicompany">
+            <field name="name">Properties multi-company</field>
+            <field name="model_id" ref="ao_properties.model_plus_properties"/>
+            <field name="domain_force">['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
+        </record>
+    </data>
+</odoo>

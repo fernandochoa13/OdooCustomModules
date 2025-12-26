@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="property_template" name="property">
+        <style>
+            .icons-card {
+                align-items: center;
+            }
+
+            .content-description {
+                justify-content: space-between;
+                margin: 0 15px;
+                margin-top: 5px;
+                align-items: center;
+            }
+
+            .icons-card {
+                display: flex;
+                padding-bottom: 10px;
+                font-size: 25px;
+            }
+            .information {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+            .address {
+                font-size: 22px;
+                color: black;
+                font-weight: 500;
+            }
+            .icon{
+                margin-right: 30px;
+            }
+            .title-card {
+                font-size: 30px;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+            .price {
+                font-size: 40px;
+                font-weight: 600;
+                margin-top: 5px;
+            }
+            .rent-description {
+                color: #000;
+                font-size: 14px;
+                font-weight: 500;
+                margin-top: -6px;
+            }
+            .about {
+                font-size: 24px;
+                font-weight: 600;
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+            .apply-button {
+                margin-top: 20px;
+                padding: 10px 20px !important;
+                font-size: 18px !important;
+                width: 180px;
+            }
+            .text-capitalize {
+                text-transform: capitalize;
+            }
+            .about-text {
+                font-size: 18px;
+            }
+            .icon-value,
+            .rent-description,
+            .address,
+            .about-text {
+                opacity: 0.5;
+            }
+            @media (min-width: 1200px) {
+                .carousel-min-height {
+                    height: 600px !important;
+                }
+            }
+            @media (max-width: 767px) {
+                .carousel-min-height {
+                    height: fit-content !important;
+                }
+            }
+        </style>
+        <t t-call="website.layout">
+            <div id="wrap_property" class="o_wsale_product_page ecom-zoomable zoomodoo-next" data-ecom-zoom-click="1">
+                <div class="oe_structure oe_empty oe_structure_not_nearest" id="oe_structure_website_sale_property_1" data-editor-message="DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL PROPERTIES"/>
+                <section class="container py-3">
+                    <div id="property_website_published_button" groups="website.group_website_designer">
+                        <t t-call="website.publish_management">
+                            <t t-set="object" t-value="plus_property"/>
+                            <t t-set="publish_edit" t-value="True"/>
+                        </t>
+                    </div>
+                </section>
+                <section t-attf-class="container py-4 oe_website_sale" id="property_detail">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 d-flex align-items-center">
+                            <div class="d-flex justify-content-between w-100">
+                                <t t-call="ao_properties.properties_search">
+                                    <t t-set="search" t-value="False"/>
+                                    <t t-set="_form_classes" t-valuef="mb-2 mb-lg-0"/>
+                                    <t t-set="_classes" t-value="'me-sm-2'"/>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 d-flex align-items-center">
+                            <ol class="breadcrumb p-0 mb-2 m-lg-0">
+                                <li class="breadcrumb-item o_not_editable">
+                                    <a t-att-href="keep('/properties')">All Properties</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    <span t-field="plus_property.name"/>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="row" id="product_detail_main" data-name="Property Page" data-image_width="100 %" data-image_layout="carousel">
+                        <t t-set="image_cols" t-value="website._get_product_page_proportions()"/>
+                        <t t-set="base_url" t-value="plus_property.get_base_url()"/>
+                        <div t-attf-class="col-lg-12 mt-lg-4 o_wsale_product_images position-relative">
+                            <t t-set="property_images" t-value="plus_property._get_images()"/>
+                            <!--Carousel images-->
+                            <t t-set="product_carousel_block_name">Property Carousel</t>
+                            <div id="o-carousel-product" class="carousel slide position-sticky mb-3 overflow-hidden" data-bs-ride="carousel" data-bs-interval="0" t-att-data-name="product_carousel_block_name">
+                                <div class="o_carousel_product_outer carousel-outer position-relative flex-grow-1 carousel-min-height">
+                                    <div class="carousel-inner h-100">
+                                        <t t-set="image_classes" t-value="'d-flex align-items-center justify-content-center h-100'"/>
+                                        <t t-foreach="property_images" t-as="property_image">
+                                            <div t-attf-class="carousel-item h-100#{' active' if property_image_first else ''}">
+                                                <div t-if="property_image._name == 'ir.attachment' and property_image.type == 'binary'" t-att-class="'w-100 ratio ratio-16x9'">
+                                                    <div t-field="property_image.datas" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;qweb_img_responsive&quot;: True, &quot;class&quot;: &quot;oe_unmovable product_detail_img&quot;, &quot;alt-field&quot;: &quot;name&quot;}" style="display: flex; justify-content: center;"/>
+                                                </div>
+                                                <div t-else="" t-field="property_image.image_1920" t-att-class="oe_unmovable" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;oe_unmovable product_detail_img &quot;, &quot;alt-field&quot;: &quot;name&quot;}" style="display: flex; justify-content: center;"/>
+                                            </div>
+                                        </t>
+                                    </div>
+                                    <t t-if="len(property_images) &gt; 1">
+                                            <a class="carousel-control-prev" href="#o-carousel-product" role="button" data-bs-slide="prev">
+                                                <span class="fa fa-chevron-left fa-2x oe_unmovable" role="img" aria-label="Previous" title="Previous"/>
+                                            </a>
+                                            <a class="carousel-control-next" href="#o-carousel-product" role="button" data-bs-slide="next">
+                                                <span class="fa fa-chevron-right fa-2x oe_unmovable" role="img" aria-label="Next" title="Next"/>
+                                            </a>
+                                        </t>
+                                </div>
+                                <!--Carousel indicators images-->
+                                <t t-set="indicators_div_class" t-value="'pt-2 overflow-hidden'"/>
+                                <div t-ignore="True" t-attf-class="o_carousel_product_indicators {{indicators_div_class}}">
+                                    <ol t-if="len(property_images) &gt; 1" t-attf-class="carousel-indicators {{indicators_list_class}} position-static pt-2 pt-lg-0 mx-auto my-0 text-start">
+                                        <li t-foreach="property_images" t-as="property_image" t-attf-class="align-top position-relative {{'active' if property_image_first else ''}}" data-bs-target="#o-carousel-product" t-att-data-bs-slide-to="str(property_image_index)">
+                                            <div t-if="property_image._name == 'ir.attachment' and property_image.type == 'binary'">
+                                                <div t-field="property_image.datas" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;qweb_img_responsive&quot;: True, &quot;class&quot;: &quot;o_image_64_cover&quot;, &quot;alt-field&quot;: &quot;name&quot;}"/>
+                                            </div>
+                                            <div t-else="" t-field="property_image.image_128" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;qweb_img_responsive&quot;: False, &quot;class&quot;: &quot;o_image_64_cover&quot;, &quot;alt-field&quot;: &quot;name&quot;}"/>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div t-attf-class="row">
+                        <span itemprop="name" class="title-card" t-field="plus_property.name">Property Name</span>
+                        <span class="address" t-esc="plus_property.address"/>
+                        <div t-attf-class="mt-md-4 col-lg col-lg-12">
+                            <div class="mb-3 information">
+                                <div class="icons-card">
+                                    <div class="icon">
+                                        <span class="title"><i class="fa fa-bed" aria-hidden="true"/></span>
+                                        <span class="icon-value" t-esc="plus_property.bedrooms"/>
+                                    </div>
+                                    <div class="icon">
+                                        <span class="title"><i class="fa fa-bath" aria-hidden="true"/></span>
+                                        <span class="icon-value" t-esc="plus_property.bathrooms"/>
+                                    </div>
+                                    <div class="icon">
+                                        <span class="title"><i class="fa fa-car" aria-hidden="true"/></span>
+                                        <span class="icon-value" t-esc="plus_property.garage"/>
+                                    </div>
+                                    <t t-if="plus_property.area">
+                                        <div class="icon">
+                                            <span class="title"><i class="fa fa-arrows-alt" aria-hidden="true"/></span>
+                                            <span class="icon-value" t-esc="plus_property.area"/> <span class="icon-value">sq ft</span>
+                                        </div>
+                                    </t>
+                                </div>
+                                <t t-if="plus_property.about_text">
+                                    <span class="about">About the property</span>
+                                    <p class="about-text" t-esc="plus_property.about_text"/>
+                                </t>
+                                <span class="oe_price price" style="white-space: nowrap;" t-out="plus_property.value" t-options="{'widget': 'monetary', 'display_currency': plus_property.currency_id or website.currency_id}"/>
+                                <span class="rent-description">
+                                    <t t-if="plus_property.rent_type">
+                                        <t t-if="website.website_property_type == 'rent'">
+                                            Rent Price / <span class="text-capitalize" t-esc="plus_property.rent_type"/>
+                                        </t>
+                                        <t t-else="">
+                                            Selling price
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        Selling price
+                                    </t>
+                                </span>
+                                <a href="/contactus">
+                                    <button type="button" class="btn btn-primary btn-lg apply-button">APPLY TODAY!</button>
+                                </a>
+                            </div>
+                        </div>
+                        <div t-attf-class="col-lg-6 mt-md-4">
+                            <div itemprop="description" t-field="plus_property.website_description" class="oe_structure oe_empty mt16" id="property_full_description"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div itemprop="facts" t-field="plus_property.website_key_facts" class="oe_structure oe_empty mt16" id="property_key_facts"/>
+                    </div>
+                </section>
+                <div class="oe_structure oe_empty oe_structure_not_nearest mt16" id="oe_structure_website_sale_property_2" data-editor-message="DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL PROPERTIES"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="properties_search" name="Search Box">
+        <t t-call="website.website_search_box_input">
+            <t t-set="_form_classes" t-valuef="o_wsale_products_searchbar_form me-auto flex-grow-1 {{_form_classes}}"/>
+            <t t-set="_submit_classes" t-valuef="btn btn-{{navClass}}"/>
+            <t t-set="_input_classes" t-valuef="border-0 text-bg-{{navClass}}"/>
+            <t t-set="search_type" t-valuef="plus_properties"/>
+            <t t-set="action" t-value="keep('/properties'+ ('/property/'+slug(plus_property)) if plus_property else None, search=0) or '/properties'"/>
+            <t t-set="display_image" t-valuef="true"/>
+            <t t-set="display_detail" t-valuef="true"/>
+        </t>
+    </template>
+
+    <template id="properties_sort" name="Sort-by Template">
+        <div t-attf-class="o_sortby_dropdown dropdown dropdown_sorty_by ms-lg-3 {{_classes}}">
+            <small class="d-none d-lg-inline text-muted">Sort By:</small>
+            <a role="button" href="#" t-attf-class="dropdown-toggle btn btn-{{navClass}}" data-bs-toggle="dropdown">
+                <span class="d-none d-lg-inline">
+                    <t t-if="isSortingBy" t-out="isSortingBy[0][1]"/>
+                    <span t-else="1" t-field="website.properties_default_sort"/>
+                </span>
+                <i class="fa fa-sort-amount-asc d-lg-none"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" role="menu">
+                <t t-foreach="website_sale_sortable" t-as="sortby">
+                    <a role="menuitem" rel="noindex,nofollow" t-att-href="keep('/properties', order=sortby[0])" class="dropdown-item">
+                        <span t-out="sortby[1]"/>
+                    </a>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <!-- Attributes List on properties page-->
+    <template id="property_item" name="Properties item">
+        <style>
+            span.imageParent > img {
+                object-fit: cover !important;
+            }
+        </style>
+        <div class="oe_product_cart h-100 d-flex"
+            t-att-data-publish="p_property.website_published and 'on' or 'off'"
+            itemscope="itemscope">
+
+            <t t-set="property_href" t-value="keep(p_property.website_url, page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))" />
+            <t t-set="image_type" t-value="p_property._get_suitable_image_size(ppr, td_property['x'], td_property['y'])"/>
+
+            <div class="oe_product_image position-relative h-100 flex-grow-0 overflow-hidden">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" t-nocache="The csrf token must always be up to date."/>
+                <a t-att-href="property_href" class="oe_product_image_link d-block h-100 position-relative" itemprop="url" contenteditable="false">
+                    <t t-set="image_holder" t-value="p_property"/>
+                    <span t-field="image_holder.image_1920"
+                        t-options="{'widget': 'image', 'preview_image': image_type, 'itemprop': 'image', 'class': 'h-100 w-100 position-absolute'}"
+                        class="imageParent oe_product_image_img_wrapper d-flex h-100 justify-content-center align-items-center position-absolute"/>
+
+                    <t t-set="bg_color" t-value="td_property['ribbon']['bg_color'] or ''"/>
+                    <t t-set="text_color" t-value="td_property['ribbon']['text_color']"/>
+                    <t t-set="bg_class" t-value="td_property['ribbon']['html_class']"/>
+                    <span t-attf-class="o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-out="td_property['ribbon']['html'] or ''"/>
+                </a>
+            </div>
+            <div class="o_wsale_product_information position-relative d-flex flex-column flex-grow-1 flex-shrink-1">
+                <div class="o_wsale_product_information_text flex-grow-1">
+                    <h6 class="o_wsale_products_item_title mb-2">
+                        <a class="text-primary text-decoration-none" itemprop="name" t-att-href="property_href" t-att-content="p_property.name" t-field="p_property.name" />
+                        <a t-if="not p_property.website_published" role="button" t-att-href="property_href" class="btn btn-sm btn-danger" title="This property is unpublished.">
+                            Unpublished
+                        </a>
+                    </h6>
+                </div>
+                <div class="o_wsale_product_sub d-flex justify-content-between align-items-end pb-1">
+                    <div class="o_wsale_product_btn"/>
+                    <div class="product_price" itemprop="offers" itemscope="itemscope">
+                        <t t-if="p_property.value">
+                            <p t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
+                                <em class="small" t-esc="p_property.value" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                            </p>
+                        </t>
+                        <t t-else="">
+                            <p t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
+                                <em class="small">-</em>
+                            </p>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="property_item_grid" name="Properties item Grid">
+        <style>
+            span.imageParent > img {
+                object-fit: cover !important;
+            }
+            .card {
+                background: white;
+                border-radius: 20px;
+                overflow: hidden;
+            }
+            .oe_product_cart {
+                border-width: 0 0 0;
+            }
+            .card img {
+                width: 100%;
+            }
+
+            .content-description,
+                .content-text,
+                    .icons-card {
+                        display: flex;
+            }
+
+            .icons-card {
+                align-items: center;
+            }
+
+            .content-description {
+                justify-content: space-between;
+                margin: 0 15px;
+                margin-top: 5px;
+                align-items: center;
+            }
+
+            .icons-card {
+                margin-top: 15px;
+                padding-bottom: 10px;
+                justify-content: center;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .content-text {
+                flex-direction: column;
+            }
+
+            .title {
+                font-size: 12px;
+                font-weight: 600;
+                color: black;
+            }
+
+            .description {
+                font-weight: 500;
+                font-size: 11px;
+                color: black;
+                margin-left: 15px;
+                opacity: 0.5;
+            }
+
+            .icon-value {
+                font-weight: 500;
+                font-size: 12px;
+                color: black;
+                margin-left: 3px;
+                opacity: 0.5;
+            }
+
+            .price {
+                font-size: 18px;
+                font-weight: 600;
+            }
+            .text-capitalize {
+                text-transform: capitalize;
+            }
+            .icon {
+                margin-bottom: 10px;
+                border-radius: 30px;
+                border: 1px solid rgb(174, 174, 174);
+                padding: 5px 10px;
+                display: flex;
+                align-items: center;
+                margin-left: 5px;
+                height: 21px;
+            }
+
+            .icon .title {
+                margin-right: 2px;
+            }
+        </style>
+        <div class="oe_product_cart h-100 d-flex" t-att-data-publish="p_property.website_published and 'on' or 'off'" itemscope="itemscope">
+            <t t-set="property_href"
+               t-value="keep(p_property.website_url, page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"/>
+            <t t-set="image_type"
+               t-value="p_property._get_suitable_image_size(ppr, td_property['x'], td_property['y'])"/>
+            <div class="card">
+                <div class="oe_product_image position-relative h-100 flex-grow-0 overflow-hidden">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"
+                           t-nocache="The csrf token must always be up to date."/>
+                    <a t-att-href="property_href" class="oe_product_image_link d-block h-100 position-relative"
+                       itemprop="url" contenteditable="false">
+                        <t t-set="image_holder" t-value="p_property"/>
+                        <span t-field="image_holder.image_1920"
+                              t-options="{'widget': 'image', 'preview_image': image_type, 'itemprop': 'image', 'class': 'h-100 w-100 position-absolute'}"
+                              class="imageParent oe_product_image_img_wrapper d-flex h-100 justify-content-center align-items-center position-absolute"/>
+
+                        <t t-set="bg_color" t-value="td_property['ribbon']['bg_color'] or ''"/>
+                        <t t-set="text_color" t-value="td_property['ribbon']['text_color']"/>
+                        <t t-set="bg_class" t-value="td_property['ribbon']['html_class']"/>
+                        <span t-attf-class="o_ribbon #{bg_class}"
+                              t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}"
+                              t-out="td_property['ribbon']['html'] or ''"/>
+                    </a>
+                </div>
+
+                <div class="o_wsale_product_information content-description position-relative d-flex flex-grow-1 flex-shrink-1">
+                    <div class="o_wsale_product_information_text o_wsale_products_item_title title content-text">
+                            <span class="text-decoration-none" itemprop="name" t-att-href="property_href"
+                               t-att-content="p_property.name" t-field="p_property.name"/>
+                            <a t-if="not p_property.website_published" role="button" t-att-href="property_href"
+                               class="btn btn-sm btn-danger" title="This property is unpublished.">
+                                Unpublished
+                            </a>
+                        </div>
+                    <div class="price" itemprop="offers" itemscope="itemscope">
+                        <t t-if="p_property.value">
+                            <p t-attf-class="mb-0" style="white-space: nowrap;">
+                                <span t-esc="p_property.value"
+                                    t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                            </p>
+                        </t>
+                        <t t-else="">
+                            <p t-attf-class="mb-0" style="white-space: nowrap;">
+                                <span>-</span>
+                            </p>
+                        </t>
+                    </div>
+                </div>
+                <div class="description content-description">
+                    <t t-if="p_property.address">
+                        <span t-esc="p_property.address"/>
+                    </t>
+                    <t t-else="">
+                         <span/>
+                    </t>
+                    <t t-if="p_property.rent_type">
+                        <t t-if="website.website_property_type == 'rent'">
+                            <span> Rent / <span class="text-capitalize" t-esc="p_property.rent_type"/></span>
+                        </t>
+                        <t t-else="">
+                            <span>Selling price</span>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <span>Selling price</span>
+                    </t>
+                </div>
+                <div class="icons-card">
+                    <div class="icon">
+                        <span class="title"><i class="fa fa-bed" aria-hidden="true"></i></span>
+                        <span class="icon-value" t-esc="p_property.bedrooms"/>
+                    </div>
+                    <div class="icon">
+                        <span class="title"><i class="fa fa-bath" aria-hidden="true"></i></span>
+                        <span class="icon-value" t-esc="p_property.bathrooms"/>
+                    </div>
+                    <div class="icon">
+                        <span class="title"><i class="fa fa-car" aria-hidden="true"></i></span>
+                        <span class="icon-value" t-esc="p_property.garage"/>
+                    </div>
+                    <t t-if="p_property.area">
+                        <div class="icon">
+                            <span class="title"><i class="fa fa-arrows-alt" aria-hidden="true"></i></span>
+                            <span class="icon-value" t-esc="p_property.area"/> <span class="icon-value">sq ft</span>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template name="properties" id="properties_template">
+        <style>
+            .ao_properties_hide {
+                display: none;
+            }
+            @media (max-width: 620px) {
+                .table_resp {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+                .oe_property {
+                    width: 80% !important;
+                }
+            }
+        </style>
+        <t t-call="website.layout">
+            <t t-set="additional_title">Shop</t>
+            <t t-set="grid_block_name">Grid</t>
+            <t t-set="product_block_name">Property</t>
+
+            <!-- Qweb variable defining the class suffix for navbar items.
+                 Change accordingly to the derired visual result (eg. `primary`, `dark`...)-->
+            <t t-set="navClass" t-valuef="light"/>
+
+            <!-- Check for active options: the stored value may be used in sub-templates too  -->
+            <t t-set="opt_wsale_categories" t-value="False"/>
+            <t t-set="opt_wsale_attributes" t-value="True"/>
+            <t t-set="opt_wsale_filter_price" t-value="False"/>
+
+            <t t-set="opt_wsale_categories_top" t-value="False"/>
+            <t t-set="opt_wsale_attributes_top" t-value="False"/>
+
+            <t t-set="website_sale_pricelists" t-value="False"/>
+            <t t-set="website_sale_sortable" t-value="website._get_property_sort_mapping()"/>
+
+            <t t-set="hasLeftColumn" t-value="opt_wsale_categories or opt_wsale_attributes"/>
+
+            <t t-set="isFilteringByPrice" t-if="opt_wsale_filter_price" t-value="False"/>
+            <t t-set="hasPricelistDropdown" t-value="False"/>
+            <t t-set="isSortingBy" t-value="[sort for sort in website_sale_sortable if sort[0]==request.params.get('order', '')]"/>
+
+            <div id="wrap" class="js_sale o_wsale_products_page">
+                <div class="oe_structure oe_empty oe_structure_not_nearest" id="oe_structure_website_sale_property_1"/>
+                <div class="container oe_website_sale pt-2">
+                    <div class="row o_wsale_products_main_row align-items-start flex-nowrap">
+                        <aside t-if="hasLeftColumn" id="products_grid_before" class="d-none d-lg-block position-sticky col-3 px-3 clearfix">
+                            <div class="o_wsale_products_grid_before_rail vh-100 pe-lg-2 pb-lg-5 overflow-y-auto">
+                                <div class="products_attributes_filters"/>
+                                <t t-if="opt_wsale_filter_price and opt_wsale_attributes"
+                                   t-call="website_sale.filter_products_price"/>
+                            </div>
+                        </aside>
+                        <div id="products_grid" t-attf-class="#{'o_wsale_layout_list' if layout_mode == 'list' else ''} {{'col-lg-9' if hasLeftColumn else 'col-12'}}">
+                            <div class="products_header btn-toolbar flex-nowrap align-items-center justify-content-between mb-3">
+                                <t t-call="ao_properties.properties_search">
+                                    <t t-set="search" t-value="original_search or search"/>
+                                    <t t-set="_form_classes" t-valuef="d-lg-inline d-inline"/>
+                                </t>
+
+                                <t t-call="ao_properties.properties_sort">
+                                    <t t-set="_classes" t-valuef="d-none d-lg-inline-block ms-3"/>
+                                </t>
+
+                                <button t-attf-class="btn btn-{{navClass}} position-relative ms-3 {{not opt_wsale_attributes_top and 'd-lg-none'}}" data-bs-toggle="offcanvas" data-bs-target="#o_wsale_offcanvas">
+                                    <i class="fa fa-sliders"/>
+                                    <span t-if="isFilteringByPrice or attrib_set" t-attf-class="position-absolute top-0 start-100 translate-middle badge border border-{{navClass}} rounded-circle bg-danger p-1"><span class="visually-hidden">filters active</span></span>
+                                </button>
+                            </div>
+
+                            <div t-if="original_search and properties" class="alert alert-warning mt8">
+                                No results found for '<span t-esc="original_search"/>'. Showing results for '<span t-esc="search"/>'.
+                            </div>
+
+                            <div t-cache="properties" t-if="properties" class="o_wsale_products_grid_table_wrapper pt-3 pt-lg-0">
+                                <table class="table table-borderless h-100 m-0" t-att-data-ppg="ppg" t-att-data-ppr="ppr" t-att-data-default-sort="website.properties_default_sort" t-att-data-name="grid_block_name">
+                                    <colgroup t-ignore="true">
+                                        <!-- Force the number of columns (useful when only one row of (x < ppr) products) -->
+                                        <col t-foreach="ppr" t-as="p"/>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr class="table_resp" t-foreach="bins" t-as="tr_property">
+                                            <t t-foreach="tr_property" t-as="td_property">
+                                                <t t-if="td_property">
+                                                    <!-- We use t-attf-class here to allow easier customization -->
+                                                    <td t-att-colspan="td_property['x'] != 1 and td_property['x']" t-att-rowspan="td_property['y'] != 1 and td_property['y']" t-attf-class="oe_product oe_property" t-att-data-ribbon-id="td_property['ribbon'].id" t-att-data-name="product_block_name">
+                                                        <div t-attf-class="o_wsale_product_grid_wrapper position-relative h-100 o_wsale_product_grid_wrapper_#{td_property['x']}_#{td_property['y']}">
+                                                            <div t-attf-class="#{'ao_properties_hide properties_grid' if layout_mode == 'list' else 'properties_grid'}">
+                                                                <t t-call="ao_properties.property_item_grid">
+                                                                    <t t-set="p_property" t-value="td_property['product']"/>
+                                                                </t>
+                                                            </div>
+                                                            <div t-attf-class="#{'ao_properties_hide properties_list' if layout_mode == 'grid' else 'properties_list'}">
+                                                                <t t-call="ao_properties.property_item">
+                                                                    <t t-set="p_property" t-value="td_property['product']"/>
+                                                                </t>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </t>
+                                                <td t-else=""/>
+                                            </t>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div t-else="" class="text-center text-muted mt128 mb256">
+                                <t t-if="not search">
+                                    <h3 class="mt8">No property defined</h3>
+                                </t>
+                                <t t-else="">
+                                    <h3 class="mt8">No results</h3>
+                                    <p>No results for "<strong t-esc="search"/>".</p>
+                                </t>
+                            </div>
+                            <div class="products_pager d-flex justify-content-center pt-5 pb-3">
+                                <t t-call="website.pager"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<t t-call="website_sale.o_wsale_offcanvas"/>-->
+                </div>
+                <div class="oe_structure oe_empty oe_structure_not_nearest" id="oe_structure_website_sale_property_2"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="properties_attributes" inherit_id="ao_properties.properties_template" active="True" name="Attributes &amp; Properties filters">
+        <xpath expr="//div[hasclass('products_attributes_filters')]" position="inside">
+            <div id="wsale_products_attributes_collapse"
+                 class=" position-relative">
+                <form t-if="attributes" class="js_attributes position-relative mb-2" method="get">
+                    <input type="hidden" name="search" t-att-value="search" />
+                    <input type="hidden" name="order" t-att-value="order"/>
+                    <a t-if="attrib_values" t-att-href="keep('/properties', attrib=0)" t-attf-class="btn btn-{{navClass}} d-flex py-1 mb-2">
+                        <small class="mx-auto"><b>Clear Filters</b></small>
+                        <i class="oi oi-close"/>
+                    </a>
+                    <t t-foreach="attributes" t-as="a">
+                        <div class="accordion-item nav-item mb-1" t-if="a['value_ids'] and len(a['value_ids']) &gt; 1">
+                            <h6 class="mb-3">
+                                <b class="o_products_attributes_title d-none d-lg-block" t-esc="a['name']"/>
+                            </h6>
+                            <div t-attf-id="o_products_attributes_{{a['id']}}" class="">
+                                <t t-if="a['display_type'] == 'select'">
+                                    <select class="form-select css_attribute_select mb-2" name="attrib">
+                                        <option value="" selected="true">-</option>
+                                        <t t-foreach="a['value_ids']" t-as="v">
+                                            <option t-att-value="'%s-%s' % (a['id'],v[0])" t-esc="v[1]" t-att-selected="v[0] in attrib_set" />
+                                        </t>
+                                    </select>
+                                </t>
+                                <t t-if="a['display_type'] == 'integer'">
+                                    <div class="flex-column mb-3">
+                                        <t t-foreach="a['value_ids']" t-as="v">
+                                            <div class="form-check mb-1">
+                                                <input type="checkbox" name="attrib" class="form-check-input" t-att-id="'%s-%s' % (a['id'],v)" t-att-value="'%s-%s' % (a['id'],v)" t-att-checked="'checked' if (v in attrib_set and a['id'] in attributes_ids) else None"/>
+                                                <label class="form-check-label fw-normal" t-att-for="'%s-%s' % (a['id'],v)" t-esc="v"/>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </form>
+            </div>
+        </xpath>
+    </template>
+</odoo>

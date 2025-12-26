@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+{
+    'name': "Properties",
+    'summary': """Property management in Odoo""",
+    'description': """Customizations for property management in Odoo""",
+    'author': "Plusteam C.A.",
+    'website': "https://www.plusteam.tech",
+    'category': 'Extra Tools',
+    'version': '18.0.0.0.1',
+    'depends': ['base', 'website', 'mail', 'documents', 'website_sale', 'base_address_extended'],
+    'data': [
+        'security/ir.model.access.csv',
+        # 'data/documents_data.xml',
+        'data/property_model_data.xml',
+        # 'views/res_config_settings_views.xml',
+        'views/properties_views.xml',
+        'views/property_model_views.xml',
+        'views/land_acquisition_views.xml',
+        'views/land_acquisition_stage_views.xml',
+        'views/land_acquisition_tag_views.xml',
+        'views/properties_menus.xml',
+        'views/properties_website_templates.xml',
+        'security/plus_properties_security.xml',
+    ],
+}

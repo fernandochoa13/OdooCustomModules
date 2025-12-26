@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="properties_root"
+        name="Properties"
+        active="True"
+        web_icon="ao_properties,static/description/icon.svg"
+        sequence="10"
+    >
+        <menuitem id="properties_menu"
+            name="Properties"
+            active="True"
+            sequence="20"
+        >
+            <menuitem id="properties_submenu"
+                name="Properties"
+                sequence="21"
+                action="ao_properties.action_properties"
+            />
+            <menuitem id="property_models_submenu"
+                name="Property Models"
+                sequence="22"
+                action="ao_properties.action_property_models"
+            />
+        </menuitem>
+        <menuitem id="land_acquisition_menu"
+            name="Land Acquisition"
+            active="True"
+            sequence="30"
+        >
+            <menuitem id="land_acquisition_submenu"
+                name="Land Acquisition"
+                sequence="1"
+                action="ao_properties.action_land_acquisition"
+            />
+            <menuitem id="land_acquisition_stage_submenu"
+                name="Land Acquisition Stages"
+                sequence="2"
+                action="ao_properties.action_land_acquisition_stage"
+            />
+            <menuitem id="land_acquisition_tag_submenu"
+                name="Land Acquisition Tags"
+                sequence="3"
+                action="ao_properties.action_land_acquisition_tag"
+            />
+        </menuitem>
+    </menuitem>
+
+</odoo>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="save_appointment_answers_crm_lead_automation" model="base.automation">
+        <field name="name">Save appointment answers (Lead)</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field eval="True" name="active" />
+        <field name="trigger">on_create</field>
+        <field name="code">
+OPTIONAL_NOT_SELECTION_FIELDS = [
+  "city_of_interest",
+  "city_of_interest_advice"
+]
+
+
+MAP_QUESTIONS_FIELD = {
+  "ES": {
+    "¿Cuentas con capital para iniciar con la compra del terreno o construcción? (Ejemplo: La adquisición del lote es cash y para iniciar la construcción necesitas una inicial / downpayment de aproximadamente $55,000)": "has_capital",
+    "¿Cuál cuidad de las que construimos te interesa?": "city_of_interest_advice",
+    "Deseas asesoramiento sobre estas ciudades:": "city_of_interest_advice",
+    "(Opcional) ¿En qué ciudad de la Florida te encuentras?": "city_of_interest",
+    "¿Está interesado en construir o comprar casas prefabricadas?": "interest",
+    "Estás interesado en:": "interest"
+  },
+  "EN": {
+    "Do you have capital to start purchasing land or construction? (Example: The acquisition of the lot is cash and to start construction you need an initial / downpayment of approximately $55,000)": "has_capital",
+    "Which city we built are you interested in?": "city_of_interest_advice",
+    "Do you want advice on these cities:": "city_of_interest_advice",
+    "(Optional) What city in Florida are you located in?": "city_of_interest",
+    "Are you interested in building or buying ready-made houses?": "interest",
+    "Are you interested in:": "interest"
+  }
+}
+
+MAP_ANSWERS = {
+  "ES": {
+    "Si, tengo el capital ó estoy pre-aprovado": "yes",
+    "No tengo mucho ahorrado": "no",
+    "Tengo entre 10k y 25k ahorrado para invertir": "have_10",
+    "Port Charlotte FL": "port_fl",
+    "Ocala FL": "ocala_fl",
+    "Sebring FL": "sebring_fl",
+    "Deseo asesoramiento sobre estas 3 áreas": "advice",
+    "Construir": "build",
+    "Comprar casas terminadas": "buy",
+    "Adquirir terrenos en Florida": "acquire",
+    "Invierta pasivamente con ADAN": "invest",
+    "Invertir pasivamente en real estate": "invest_real"
+  },
+  "EN": {
+    "Yes, I have the capital or I am pre-approved": "yes",
+    "I don't have much saved": "no",
+    "I have between 10k and 25k saved to invest": "have_10",
+    "Port Charlotte FL": "port_fl",
+    "Ocala FL": "ocala_fl",
+    "Sebring FL": "sebring_fl",
+    "I want advice on these 3 areas": "advice",
+    "Build": "build",
+    "Buy finished houses": "buy",
+    "Acquire lands in Florida": "acquire",
+    "Invest passively with ADAN": "invest",
+    "Passively investing in real estate": "invest_real"
+  }
+}
+
+records.save_appointment_answers(MAP_QUESTIONS_FIELD, OPTIONAL_NOT_SELECTION_FIELDS, MAP_ANSWERS)
+
+        </field>
+    </record>
+    <record id="create_contact_from_mailing_contact" model="base.automation">
+        <field name="name">Create contact from Mailing list contact</field>
+        <field name="model_id" ref="mass_mailing.model_mailing_contact"/>
+        <field eval="True" name="active" />
+        <field name="trigger">on_create</field>
+        <field name="code">
+for mail_c in records:
+  env["res.partner"].create({
+    "name": mail_c.name,
+    "email": mail_c.email or False,
+    "mobile": mail_c.mobile
+  })
+        </field>
+    </record>
+</odoo>

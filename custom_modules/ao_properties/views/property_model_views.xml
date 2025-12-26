@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="plus_property_model_view_tree" model="ir.ui.view">
+            <field name="name">plus.property.model.tree</field>
+            <field name="model">plus.property.model</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="area" optional="show"/>
+                    <field name="number_of_beds" optional="show"/>
+                    <field name="number_of_baths" optional="show"/>
+                    <field name="number_of_garages" optional="show"/>
+                    <field name="description" optional="show"/>
+                    <field name="image" optional="show" widget="image"/>
+                </list>
+            </field>
+        </record>
+        <record id="plus_property_model_view_form" model="ir.ui.view">
+            <field name="name">plus.property.model.form</field>
+            <field name="model">plus.property.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Property Model">
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name..." modifiers="{&quot;required&quot;: true}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="area" optional="show"/>
+                                <field name="number_of_beds" optional="show"/>
+                                <field name="number_of_baths" optional="show"/>
+                            </group>
+                            <group>
+                                <field name="number_of_garages" optional="show"/>
+                                <field name="description" optional="show" widget="text"/>
+                                <field name="image" optional="show" widget="image"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_property_models" model="ir.actions.act_window">
+            <field name="name">Property Models</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">plus.property.model</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{}</field>
+        </record>
+    </data>
+</odoo>

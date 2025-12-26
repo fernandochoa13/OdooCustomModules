@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.website</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='website_shop_checkout']" position="after">
+                <h2>PMS</h2>
+                <div class="row mt16 o_settings_container" id="properties_settings_section">
+                    <div class="col-12 col-lg-6 o_setting_box" id="properties_type_setting">
+                        <div class="o_setting_right_pane">
+                            <label for="website_property_type" string="Properties type"/>
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
+                            <div class="text-muted">
+                                Type of your website's Properties
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <field name="website_property_type" widget="radio"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

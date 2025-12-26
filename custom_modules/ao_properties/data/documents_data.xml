@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="documents_properties_folder" model="documents.folder">
+        <field name="name">Properties</field>
+        <field name="sequence">15</field>
+    </record>
+    <record id="documents_properties_pictures_folder" model="documents.folder">
+        <field name="name">Pictures</field>
+        <field name="sequence">16</field>
+        <field name="parent_folder_id" ref="ao_properties.documents_properties_folder"/>
+    </record>
+    <record id="documents_properties_views_folder" model="documents.folder">
+        <field name="name">Views</field>
+        <field name="sequence">17</field>
+        <field name="parent_folder_id" ref="ao_properties.documents_properties_folder"/>
+    </record>
+    <record id="documents_properties_marketing_folder" model="documents.folder">
+        <field name="name">Marketing</field>
+        <field name="sequence">18</field>
+        <field name="parent_folder_id" ref="ao_properties.documents_properties_folder"/>
+    </record>
+    <record id="documents_properties_legal_folder" model="documents.folder">
+        <field name="name">Legal</field>
+        <field name="sequence">19</field>
+        <field name="parent_folder_id" ref="ao_properties.documents_properties_folder"/>
+    </record>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="property_model_1903_sfqt" model="plus.property.model">
+            <field name="name">1903 SQFT</field>
+        </record>
+        <record id="property_model_1270_sfqt" model="plus.property.model">
+            <field name="name">1270 SQFT</field>
+        </record>
+        <record id="property_model_duplex_without_garage" model="plus.property.model">
+            <field name="name">Duplex sin Garaje</field>
+        </record>
+        <record id="property_model_1694_sfqt" model="plus.property.model">
+            <field name="name">1694 SQFT</field>
+        </record>
+        <record id="property_model_922_sfqt" model="plus.property.model">
+            <field name="name">922 SQFT</field>
+        </record>
+        <record id="property_model_duplex_with_garage" model="plus.property.model">
+            <field name="name">Duplex con Garaje</field>
+        </record>
+        <record id="property_model_1636_sfqt" model="plus.property.model">
+            <field name="name">1636 SQFT</field>
+        </record>
+        <record id="property_model_fourplex_four_units" model="plus.property.model">
+            <field name="name">Fourplex (4 unidades)</field>
+        </record>
+    </data>
+</odoo>

@@ -40,7 +40,7 @@ from . import account_journal
 from . import account_batch_payment
 from . import account_payment_method
 from . import document
-from . import document_invoice
+# from . import document_invoice  # Disabled: 'documents.workflow.rule' model changed in Odoo 18
 from . import product_subproduct
 from . import pms_leads
 from . import crm_lead

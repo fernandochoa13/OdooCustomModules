@@ -9,3 +9,4 @@ from . import land_acquisition
 from . import land_acquisition_tag
 from . import land_acquisition_stage
 from . import property_model
+from . import investment

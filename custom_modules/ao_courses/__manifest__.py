@@ -6,7 +6,8 @@
     'author': "Plusteam C.A.",
     'website': "https://www.plusteam.tech",
     'category': 'Extra Tools',
-    'version': '18.0.0.0.1',
+    'version': '18.0.1.0.0',
+    'license': 'LGPL-3',
     'depends': ['base', 'base_automation', 'website', 'mail', 'website_sale', 'event', 'sale'],
     'data': [],
     'assets': {
@@ -14,5 +15,4 @@
             'ao_courses/static/src/components/**/*'
         ]
     }
-
 }

@@ -5,8 +5,8 @@ class SaleOrder(models.Model):
 
     _inherit = 'sale.order'
 
-    amount_paid = fields.Monetary(string="Amount Paid", currency="currency_id", compute='_compute_amount_paid')
-    amount_due = fields.Monetary(string="Amount Due", currency="currency_id", compute='_compute_amount_due')
+    amount_paid = fields.Monetary(string="Amount Paid", currency_field="currency_id", compute='_compute_amount_paid')
+    amount_due = fields.Monetary(string="Amount Due", currency_field="currency_id", compute='_compute_amount_due')
     ao_payment_state = fields.Selection(string="Payment State", selection=[
         ('pending_payment', "Pending Payment"),
         ('fully_paid', 'Fully Paid')

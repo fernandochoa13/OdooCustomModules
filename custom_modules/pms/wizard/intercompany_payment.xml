@@ -1,0 +1,27 @@
+<odoo>
+<data>
+        <record id="intercompany_wizard_form" model="ir.ui.view">
+        <field name="name">intercompany.wizard.form</field>
+            <field name="model">intercompany.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Intercompany Payment Wizard">
+                        <group name="general details" class="o_group">
+                            <field name="company_to_pay"/>
+                            <field name="card_journal"/>
+                        </group>
+                    <footer>
+                        <button name="make_intercompany_payment" string="Make Intercompany Payment" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="intercompany_wizard" model="ir.actions.act_window">
+            <field name="name">Intercompany Payment Wizard</field>
+            <field name="res_model">intercompany.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+</data>
+</odoo>

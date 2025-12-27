@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="view_purchases_general_report_tree" model="ir.ui.view">
+        <field name="name">pms.purchases.general.report.tree</field>
+        <field name="model">pms.purchases.general.report</field>
+        <field name="arch" type="xml">
+            <list string="Purchases General Report" create="false" edit="false" delete="false">
+                <field name="county_id" optional="show"/>
+                <field name="address_id" optional="show"/>
+                <field name="superintendent_id" optional="show"/>
+                <field name="construction_status" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_purchases_general_report_search" model="ir.ui.view">
+        <field name="name">pms.purchases.general.report.search</field>
+        <field name="model">pms.purchases.general.report</field>
+        <field name="arch" type="xml">
+            <search string="Purchases General Report">
+                <field name="county_id"/>
+                <field name="address_id"/>
+                <field name="superintendent_id"/>
+                <field name="construction_status"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_purchases_general_report" model="ir.actions.act_window">
+        <field name="name">Purchases General Report</field>
+        <field name="res_model">pms.purchases.general.report</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data available for the Purchases General Report
+            </p>
+        </field>
+    </record>
+
+</odoo>

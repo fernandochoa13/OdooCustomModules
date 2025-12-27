@@ -1,0 +1,32 @@
+<odoo>
+<data>
+        <!-- Form View -->
+        <record id="view_simple_check_main_wizard_form" model="ir.ui.view">
+            <field name="name">simple.check.main.wizard.form</field>
+            <field name="model">simple.check.main.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Simple Check Wizard">
+                        <group name="general details" class="o_group">
+                            <field name="vendor" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="company" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="bank" domain="['|', ('company_id', '=', company), ('company_id','=', False)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="date"/> 
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    <footer>
+                        <button name="next" string="Next" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_simple_check_main_wizard_action" model="ir.actions.act_window">
+            <field name="name">Simple Check Maker</field>
+            <field name="res_model">simple.check.main.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+</data>
+</odoo>

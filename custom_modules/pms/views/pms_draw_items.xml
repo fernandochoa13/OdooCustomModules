@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pms_draw_items_tree" model="ir.ui.view">
+    <field name="name">pms.draw.items.tree</field>
+    <field name="model">pms.draw.items</field>
+    <field name="arch" type="xml">
+        <list string="Projects Draw Items" editable="top">
+            <field name="draw_step" optional="show"/>
+            <field name="requested" optional="show"/>
+            <field name="loan_id" optional="hide"/>
+            <field name="total_amount" optional="hide"/>
+            <field name="budget" optional="hide"/>
+            <field name="balance" optional="hide"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_draw_items_view" model="ir.actions.act_window">
+    <field name="name">Draw Items</field>
+    <field name="res_model">pms.draw.items</field>
+    <field name="view_mode">list</field>
+</record>
+
+</odoo>

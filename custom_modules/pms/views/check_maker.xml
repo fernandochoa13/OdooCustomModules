@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_check_maker_tree" model="ir.ui.view">
+            <field name="name">check.maker.payment.tree</field>
+            <field name="model">check.maker.payment</field>
+            <field name="arch" type="xml">
+                <list create="false">
+                    <field name="name"/>    
+                    <field name="company_name"/>
+                    <field name="check_number"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                    <field name="receiver"/>
+                    <field name="memo"/>
+                    <field name="status"/>
+                    <field name="print_date"/>
+                    <field name="printed"/>
+                    <button name="create_check" string="Print Check" type="object" class="btn-primary"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_check_maker_form" model="ir.ui.view">
+            <field name="name">check.maker.payment.form</field>
+            <field name="model">check.maker.payment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet class="o_form_sheet">
+                    <div class="oe_title">
+                    <h1>
+                        <field name="name" widget="char" class="o_bold_title"/>
+                    </h1>
+                </div>
+
+                    <header>
+                        <button id="create_check" name="create_check" string="Print Check" type="object" class="btn-primary"/>
+                        <button id="confirm_check" name="confirm_check" string="Confirm Check" type="object" class="btn-primary"/>
+                        <button id="void" name="void" string="Void Check" type="object" class="btn-primary"/>
+                        <button id="draft" name="draft" string="Return to Not Printed" type="object" class="btn-primary"/>
+                        <field name="status" widget="statusbar" statusbar_visible="draft,posted,void"/>
+                    </header>
+                        <group name="Details">
+                            <field name="company_name"/>
+                            <field name="check_number"/>
+                            <field name="date"/>
+                            <field name="amount"/>
+                            <field name="receiver"/>
+                            <field name="memo"/>
+                            <field name="print_date"/>
+                            <field name="printed" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_check_maker" model="ir.actions.act_window">
+            <field name="name">Check Maker</field>
+            <field name="res_model">check.maker.payment</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="action_create_check_bulk" model="ir.actions.server">
+            <field name="name">Create Checks</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="pms.model_check_maker_payment"/>
+            <field name="binding_model_id" ref="pms.model_check_maker_payment"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.create_checks()
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_check_maker" name="Check Maker" parent="account.menu_finance_configuration" action="action_check_maker" sequence="10"/>
+        
+
+   <record id="update_contact_ids" model="ir.cron">
+       <field name="name">Update Contact IDs Check Maker</field>
+       <field name="model_id" ref="model_check_maker_payment"/>
+       <field name="state">code</field>
+       <field name="code">
+env['pms.projects'].function_run_log("update_contact_id")
+model.search([]).update_contact_id()
+</field>
+       <field name="user_id" ref="base.user_root"/>
+       <field name="interval_number">365</field>
+       <field name="interval_type">days</field>
+       <field name="numbercall">-1</field>
+   </record>
+
+    </data>
+</odoo>

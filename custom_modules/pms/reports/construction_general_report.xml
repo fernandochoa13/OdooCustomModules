@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Change Owner Call Day Wizard -->
+    <record id="change_owner_call_day_wizard" model="ir.ui.view">
+        <field name="name">change.owner.call.day.wizard</field>
+        <field name="model">update.owner.call.day</field>
+        <field name="arch" type="xml">
+            <form string="Change Owner Call Day">
+                    <group name="general details" class="o_group">
+                        <field name="owner_call_day" placeholder="Any" />
+                    </group>
+                <footer>
+                    <button name="update_owner_call_day" string="UPDATE" type="object" class="btn-success" invisible="owner_call_day == 'None'"/>
+                    <button special="cancel" string="BACK" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_construction_general_report_tree" model="ir.ui.view">
+        <field name="name">pms.construction.general.report.tree</field>
+        <field name="model">pms.construction.general.report</field>
+        <field name="arch" type="xml">
+            <list string="Construction General Report" create="false" edit="false" delete="false">
+                <field name="is_urgent" optional="show"/>
+                <field name="county_id" optional="show"/>
+                <field name="address_id" optional="show"/>
+                <field name="own_third" optional="show"/>
+                <field name="project_duration" optional="show"/>
+                <field name="superintendent_id" optional="show"/>
+                <field name="on_hold" optional="show"/>
+                <field name="owner_property" optional="show"/>
+                <field name="owner_call_day" optional="show"/>
+                <field name="construction_status" optional="show" class="bold"/>
+                <field name="pending_activity_html" string="Pending Activities" widget="html" optional="show" />
+                <field name="payment_activity_html" string="Payment Activities" widget="html" optional="show" />
+                <field name="inspection_type_html" string="Inspections" optional="show" widget="html" />
+                <field name="estimated_cop2" optional="show"/>
+                <field name="visit_day" optional="show"/>
+                <field name="last_visit" optional="show" class="italic" />
+                <field name="material_delivery" optional="show" class="italic" />
+                <field name="last_message_html" string="Last Message" optional="show" widget="html" class="italic" />
+                <button name="open_comments" string="✚"  type="object" class="btn-success" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_construction_general_report_search" model="ir.ui.view">
+        <field name="name">pms.construction.general.report.search</field>
+        <field name="model">pms.construction.general.report</field>
+        <field name="arch" type="xml">
+            <search string="Construction General Report">
+                <field name="is_urgent"/>
+                <field name="county_id"/>
+                <field name="address_id"/>
+                <field name="own_third"/>
+                <field name="superintendent_id"/>
+                <field name="owner_property"/>
+                <field name="construction_status"/>
+                <field name="last_message" string="Last Message" />
+                <field name="last_message_date" />
+                <field name="pending_activity_html" string="Pending Activities"/>
+                <field name="payment_activity_html" string="Payment Activities"/>
+                <field name="inspection_type" string="Inspections"/>
+                <field name="last_visit"/>
+                <field name="visit_day"/>
+                <field name="material_delivery"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_construction_general_report" model="ir.actions.act_window">
+        <field name="name">Construction General Report</field>
+        <field name="res_model">pms.construction.general.report</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data available for the Construction General Report
+            </p>
+        </field>
+    </record>
+    
+    <record id="change_owner_call_day" model="ir.actions.act_window">
+        <field name="name">Change Owner Call Day Wizard</field>
+        <field name="res_model">update.owner.call.day</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_server_update_owner_call_day" model="ir.actions.server">
+        <field name="name">Update Owner Call Day</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_construction_general_report"/>
+        <field name="binding_model_id" ref="pms.model_pms_construction_general_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.change_owner_call_day()
+        </field>
+    </record>
+
+    <record id="action_server_update_urgent" model="ir.actions.server">
+        <field name="name">Change Urgent</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_construction_general_report"/>
+        <field name="binding_model_id" ref="pms.model_pms_construction_general_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.change_urgent()
+        </field>
+    </record>
+
+</odoo>

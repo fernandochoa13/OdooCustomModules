@@ -1,0 +1,21 @@
+<odoo>
+
+
+<record id="pms_activity_costs_view_tree" model="ir.ui.view">
+    <field name="name">pms.activity.costs.tree</field>
+    <field name="model">pms.activity.costs</field>
+    <field name="arch" type="xml">
+        <list string="Activity Costs" editable="bottom">
+            <field name="name" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_activity_costs_view" model="ir.actions.act_window">
+    <field name="name">Activity Costs</field>
+    <field name="res_model">pms.activity.costs</field>
+    <field name="view_mode">list</field>
+</record>
+
+
+</odoo>

@@ -1,0 +1,126 @@
+<odoo>
+
+    <record id="purchase_template_view_search" model="ir.ui.view">
+            <field name="name">purchase.template.search</field>
+            <field name="model">purchase.template</field>
+            <field name="arch" type="xml">
+                <search string="Default Search">
+                    <field name="name"/>
+                    <field name="house_model"/>
+                    <field name="provider"/>
+                </search>
+            </field>
+    </record>
+
+    <record id="purchase_template_tree" model="ir.ui.view">
+        <field name="name">purchase.template.tree</field>
+        <field name="model">purchase.template</field>
+        <field name="arch" type="xml">
+            <list string="Purchase Template">
+                <field name="name" optional="show"/>
+                <field name="house_model" optional="show"/>
+                <field name="provider" optional="show"/>
+                <field name="write_date" widget="datetime" string="Last Updated On" optional="show"/>
+                <field name="write_uid" optional="show" widget="many2one_avatar_user" string="Last Updated By"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="purchase_template_form" model="ir.ui.view">
+        <field name="name">purchase.template.form</field>
+        <field name="model">purchase.template</field>
+        <field name="arch" type="xml">
+            <form>
+            <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" widget="char" class="o_bold_title"/>
+                    </h1>
+                </div>
+                <group name="general details" class="o_group">
+                    <field name="house_model" widget="many2many_tags"/>
+                    <field name="county" widget="many2many_tags" string="County" options="{'no_create': True}"/>
+                    <field name="provider"/>
+                    <field name="ask_for_measurement"/>
+                    <field name="template_lines_total_amount"/>
+                </group>
+                <field name="template_lines"/>
+            </sheet>
+
+            <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+            </div>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record id="purchase_template_view" model="ir.actions.act_window">
+        <field name="name">Purchase Template</field>
+        <field name="res_model">purchase.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="pms.purchase_template_view_search"/>
+    </record>
+
+
+    <record id="purchase_template_lines_tree" model="ir.ui.view">
+        <field name="name">purchase.template.lines.tree</field>
+        <field name="model">purchase.template.lines</field>
+        <field name="arch" type="xml">
+            <list string="Purchase Template" editable="top" >
+                <field name="product" optional="show"/>
+                <field name="subproduct" optional="show"/>
+                <field name="unit_measure" optional="show"/>
+                <field name="quantity" optional="show"/>
+                <field name="amount" optional="show"/>
+                <field name="total" optional="show"/>
+            </list>
+
+        </field>
+    </record>
+
+    <!-- Add County Wizard -->
+    <record id="add_county_wizard" model="ir.ui.view">
+        <field name="name">add.county.wizard</field>
+        <field name="model">purchase.template.add.county</field>
+        <field name="arch" type="xml">
+            <form string="Add County">
+                    <group name="general details" class="o_group">
+                        <field name="county" widget="many2many_tags" string="County" options="{'no_create': True}"/>
+                    </group>
+                <footer>
+                    <button name="add_county" string="ADD" type="object" class="btn-success"/>
+                    <button special="cancel" string="BACK" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="add_county" model="ir.actions.act_window">
+        <field name="name">Add County</field>
+        <field name="res_model">purchase.template.add.county</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_server_add_county" model="ir.actions.server">
+        <field name="name">Add County</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_purchase_template"/>
+        <field name="binding_model_id" ref="pms.model_purchase_template"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_add_county()
+        </field>
+    </record>
+
+    <record id="purchase_template_lines_view" model="ir.actions.act_window">
+        <field name="name">Purchase Template Lines</field>
+        <field name="res_model">purchase.template.lines</field>
+        <field name="view_mode">list</field>
+    </record>
+
+</odoo>

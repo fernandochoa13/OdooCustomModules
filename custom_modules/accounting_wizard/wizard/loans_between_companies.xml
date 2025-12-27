@@ -1,0 +1,54 @@
+<odoo>
+<data>
+    <record id="view_loans_between_companies_tree" model="ir.ui.view">
+                <field name="name">loans.between.companies.tree</field>
+                <field name="model">loans.between.companies</field>
+                <field name="arch" type="xml">
+                    <list string="Second Wizard" editable="bottom" delete="true">
+                        <field name="company" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="account" domain="[('company_id', '=', company)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="product" domain="[ '|', ('company_id', '=', company), ('company_id', '=', False) ]" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="label" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="billable"/>
+                        <field name="markup"/>
+                        <field name="analytic_account" domain="[ '|', ('company_id', '=', company), ('company_id', '=', False) ]" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="account_loan" domain="[('company_id', '=', company)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="amount"/>
+                    </list>
+                </field>
+        </record>
+        <!-- Form View -->
+        <record id="view_loan_between_companies_wizard_form" model="ir.ui.view">
+            <field name="name">loans.between.companies.wizard.form</field>
+            <field name="model">loans.between.companies</field>
+            <field name="arch" type="xml">
+                <form string="Loans Between Companies">
+                        <group name="general details" class="o_group">
+                            <field name="company_disbursement" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="transaction_type"/>
+                            <field name="supplier" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="date"/> 
+                            <field name="loan_account" domain="[('company_id', '=', company_disbursement)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="account_bank" domain="[('company_id', '=', company_disbursement)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="loan_amount" />
+                            <field name="reference"/>
+                            <field name="notes"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    <footer>
+                        <button name="next" string="Next" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_loan_between_companies_wizard_action" model="ir.actions.act_window">
+            <field name="name">Loans Between Companies Wizard</field>
+            <field name="res_model">loans.between.companies</field>
+            <field name="view_mode">form,tree</field>
+            <field name="target">new</field>
+        </record>
+
+</data>
+</odoo>

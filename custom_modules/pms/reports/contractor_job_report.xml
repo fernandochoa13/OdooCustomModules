@@ -1,0 +1,134 @@
+<odoo>
+    <data>
+        <report
+            id="contractor_job_report"
+            model="pms.contractor.job"
+            string="Contractor Job Report"
+            report_type="qweb-pdf"
+            name="pms.report_contractor_job"  file="pms.report_contractor_job"
+            print_report_name="'Contractor Job Report - %s' % (object.name)"
+        />
+
+        <template id="pms.report_contractor_job">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                        <div class="page" style="font-family: sans-serif;">
+                            <h1 style="text-align: center;">Contractor Job Report</h1>
+                            <div style="margin-top: 1rem; padding-left: 1rem; padding-right: 1rem;">
+                                <div style="margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 0.25rem; background-color: #f8f9fa;">
+                                    <div style="padding: 1.25rem;">
+                                        <h2 style="card-title; margin-bottom: 0.75rem;">Job Information</h2>
+                                        <div style="display: flex; flex-wrap: wrap;">
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Job Name:</strong>
+                                                <span t-esc="o.name"/>
+                                            </div>
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Description:</strong>
+                                                <p t-esc="o.description"/>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; flex-wrap: wrap; margin-top: 0.5rem;">
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Status:</strong>
+                                                <span t-esc="dict(o._fields['state'].selection).get(o.state, o.state)"/>
+                                            </div>
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Deadline:</strong>
+                                                <span t-esc="o.deadline"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 0.25rem; background-color: #f8f9fa;">
+                                    <div style="padding: 1.25rem;">
+                                        <h2 style="card-title; margin-bottom: 0.75rem;">Property Information</h2>
+                                        <div style="display: flex; flex-wrap: wrap;">
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Job Property:</strong>
+                                                <span t-esc="o.property_id.name"/>
+                                            </div>
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Property Model:</strong>
+                                                <span t-esc="o.property_model.name"/>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; flex-wrap: wrap; margin-top: 0.5rem;">
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Property City:</strong>
+                                                <span t-esc="o.property_city.name"/>
+                                            </div>
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Property Status:</strong>
+                                                <span t-esc="o.property_status"/>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; flex-wrap: wrap; margin-top: 0.5rem;">
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Property On Hold:</strong>
+                                                <t t-if="o.on_hold_status">Yes</t>
+                                                <t t-else="">No</t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 0.25rem; background-color: #f8f9fa;">
+                                    <div style="padding: 1.25rem;">
+                                        <h2 style="card-title; margin-bottom: 0.75rem;">Contractor Information</h2>
+                                        <div style="display: flex; flex-wrap: wrap;">
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Job Contractor:</strong>
+                                                <span t-esc="o.contractor_id.name"/>
+                                            </div>
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Company:</strong>
+                                                <span t-esc="o.company.name"/>
+                                            </div>
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Partner:</strong>
+                                                <span t-esc="o.partner_invoice.name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 0.25rem; background-color: #f8f9fa;">
+                                    <div style="padding: 1.25rem;">
+                                        <h2 style="card-title; margin-bottom: 0.75rem;">Dates and Status</h2>
+                                        <div style="display: flex; flex-wrap: wrap;">
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Creation Date:</strong>
+                                                <span t-esc="o.creation_date"/>
+                                            </div>
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Order Date:</strong>
+                                                <span t-esc="o.order_date"/>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; flex-wrap: wrap; margin-top: 0.5rem;">
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>In Progress Date:</strong>
+                                                <span t-esc="o.in_progress_date"/>
+                                            </div>
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Completed Date:</strong>
+                                                <span t-esc="o.completed_date"/>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; flex-wrap: wrap; margin-top: 0.5rem;">
+                                            <div style="flex: 0 0 50%; max-width: 50%;">
+                                                <strong>Estimated Completion Date:</strong>
+                                                <span t-esc="o.estimated_job_co_date"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

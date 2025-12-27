@@ -1,0 +1,706 @@
+<odoo>
+
+    <record id="view_pms_materials_graph" model="ir.ui.view">
+        <field name="name">view.pms.materials.graph</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <graph string="Materials Analysis" type="line" sample="1">
+                <field name="total_order_amount" type="measure"/>
+                <field name="created_to_waiting_cust" type="measure"/>
+                <field name="wait_to_gave_pay" type="measure"/>
+                <field name="ordered_to_delivered" type="measure"/>
+                <!-- <field name="wait_to_inv_pay" type="measure"/> -->
+                <field name="inv_pay_to_ordered" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_material_pivot" model="ir.ui.view">
+        <field name="name">view.material.pivot</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <pivot string="PMS Materials" sample="1">
+                <field name="provider" type="row"/>
+                <field name="total_order_amount" type="measure"/>
+                <field name="created_to_waiting_cust" type="measure"/>
+                <field name="wait_to_gave_pay" type="measure"/>
+                <field name="ordered_to_delivered" type="measure"/>
+                <!-- <field name="wait_to_inv_pay" type="measure"/> -->
+                <field name="inv_pay_to_ordered" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="pms_materials_view_tree" model="ir.ui.view">
+        <field name="name">pms.materials.tree</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <list string="Material Orders">
+                <!-- Invisible fields -->
+                <field name="order_creation_date" invisible="1"/>
+                <field name="waiting_payment_date" invisible="1"/>
+                <field name="invoice_pay_date" invisible="1"/>
+                <field name="ordered_date" invisible="1"/>
+                <!-- Invisible fields -->
+                <field name="name" optional="show"/>
+                <field name="order_creator" optional="hide"/>
+                <field name="property_id" optional="show"/>
+                <field name="property_status" optional="hide"/>
+                <field name="county" optional="hide"/>
+                <field name="property_owner" optional="hide"/>
+                <field name="project_manager" optional="hide"/>
+                <field name="zone_coordinator" optional="hide"/>
+                <field name="superintendent" optional="hide"/>
+                <field name="house_model" optional="hide"/>
+                <field name="on_hold" optional="hide"/>
+                <field name="own_third" optional="hide"/>
+                <field name="project_phase" optional="hide"/>
+                <field name="provider" optional="show"/>
+                <field name="time_to_ordered" optional="hide"/>
+                <field name="time_to_rejected" optional="hide"/> 
+                <field name="time_to_delivered" optional="hide"/>  
+                <field name="order_request_date" optional="hide"/>
+                <field name="estimated_delivery_date" optional="hide"/>
+                <field name="actual_delivery_date" optional="hide"/>
+                <field name="has_bill" optional="hide"/>
+                <!-- <field name="due_date" optional="hide"/> -->
+
+                <field name="created_to_waiting_cust" optional="show" string="KPI1"
+                    invisible="not order_creation_date or not order_request_date"/>
+
+                <field name="wait_to_gave_pay" optional="show" string="KPI2"
+                    invisible="not order_request_date or not ordered_date"/>
+
+                <field name="ordered_to_delivered" optional="show" string="KPI3"
+                    invisible="not ordered_date or not actual_delivery_date"/>
+
+                <!-- <field name="wait_to_inv_pay" optional="show" string="KPI4"
+                    invisible="not waiting_payment_date or not payment_date"/> -->
+
+                <field name="inv_pay_to_ordered" optional="show" string="KPI4"
+                    invisible="not invoice_pay_date or not ordered_date"/>
+
+                <field name="invoice_days_to_paid" optional="hide"/>
+                
+                <field name="payment_status" optional="hide"/>
+                <field name="invoice_payment_status" optional="hide"/>
+                <field name="payment_date" optional="hide"/>
+                <field name="payment_method" optional="hide"/>
+                <field name="payment_method_journal" optional="hide"/>
+                <field name="special_order" optional="hide"/>
+                <field name="rejections_count" optional="hide"/>
+                <field name="order_status" optional="show"/>
+                <field name="paid_with_other_company" optional="hide"/>
+                <field name="no_availability" optional="hide"/>
+                <field name="provider_no_availability" optional="hide"/>
+                <button name="view_bill" string="View Bill" type="object" class="btn-info"/>
+                <!-- <button name="redo_order" string="Redo Order" type="object" class="btn-primary"/> -->
+            </list>
+        </field>
+    </record> 
+
+    <!-- #################################################################################################################################################### -->
+    <!-- ###################### Confirm Orders Wizard PMS Materials View #################################################################################### -->
+    <!-- #################################################################################################################################################### -->
+
+    <record id="pms_materials_view_confirm_tree" model="ir.ui.view">
+        <field name="name">pms.materials.confirm.tree</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <list string="Material Orders">
+                <field name="name" optional="show"/>
+                <field name="order_creator" optional="hide"/>
+                <field name="property_id" optional="show"/>
+                <field name="county" optional="hide"/>
+                <field name="property_owner" optional="hide"/>
+                <field name="project_manager" optional="hide"/>
+                <field name="zone_coordinator" optional="hide"/>
+                <field name="superintendent" optional="hide"/>
+                <field name="house_model" optional="hide"/>
+                <field name="on_hold" optional="hide"/>
+                <field name="own_third" optional="hide"/>
+                <field name="project_phase" optional="hide"/>
+                <field name="provider" optional="show"/>
+                <field name="order_request_date" optional="hide"/>
+                <field name="estimated_delivery_date" optional="hide"/>
+                <field name="actual_delivery_date" optional="hide"/>
+                <field name="has_bill" optional="hide"/>
+                <field name="payment_date" optional="hide"/>
+                <field name="payment_method" optional="hide"/>
+                <field name="payment_method_journal" optional="hide"/>
+                <field name="order_status" optional="hide"/>
+                <button name="confirm_order" string="Confirm Order" type="object" class="btn-primary"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- #################################################################################################################################################### -->
+    <!-- ########################### Order Report PMS Materials View ########################################################################################## -->
+    <!-- #################################################################################################################################################### -->
+
+    <record id="pms_materials_view_status_tree" model="ir.ui.view">
+        <field name="name">pms.materials.status.tree</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <list string="Material Orders">
+                <field name="name" optional="show"/>
+                <field name="order_creator" optional="hide"/>
+                <field name="property_id" optional="show"/>
+                <field name="county" optional="hide"/>
+                <field name="property_owner" optional="hide"/>
+                <field name="project_manager" optional="hide"/>
+                <field name="zone_coordinator" optional="hide"/>
+                <field name="superintendent" optional="hide"/>
+                <field name="house_model" optional="hide"/>
+                <field name="on_hold" optional="hide"/>
+                <field name="own_third" optional="hide"/>
+                <field name="project_phase" optional="hide"/>
+                <field name="provider" optional="show"/>
+                <field name="order_request_date" optional="hide"/>
+                <field name="estimated_delivery_date" optional="hide"/>
+                <field name="actual_delivery_date" optional="hide"/>
+                <field name="has_bill" optional="hide"/>
+                <field name="payment_date" optional="hide"/>
+                <field name="payment_method" optional="hide"/>
+                <field name="payment_method_journal" optional="hide"/>
+                <field name="order_status" optional="show"/>
+                <button name="send_message_team" string="Send Message" type="object" class="btn-primary"/>
+            </list>
+        </field>
+    </record> 
+
+    <record id="view_materials_calendar" model="ir.ui.view">
+    <field name="name">pms.materials.calendar</field>
+    <field name="model">pms.materials</field>
+    <field eval="2" name="priority"/>
+    <field name="arch" type="xml">
+        <calendar date_start="estimated_delivery_date" string="Materials" mode="month" color="property_id" event_limit="5"
+                    hide_time="true" js_class="materials_calendar" event_open_popup="true" quick_add="false">
+            <field name="order_creator"/>
+            <field name="property_id"/>
+            <field name="property_status"/>
+            <field name="county" />
+            <field name="property_owner" />
+            <field name="project_manager"/>
+            <field name="zone_coordinator"/>
+            <field name="superintendent"/>
+            <field name="reference"/>
+            <field name="house_model"/>
+            <field name="on_hold"/>
+            <field name="own_third"/>
+            <field name="project_phase"/>
+            <field name="provider"/>
+            <field name="order_request_date"/>
+            <field name="estimated_delivery_date"/>
+            <field name="actual_delivery_date"/>
+            <field name="payment_date"/>
+            <field name="payment_method"/>
+            <field name="payment_method_journal"/>
+            <field name="special_order"/>
+        </calendar>
+    </field>
+    </record>
+
+    <!-- ######################################################################################################################################################################################################################################################################################################## -->
+    <!-- ##################### Should show this ######################################################################################################################################################################################################################################################################################################## -->
+    <!-- ######################################################################################################################################################################################################################################################################################################## -->
+
+    <record id="pms_materials_view_form" model="ir.ui.view">
+        <field name="name">pms.materials.form</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <form string="Materials Form">
+                <sheet class="o_form_sheet">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" widget="char" class="o_bold_title"/>
+                        </h1>
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="create_quotation" type="object" icon="fa-file-o" string="Create Quotation"/>
+                        <button class="oe_stat_button" name="view_payment_request" type="object" icon="fa-pencil-square-o"
+                            string="Payment Request" invisible="not linked_payment_request"
+                        />
+                    </div>
+                    <header>
+                        <button name="request_payment" string="Request Payment" type="object" class="btn-primary"/>
+                        <button name="gave_payment" string="Give payment" type="object" class="btn-primary"/>
+                        <button name="ordered" string="Set As Ordered" type="object" class="btn-primary"/>
+                        <button name="set_delivered" string="Set As Delivered" type="object" class="btn-primary" /> 
+                        <!-- <button name="waiting_for_conf" string="Set As Waiting for Confirmation" type="object" class="btn-primary"/> -->
+                        <button name="return_to_not_ordered" string="Return to Not Ordered" type="object" class="btn-primary"/>
+                        <button name="create_bill" string="Create Bill" type="object" class="btn-primary" invisible="has_bill"/>
+                        <button name="no_availability_button" string="No Availability by Provider" type="object" class="btn-primary"/>
+                        <field name="order_status" widget="statusbar" statusbar_visible="not_ordered,wait_cust,waiting_payment,gave_payment,ordered,delivered,rejected"/>
+                    </header>
+                    <group>
+                        <group string="Property Details">
+                            <field name="has_bill" invisible="1"/>
+                            <field name="linked_payment_request" invisible="1"/>
+                            <field name="property_name" invisible="1"/>
+                            <field name="property_id"/>
+                            <field name="property_status"/>
+                            <field name="county"/>
+                            <field name="property_owner"/>
+                            <field name="project_manager"/>
+                            <field name="zone_coordinator"/>
+                            <field name="superintendent"/>
+                            <field name="house_model" options="{'no_create': True}"/>
+                            <field name="on_hold"/>
+                            <field name="own_third"/>
+                            <field name="project_phase"/>
+                        </group>
+                        <group string="Payment Details">
+                            <field name="order_creator" readonly="1"/>
+                            <field name="provider" string="Provider/Vendor"/>
+                            <field name="reference"/>
+                            <hr/><br/>
+                            <field name="payment_terms"/>
+                            <field name="payment_terms_anticipated"/>
+                            <field name="payment_method"/>
+                            <field name="payment_method_journal"/>
+                            <hr/><br/>
+                            <field name="escrow_company"/>
+                            <field name="escrow_account"/>
+                        </group>
+                    </group>
+                    <group string=" ">
+                        <group string="Status Change Dates">
+                            <!-- <field name="create_date"/> -->
+                            <field name="order_creation_date" readonly="1"/>
+                            <field name="order_request_date" readonly="1"/>
+                            <field name="waiting_payment_date" readonly="1"/>
+                            <field name="payment_date" readonly="1"/>
+                            <field name="ordered_date" readonly="1"/>
+                            <field name="estimated_delivery_date"/>
+                            <field name="actual_delivery_date"
+                                readonly="not is_purchase_manager or not is_purchase_analyst"/> 
+                        </group>
+                        <group string="Key Performance Indicators">
+                            <field name="created_to_waiting_cust"/>
+                            <field name="wait_to_gave_pay"/>
+                            <field name="ordered_to_delivered"/>
+                            <!-- <field name="wait_to_inv_pay"/> -->
+                            <field name="inv_pay_to_ordered"/>
+                        </group>
+                    </group>
+                    <group string=" ">
+                        <group string="Bill &amp; Invoice details">
+                            <field name="create_a_bill"/>
+                            <field name="linked_bill"/>
+                            <field name="linked_invoice"
+                                options="{'no_create': True}"
+                                domain="[('analytic_accounts', 'ilike', property_name), ('contractor', '=', provider), ('state', '!=', 'cancel')]"
+                            />
+                                <!-- -->
+                                                    <!-- ('order_status', 'in', ['not_ordered', 'rejected']) -->
+                            <!-- ('analytic_accounts', '=', property_id), -->
+                            <field name="invoice_payment_status"/>
+                            <field name="invoice_creation"/>
+                            <field name="invoice_pay_date"/>
+                            <field name="invoice_days_to_paid"/>
+                        </group>
+                        <group string="Special Order / 3rd Party Payment">
+                            <field name="special_order"/>
+                            <field name="is_purchase_manager" readonly="1" invisible="1"/>
+                            <field name="special_order_approved"
+                                readonly="not is_purchase_manager or not special_order"/>                            
+                            <!-- invisible="not special_order" -->
+                            <field name="is_purchase_analyst" readonly="1" invisible="1"/>
+                            <hr/><br/>
+                            <field name="third_party_payment"
+                                readonly="not is_purchase_manager or not is_purchase_analyst"/>    
+                        </group>
+                    </group>
+                    <group string="Follow Ups">
+                        <field name="followups"/>
+                    </group>
+                    <group string="Material Lines">
+                        <field name="material_lines"/>
+                        <field name="total_order_amount"/>
+                        <!-- <field name="rejections_count"/> -->
+                        <field name="re_order_id" string="Re-Order ID" readonly="1">
+                            <list>
+                                <field name="reference"/>
+                                <field name="order_creator"/>
+                                <field name="property_id"/>
+                                <field name="provider"/>
+                                <button name="open_order" string="OPEN" type="object" class="btn-info"/>
+                            </list>
+                        </field> 
+                        <field name="rejection_note"/>
+                        <field name="confirmed_by"/>
+                        <field name="signed_by" widget="signature"/>
+                        <button name="redo_order" string="REORDER" type="object" class="btn-warning"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="pms_materials_view_status_form" model="ir.ui.view">
+        <field name="name">pms.materials.status.form</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <form string="Materials Form">
+            <sheet class="o_form_sheet">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" widget="char" class="o_bold_title"/>
+                        </h1>
+                    </div>
+            <header>
+            <field name="order_status" widget="statusbar" statusbar_visible="not_ordered,wait_cust,waiting_payment,gave_payment,ordered,delivered,rejected"/>
+            </header>
+            <group name="general details" class="o_group">
+                <field name="has_bill" invisible="1"/>
+                <field name="linked_payment_request" invisible="1"/>
+                <field name="order_creator" readonly="1"/>
+                <field name="property_id" readonly="1"/>
+                <field name="property_status" readonly="1"/>
+                <field name="county" readonly="1"/>
+                <field name="property_owner" readonly="1"/>
+                <field name="project_manager" readonly="1"/>
+                <field name="zone_coordinator" readonly="1"/>
+                <field name="superintendent" readonly="1"/>
+                <field name="house_model" readonly="1"/>
+                <field name="on_hold" readonly="1"/>
+                <field name="own_third" readonly="1"/>
+                <field name="project_phase" readonly="1"/>
+                <field name="provider" readonly="1"/>
+                <field name="reference" readonly="1"/>
+                <field name="payment_terms" readonly="1"/>
+                <field name="payment_terms_anticipated" readonly="1"/>
+                <field name="order_request_date" readonly="1"/>
+                <field name="estimated_delivery_date" readonly="1"/>
+                <field name="actual_delivery_date" readonly="1"/>
+                <field name="payment_date" readonly="1"/>
+                <field name="payment_method" readonly="1"/>
+                <field name="payment_method_journal" readonly="1"/>
+                <field name="special_order" readonly="1"/>
+                <field name="material_lines" readonly="1"/>
+                <field name="total_order_amount" readonly="1"/>
+                <field name="rejections_count" readonly="1"/>
+                <field name="rejection_note" readonly="1"/>
+                <field name="confirmed_by" readonly="1"/>
+                <field name="signed_by" widget="signature" readonly="1"/>
+            </group>
+            </sheet>
+            <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="pms_materials_view_search" model="ir.ui.view">
+        <field name="name">pms.materials.search</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <search string="Materials Search">
+                <field name="order_creator"/>
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="county"/>
+                <field name="property_owner"/>
+                <field name="project_manager"/>
+                <field name="zone_coordinator"/>
+                <field name="superintendent"/>
+                <field name="house_model"/>
+                <field name="on_hold"/>
+                <field name="own_third"/>
+                <field name="project_phase"/>
+
+                <field name="created_to_waiting_cust"/>
+                <field name="wait_to_gave_pay"/>
+                <field name="ordered_to_delivered"/>
+
+                <field name="provider"/>
+                <field name="reference"/>
+                <field name="order_request_date"/>
+                <field name="estimated_delivery_date"/>
+                <field name="actual_delivery_date"/>
+                <field name="payment_date"/>
+                <field name="payment_method"/>
+                <field name="payment_method_journal"/>
+                <field name="order_status"/>
+                <separator/>
+                <filter string="Not Ordered" name="notordered" domain="[('order_status', '=', 'not_ordered')]"/>
+                <separator/>
+                <filter string="Rejected" name="rejected" domain="[('order_status', '=', 'rejected')]"/>
+                <separator/>
+                <filter string="Waiting Payment" name="waitingpayment" domain="[('order_status', '=', 'waiting_payment')]"/>
+                <separator/>
+                <filter string="Gave Payment" name="gavepayment" domain="[('order_status', '=', 'gave_payment')]"/>
+                <separator/>
+                <filter string="Ordered" name="ordered" domain="[('order_status', '=', 'ordered')]"/>
+                <separator/>
+                <filter string="Delivered" name="delivered" domain="[('order_status', '=', 'delivered')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Project Phase" name="group_by_project_phase" context="{'group_by':'project_phase'}"/>
+                    <filter string="Invoice Payment State" name="group_by_invoice_payment_state" context="{'group_by':'inv_payment_state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="pms_materials_view_status_search" model="ir.ui.view">
+        <field name="name">pms.materials.status.search</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <search string="Materials Status Search">
+                <field name="order_creator"/>
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="county"/>
+                <field name="property_owner"/>
+                <field name="project_manager"/>
+                <field name="zone_coordinator"/>
+                <field name="superintendent"/>
+                <field name="house_model"/>
+                <field name="on_hold"/>
+                <field name="own_third"/>
+                <field name="project_phase"/>
+                <field name="provider"/>
+                <field name="reference"/>
+                <field name="order_request_date"/>
+                <field name="estimated_delivery_date"/>
+                <field name="actual_delivery_date"/>
+                <field name="payment_date"/>
+                <field name="payment_method"/>
+                <field name="payment_method_journal"/>
+                <field name="order_status"/>
+                <separator/>
+                <filter string="Order Creator" name="ordercreator" domain="[('order_creator', '=', context.get('order_creator'))]"/>
+            </search>
+        </field>
+    </record>
+
+        <record id="verify_request_payment_wizard_form" model="ir.ui.view">
+            <field name="name">request.cc.payment.validation.wizard.form</field>
+            <field name="model">request.cc.payment.validation</field>
+            <field name="arch" type="xml">
+                <form string="Verify Request Payment Wizard">
+                        <group name="general details" class="o_group">
+                            <field name="employee_id"/>
+                            <field name="employee_pin" password="True"/>
+                        </group>
+                    <footer>
+                        <button name="confirm_payment_request" string="Confirm Payment Request" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    <record id="verify_request_payment_wizard" model="ir.actions.act_window">
+        <field name="name">Request Payment</field>
+        <field name="res_model">request.cc.payment.validation</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- ################ Added kanban: correct location? #################################################################################################################################33 -->
+
+
+    <record id="pms_materials_view" model="ir.actions.act_window">
+        <field name="name">Material Orders</field>
+        <field name="res_model">pms.materials</field>
+        <field name="view_mode">list,calendar,form,pivot,graph</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'calendar', 'view_id': ref('view_materials_calendar')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('pms_materials_view_form')}),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('pms_materials_view_tree')})
+        ]"/>
+        <field name="search_view_id" ref="pms.pms_materials_view_search"/>    
+    </record>
+
+    <!-- #################################################################################################################################################33 -->
+
+    <!-- <record id="pms_materials_view_confirm_action" model="ir.actions.act_window">
+        <field name="name">Confirm Material Orders</field>
+        <field name="res_model">pms.materials</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="pms_materials_view_confirm_tree"/> 
+        <field name="search_view_id" ref="pms.pms_materials_view_search"/>
+    </record>
+
+    <record id="action_pms_materials_status_tree" model="ir.actions.act_window">
+        <field name="name">Material Orders</field>
+        <field name="res_model">pms.materials</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="pms_materials_view_status_tree"/>
+        <field name="search_view_id" ref="pms.pms_materials_view_status_search"/>
+    </record> -->
+
+
+    <record id="pms_materialsline_view_tree" model="ir.ui.view">
+        <field name="name">pms.materials.lines.tree</field>
+        <field name="model">pms.materials.lines</field>
+        <field name="arch" type="xml">
+            <list string="Material Orders Lines">
+                <field name="product"/>
+                <field name="subproduct"/>
+                <field name="unit_measure"/>
+                <field name="quantity"/>
+                <field name="amount"/>
+                <field name="total"/>
+            </list>
+        </field>
+    </record> 
+
+
+    <record id="pms_materialslinne_view" model="ir.actions.act_window">
+        <field name="name">Material Orders Line</field>
+        <field name="res_model">pms.materials.lines</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="material_order_payment_wizard_form" model="ir.ui.view">
+        <field name="name">material.order.payment.wizard.form</field>
+        <field name="model">material.order.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Material Order Payment">
+                    <group name="general details" class="o_group">
+                        <field name="paid_with_other_company"/>
+                        <field name="property_owner_company" invisible="1"/>
+                        <field name="payment_method_journal" invisible="paid_with_other_company"/>
+                        <field name="other_company" invisible="not paid_with_other_company"/>
+                        <field name="payment_method_journal_oc" invisible="not paid_with_other_company"/>
+                        <field name="payment_method"/>
+                    </group>
+                <footer>
+                    <button name="confirm_payment" string="Confirm Payment" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="company_selector_wizard_form" model="ir.ui.view">
+        <field name="name">company.selector.wizard.form</field>
+        <field name="model">company.selector.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Company Selector Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="company"/>
+                    </group>
+                <footer>
+                    <button name="confirm_selection" string="Confirm Selection" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="not_ordered_wizard_form" model="ir.ui.view">
+            <field name="name">not.ordered.wizard.form</field>
+            <field name="model">not.ordered.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Not Ordered Wizard">
+                    <h3>The order will revert back to its initial state. All linked bills, payment, invoices and other related records will be also canceled.</h3>
+                    <footer>
+                        <button name="continue_not_ordered" string="Confirm Not Ordered" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    <record id="no_email_wizard_form" model="ir.ui.view">
+            <field name="name">no.email.wizard.form</field>
+            <field name="model">no.email.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Not Ordered Wizard">
+                    <h3>No email addresses available to send the confirmation notification. A confirmation email will not be sent.</h3>
+                    <footer>
+                        <button name="confirm_no_email" string="Continue" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    <!-- <record id="view_payment_term_form_inherit" model="ir.ui.view">
+        <field name="name">account.payment.term.form.inherit</field>
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_on_invoice']" position="after">
+                <label for="anticipated_payment" string="Anticipated Payment"/>
+                <field name="anticipated_payment"/> 
+                <label for="utility_payment" string="Utility Payment"/>
+                <field name="utility_payment"/>
+                <label for="material_payment" string="Material Payment"/>
+                <field name="material_payment" string="Material Payment"/> 
+            </xpath>
+        </field>
+    </record> -->
+
+
+
+    <record id="material_order_payment_wizard_action" model="ir.actions.act_window">
+        <field name="name">Material Order Payment Wizard</field>
+        <field name="res_model">material.order.payment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="company_selector_wizard_action" model="ir.actions.act_window">
+        <field name="name">Company Selector Wizard</field>
+        <field name="res_model">company.selector.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="not_ordered_wizard_action" model="ir.actions.act_window">
+        <field name="name">Not Ordered Wizard</field>
+        <field name="res_model">not.ordered.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="no_email_wizard_action" model="ir.actions.act_window">
+        <field name="name">No Email Wizard</field>
+        <field name="res_model">no.email.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_server_give_payment" model="ir.actions.server">
+        <field name="name">Give Payment</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_materials"/>
+        <field name="binding_model_id" ref="pms.model_pms_materials"/>
+        <field name="state">code</field>
+        <field name="code">
+        action = records.gave_payment()
+        </field>
+    </record>
+
+    <record id="action_server_set_delivered_bulk" model="ir.actions.server">
+        <field name="name">Set Delivered</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_materials"/>
+        <field name="binding_model_id" ref="pms.model_pms_materials"/>
+        <field name="state">code</field>
+        <field name="code">
+        action = records.set_delivered_on_bulk()
+        </field>
+    </record>
+
+    <record id="pms_materials_multi_company_access" model="ir.rule">
+        <field name="name">Global Access to PMS Materials</field>
+        <field name="model_id" ref="model_pms_materials"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

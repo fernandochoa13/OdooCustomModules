@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View for P&L Report -->
+        <record id="view_account_analytic_cash_bs_report_tree" model="ir.ui.view">
+            <field name="name">analytic.bs.cash.report.tree</field>
+            <field name="model">account.analytic.cash.bs.report</field>
+            <field name="arch" type="xml">
+                <list string="Balance Sheet Cash Report" sample="1">
+                    <!-- <header>
+                        <button name="action_view_journal_items"
+                                string="See Journal Items"
+                                type="object"
+                                class="oe_highlight"
+                                />
+                    </header> -->
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="analytic_account_id" invisible="context.get('group_by')"/>
+                    <field name="account_type" invisible="context.get('group_by')"/>
+                    <field name="amount" sum="Total" decoration-bf="1"/>
+                    <field name="move_id" invisible="1"/>
+                    <button name="action_view_move" 
+                        string="&#160;View Move"
+                        type="object"
+                        icon="fa-external-link"
+                        invisible="not move_id"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Pivot View for P&L Report -->
+        <record id="view_account_analytic_bs_report_cash_pivot_cash" model="ir.ui.view">
+            <field name="name">analytic.cash.bs.report.pivot</field>
+            <field name="model">account.analytic.cash.bs.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Balance Sheet Cash Report" sample="1">
+                    <field name="analytic_account_id" type="col"/>
+                    <field name="account_type" type="row"/>
+                    <field name="general_account_id" type="row"/>
+                    <field name="amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Search View for P&L Report -->
+        <record id="view_account_analytic_bs_cash_report_filter" model="ir.ui.view">
+            <field name="name">analytic.cash.bs.report.search</field>
+            <field name="model">account.analytic.cash.bs.report</field>
+            <field name="arch" type="xml">
+                <search string="Balance Sheet Cash Report">
+                    <field name="date" string="Date" filter_domain="[('date', '&gt;=', self), ('date', '&lt;=', self)]" widget="daterange"/>
+                    <filter name="this_year_date" string="Current Year" domain="[('date', '&gt;=', time.strftime('%%Y-01-01')), ('date', '&lt;=', time.strftime('%%Y-12-31'))]"/>
+                    <field name="date"/>
+                    <field name="analytic_account_id"/>
+                    <field name="account_type"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_date" string="Date" context="{'group_by':'date'}"/>
+                        <filter name="group_by_account_type" string="Account Type" context="{'group_by':'account_type'}"/>
+                        <filter name="group_by_analytic_account_id" string="Analytic Account" context="{'group_by':'analytic_account_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Action Window for P&L Report -->
+        <record id="action_account_analytic_cash_bs_report" model="ir.actions.act_window">
+            <field name="name">Analytic Cash Basis Balance Sheet Report</field>
+            <field name="res_model">account.analytic.cash.bs.report</field>
+            <field name="view_mode">pivot</field>
+            <field name="context">{'group_by':['account_type', 'general_account_id'], 'pivot_measures':['amount'], 'default_this_year_date': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Generate your custom Balance Sheet report by analytic account.
+                </p>
+            </field>
+        </record>
+
+        <record id="view_cash_bs_report_wizard_form" model="ir.ui.view">
+            <field name="name">cash.bs.report.wizard.form</field>
+            <field name="model">cash.bs.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Select Year">
+                    <group>
+                        <field name="year"/>
+                    </group>
+                    <footer>
+                        <button name="action_open_report" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_cash_bs_report_wizard" model="ir.actions.act_window">
+            <field name="name">Analytic Cash Basis Balance Sheet Report</field>
+            <field name="res_model">cash.bs.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="pms.model_account_analytic_cash_bs_report"/>
+        </record>
+
+        <menuitem
+            id="menu_account_analytic_bs_report_cash_updated"
+            name="Balance Sheet Report Cash"
+            action="action_cash_bs_report_wizard"
+            parent="pms.menu_finance_analytic_reports_main"
+            sequence="103"/>
+
+            <!-- <menuitem
+            id="menu_account_analytic_pnl_report_cash"
+            name="Profit &amp; Loss Report Cash"
+            action="action_account_analytic_cash_pnl_report"
+            parent="pms.menu_finance_analytic_reports_main"
+            sequence="102"/> -->
+    </data>
+</odoo>

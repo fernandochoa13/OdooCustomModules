@@ -1,0 +1,33 @@
+<odoo>
+<data>
+        <!-- Form View -->
+        <record id="view_credit_card_payments_wizard_form" model="ir.ui.view">
+            <field name="name">credit.card.payments.wizard.form</field>
+            <field name="model">credit.card.payments</field>
+            <field name="arch" type="xml">
+                <form string="Transfer Between Journals Wizard">
+                        <group name="general details" class="o_group">
+                            <field name="company" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="date"/> 
+                            <field name="credit_card_journal" domain="[('company_id', '=', company)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="bank" domain="[('company_id', '=', company)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="reference"/>
+                            <field name="amount"/> 
+                        </group>
+                    <footer>
+                        <button name="confirm" string="Confirm" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_credit_card_payments_wizard_action" model="ir.actions.act_window">
+            <field name="name">Credit Card Payments</field>
+            <field name="res_model">credit.card.payments</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+</data>
+</odoo>

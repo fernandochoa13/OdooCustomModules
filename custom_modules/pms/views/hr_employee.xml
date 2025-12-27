@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <!-- Add your custom field here -->
+                <field name="report_manager" widget="many2many_tags"/>
+                <field name="access_to_modify_records"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

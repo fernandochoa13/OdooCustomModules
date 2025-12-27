@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_failed_inspect_wizard_form" model="ir.ui.view">
+            <field name="name">failed.inspect.wizard.form</field>
+            <field name="model">failed.inspect.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Failed Inspection Wizard">
+                    <h3>Explain why this inspection failed:</h3>
+                        <br></br>
+                        <group name="general details" class="o_group">
+                            <field name="fail_reason"/>
+                        </group>
+                    <footer>
+                        <button name="failed_inspect" string="Send" type="object" class="oe_highlight"/>
+                        <button name="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_failed_inspect_wizard" model="ir.actions.act_window">
+            <field name="name">Failed Inspection</field>
+            <field name="res_model">failed.inspect.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

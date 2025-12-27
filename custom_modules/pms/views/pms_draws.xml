@@ -1,0 +1,144 @@
+<odoo>
+
+<record id="pms_draws_view_tree" model="ir.ui.view">
+    <field name="name">pms.draws.tree</field>
+    <field name="model">pms.draws</field>
+    <field name="arch" type="xml">
+
+        <list string="Draws">
+        <header>
+            <button name="print_draws_report" type="object" string="Print Draws Report" class="oe_highlight"/>
+        </header>
+            <field name="address" optional="show"/>
+            <field name="county" optional="show"/>
+            <field name="project_phase" optional="show"/>
+            <field name="display_name" optional="show"/>
+            <field name="name" optional="show"/>
+            <field name="loan_id" optional="show"/>
+            <field name="loan_lender" optional="show"/>
+            <field name="loan_amount" optional="show"/>
+            <field name="available_loan_balance" optional="show"/>
+            <field name="draw_amount" optional="show"/>
+            <field name="draw_fee"/>
+            <field name="memo" optional="show"/>
+            <field name="date" optional="show"/>
+            <field name="status" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="view_draws_calendar" model="ir.ui.view">
+   <field name="name">pms.draws.calendar</field>
+   <field name="model">pms.draws</field>
+   <field eval="2" name="priority"/>
+   <field name="arch" type="xml">
+       <calendar date_start="date" string="Draws" mode="month" color="display_name" event_limit="5"
+                 hide_time="true" js_class="materials_calendar" event_open_popup="true" quick_add="false">
+            <field name="address"/>
+            <field name="county"/>
+            <field name="project_phase"/>
+            <field name="display_name"/>
+            <field name="name"/>
+            <field name="loan_id"/>
+            <field name="loan_lender" />
+            <field name="loan_amount"/>
+            <field name="available_loan_balance"/>
+            <field name="draw_amount"/>
+            <field name="draw_fee"/>
+            <field name="memo"/>
+            <field name="date"/>
+            <field name="status"/>
+       </calendar>
+   </field>
+</record>
+
+<record id="pms_draws_view_search" model="ir.ui.view">
+        <field name="name">pms.draws.search</field>
+        <field name="model">pms.draws</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="display_name"/>
+                <field name="name"/>
+                <field name="loan_id"/>
+                <field name="loan_lender" optional="show"/>
+                <field name="loan_amount" optional="show"/>
+                <field name="available_loan_balance" optional="show"/>
+                <field name="draw_amount"/>
+                <field name="memo"/>
+                <field name="date"/>
+                <field name="status"/>
+                <field name="draw_fee"/>
+                <field name="address"/>
+                <field name="county"/>
+                <field name="project_phase"/>
+            </search>
+        </field>
+</record>
+
+<record id="pms_draws_view_form" model="ir.ui.view">
+        <field name="name">pms.draws.form</field>
+        <field name="model">pms.draws</field>
+        <field name="arch" type="xml">
+            <form string="Draws Form" class="o_sale_order">
+
+            <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="display_name" widget="char" class="o_bold_title"/>
+                    </h1>
+                </div>
+
+            <header>
+                <button id="post" name="too_post" string="post draw"
+                    type="object" class="btn-primary"
+                   />
+                
+                <button id="draft" name="too_draft" string="return to draft"
+                    type="object" class="btn-primary"
+                   />
+
+                <button id="pending" name="to_pending" string="pending draw"
+                    type="object" class="btn-primary"
+                   />
+
+                <field name="status" widget="statusbar" statusbar_visible="pending,draft,posted"/>
+            </header>
+
+            <group name="general details" class="o_group">
+            <field name="address" />
+            <field name="county"/>
+            <field name="project_phase"/>
+            <field name="draw_amount"/>
+            <field name="draw_fee"/>
+            <field name="name"/>
+            <field name="memo"/>
+            <field name="date"/>
+            <field name="loan_id"/>
+            <field name="loan_lender"/>
+            <field name="loan_amount" optional="show"/>
+            <field name="available_loan_balance" optional="show"/>
+            <field name="loan_type_draw"/>
+            <field name="draw_lines" context="{'tree_view_ref': 'pms_draw_lines_tree'}" 
+           />
+            </group>
+
+            <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+
+            </sheet>
+            </form>
+        </field>
+
+</record>
+
+<record id="pms_draws_view" model="ir.actions.act_window">
+    <field name="name">Draws</field>
+    <field name="res_model">pms.draws</field>
+    <field name="view_mode">calendar,list,form</field>
+    <field name="search_view_id" ref="pms.pms_draws_view_search"/>
+</record>
+
+</odoo>

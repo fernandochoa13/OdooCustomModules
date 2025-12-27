@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View for P&L Report -->
+        <record id="view_account_analytic_pnl_report_tree" model="ir.ui.view">
+            <field name="name">analytic.pnl.report.tree</field>
+            <field name="model">account.analytic.pnl.report</field>
+            <field name="arch" type="xml">
+                <list string="P&amp;L Report" sample="1">
+                    <!-- <header>
+                        <button name="action_view_journal_items"
+                                string="See Journal Items"
+                                type="object"
+                                class="oe_highlight"
+                                />
+                    </header> -->
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="analytic_account_id" invisible="context.get('group_by')"/>
+                    <field name="account_type" invisible="context.get('group_by')"/>
+                    <field name="amount" sum="Total" decoration-bf="1"/>
+                    <field name="move_id" invisible="1"/>
+                    <button name="action_view_move" 
+                        string="&#160;View Move"
+                        type="object"
+                        icon="fa-external-link"
+                        invisible="not move_id"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Pivot View for P&L Report -->
+        <record id="view_account_analytic_pnl_report_pivot" model="ir.ui.view">
+            <field name="name">analytic.pnl.report.pivot</field>
+            <field name="model">account.analytic.pnl.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Profit &amp; Loss Report" sample="1">
+                    <field name="analytic_account_id" type="col"/>
+                    <field name="account_type" type="row"/>
+                    <field name="general_account_id" type="row"/>
+                    <field name="amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Search View for P&L Report -->
+        <record id="view_account_analytic_pnl_report_filter" model="ir.ui.view">
+            <field name="name">analytic.pnl.report.search</field>
+            <field name="model">account.analytic.pnl.report</field>
+            <field name="arch" type="xml">
+                <search string="P&amp;L Report">
+                    <field name="date" string="Date" filter_domain="[('date', '&gt;=', self), ('date', '&lt;=', self)]" widget="daterange"/>
+                    <filter name="this_year_date" string="Current Year" domain="[('date', '&gt;=', time.strftime('%%Y-01-01')), ('date', '&lt;=', time.strftime('%%Y-12-31'))]"/>
+                    <field name="date"/>
+                    <field name="analytic_account_id"/>
+                    <field name="account_type"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_date" string="Date" context="{'group_by':'date'}"/>
+                        <filter name="group_by_account_type" string="Account Type" context="{'group_by':'account_type'}"/>
+                        <filter name="group_by_analytic_account_id" string="Analytic Account" context="{'group_by':'analytic_account_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="pl_report_company_filter" model="ir.rule">
+            <field name="name">Profit Loss Report - Multicompany Rule</field>
+            <field ref="pms.model_account_analytic_pnl_report" name="model_id"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="active" eval="True"/> 
+        </record>
+
+        <!-- Action Window for P&L Report -->
+        <record id="action_account_analytic_pnl_report" model="ir.actions.act_window">
+            <field name="name">Analytic P&amp;L Report</field>
+            <field name="res_model">account.analytic.pnl.report</field>
+            <field name="view_mode">pivot</field>
+            <field name="context">{'group_by':['account_type', 'general_account_id'], 'pivot_measures':['amount'], 'default_this_year_date': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Generate your custom P&amp;L report by analytic account.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Item to access the report -->
+        <menuitem
+            id="menu_account_analytic_pnl_report"
+            name="Profit &amp; Loss Report"
+            action="action_account_analytic_pnl_report"
+            parent="pms.menu_finance_analytic_reports_main"
+            sequence="101"/>
+    </data>
+</odoo>

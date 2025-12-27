@@ -1,0 +1,109 @@
+<odoo>
+    <data>
+        <record id="missing_reports_search" model="ir.ui.view">
+            <field name="name">daily.report.missing.search</field>
+            <field name="model">daily.report</field>
+            <field name="arch" type="xml">
+                <search string="Default Search">
+                        <field name="employee_id"/>
+                        <field name="missed_days"/>
+                        <separator/>
+                        <filter string="Employee" name="employeegroup" context="{'group_by': 'employee_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="missing_report_pin_wizard_form" model="ir.ui.view">
+            <field name="name">missing.report.pin.wizard.form</field>
+            <field name="model">missing.report.pin.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Missing Report Wizard">
+                        <group name="general details" class="o_group">
+                            <field name="employee_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="employee_pin" password="True" options="{'no_create': True, 'no_create_edit': True}"/>
+                        </group>
+                    <footer>
+                        <button name="confirm_user" string="Confirm" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="pms_missing_reports_tree" model="ir.ui.view">
+            <field name="name">missing.reports.tree</field>
+            <field name="model">missing.reports</field>
+            <field name="arch" type="xml">
+                <list string="Missing Reports" create="false">
+                    <field name="employee_name"/>
+                    <field name="date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="missing_report_wizard_form" model="ir.ui.view">
+            <field name="name">missing.reports.wizard.form</field>
+            <field name="model">missing.reports.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Missing Reports Wizard">
+                        <group name="general details" class="o_group">
+                            <field name="start_date" />
+                            <field name="end_date"/>
+                        </group>
+                    <footer>
+                        <button name="generate_missing_reports" string="View missing reports" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="missing_reports_pin_wizard_action" model="ir.actions.act_window">
+                <field name="name">Missing Report Wizard</field>
+                <field name="res_model">missing.report.pin.wizard</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+        </record>
+
+        <!-- <record id="daily_report_missing_action" model="ir.actions.act_window">
+                <field name="name">Missing Reports</field>
+                <field name="res_model">daily.report</field>
+                <field name="view_mode">tree</field>
+                <field name="search_view_id" ref="accounting_wizard.missing_reports_search"/>
+                <field name="context">{'search_default_employeegroup': 1}</field>
+                <field name="view_id" ref="view_missing_reports_tree"/>
+        </record> -->
+
+        <record id="missing_reports_wizard_action" model="ir.actions.act_window">
+                <field name="name">Missing Reports</field>
+                <field name="res_model">missing.reports.wizard</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+        </record>
+
+        
+        <menuitem id="menu_hr_attendance_reports_missing_wizard" name="Missing Reports" parent="hr_attendance.menu_hr_attendance_root"
+            sequence="92" action="missing_reports_pin_wizard_action">
+        </menuitem> 
+<!-- 
+        <record id="missing_records_update" model="ir.cron">
+            <field name="name">Missing Records Update</field>
+            <field name="model_id" ref="model_daily_report"/>
+            <field name="state">code</field>
+            <field name="code">model.search([])._compute_missed_days()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 03:59:00')"/>
+        </record> -->
+    </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+    

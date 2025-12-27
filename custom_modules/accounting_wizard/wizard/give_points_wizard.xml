@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <record id="view_give_points_wizard_form" model="ir.ui.view">
+            <field name="name">give.points.wizard.form</field>
+            <field name="model">give.points.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Give Points Wizard">
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="pin" password="True"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_give_points_wizard" model="ir.actions.act_window">
+            <field name="name">Give Points Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">give.points.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="view_give_points_2_wizard_form" model="ir.ui.view">
+            <field name="name">give.points.2.wizard.form</field>
+            <field name="model">give.points.2.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Give Points 2 Wizard">
+                    <group>
+                        <field name="date"/>
+                        <field name="description"/>
+                        <field name="points"/>
+                        <field name="employee"/>
+                        <field name="original_employee_id" invisible="date"/>
+                    </group>
+                    <footer>
+                        <button name="create_hr_points_record" string="Create HR Points Record" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_give_points_2_wizard" model="ir.actions.act_window">
+            <field name="name">Give Points 2 Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">give.points.2.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_hr_give_points" name="Give Points" parent="hr_attendance.menu_hr_attendance_root"
+            sequence="99" action="action_give_points_wizard">
+        </menuitem> 
+
+
+    </data>
+</odoo>

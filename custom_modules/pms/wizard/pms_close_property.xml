@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="pms_close_property_form" model="ir.ui.view">
+            <field name="name">pms.close.property.form</field>
+            <field name="model">pms.close.property</field>
+            <field name="arch" type="xml">
+                <form string="PMS Close property">
+                    <h3>Close Property to residential Unit:</h3>
+                        <br></br>
+                        <group name="general details" class="o_group">
+                            <field name="property"/>
+                            <field name="company"/> 
+                            <field name="date"/>
+                            <field name="total_gl_amount"/>
+                            <field name="item_details"/>
+                            <field name="note"/>
+                            <field name="final_amount"/>
+                        </group>
+                    <footer>
+                        <button name="create_closing" string="Create Activities" type="object" class="oe_highlight"/>
+                        <button name="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="pms_close_property" model="ir.actions.act_window">
+            <field name="name">PMS Close Property</field>
+            <field name="res_model">pms.close.property</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

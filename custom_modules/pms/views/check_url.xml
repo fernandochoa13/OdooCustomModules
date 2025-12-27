@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+
+    <record id="check_url_tree" model="ir.ui.view">
+            <field name="name">check.url.tree</field>
+            <field name="model">check.url</field>
+            <field name="arch" type="xml">
+                <list string="Check URL" editable="top">
+                    <field name="url" optional="show"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="check_url_action" model="ir.actions.act_window">
+            <field name="name">Check URL Config</field>
+            <field name="res_model">check.url</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_check_url" name="Check URL Config" parent="account.menu_finance_configuration" action="check_url_action" sequence="11"/>
+
+    </data>
+</odoo>

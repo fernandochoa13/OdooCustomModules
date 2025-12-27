@@ -1,0 +1,733 @@
+<!-- FILEPATH: /c:/Users/Diego/Documents/ODOO WINDOWS ENTERPRISSE/Nueva carpeta/server/odoo/addons/pms/views/account_move.xml -->
+<odoo>
+
+<record id="view_invoice_tree_inherit" model="ir.ui.view">
+    <field name="name">account.move.tree.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_invoice_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+        <xpath expr="//field[@name='date']" position="after">
+            <!-- <field name="invoice_type" optional="show"/> -->
+            <!-- <field name="on_hold_comments" optional="hide"/> -->
+            <!-- <field name="analytic_accounts" optional="show"/> -->
+            <!-- <field name="product_inv" optional="show"/> -->
+            <field name="contractor" optional="show"/>
+            <field name="invoice_filter_type" optional="show"/>
+            <field name="activity_completed" optional="show"/>
+
+        </xpath>
+        <xpath expr="//field[@name='state']" position="after">
+            <!-- <field name="last_customer_message" optional="show"/> -->
+            <field name="bill_alert" optional="hide"/>
+            <!-- <field name="note_inv" optional="show"/> -->
+            <!-- Included House Model Field -->
+            <!-- <field name="house_model" optional="show"/> -->
+        </xpath>
+    </field>
+</record>
+
+<record id="view_account_invoice_filter_inherit" model="ir.ui.view">
+    <field name="name">account.invoice.select.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+    <field name="arch" type="xml">
+        <xpath expr="//search/field[@name='partner_id']" position="after">
+            <field name="analytic_accounts" string="Analytic Accounts"/>
+            <field name="contractor" string="Contractor"/>
+        </xpath>
+    </field>
+</record>
+
+
+<record id="view_move_line_form_inherit" model="ir.ui.view">
+    <field name="name">account.move.line.form.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='other_info']/group[@id='other_tab_group']/group[@name='sale_info_group']" position="inside">
+            <!-- Add your custom field here -->
+            <field name="invoice_link_docs"/>
+        </xpath>
+        <xpath expr="/form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='partner_id']" position="after">
+            <field name="product_id" optional="show"/>
+
+            <!--Journal Items = aml_tab-->
+        </xpath>
+        <xpath expr="//header" position="inside">
+                    <button name="open_mail_messages"
+                            type="object"
+                            string="Related Messages"
+                            class="oe_highlight"
+                           
+                            data-hotkey="b"/>
+        </xpath>
+        <xpath expr="//header" position="inside">
+                    <button name="open_intercompany_payment"
+                            type="object"
+                            string="Intercompany Payment"
+                            class="oe_highlight"
+                           
+                            data-hotkey="b"/>
+        </xpath>
+        <!-- <xpath expr="//header" position="inside">
+                    <button name="create_material_order"
+                            type="object"
+                            string="Create Material Order"
+                            class="oe_highlight"
+                           
+                            data-hotkey="b"/>
+        </xpath> -->
+
+        <xpath expr="//field[@name='ref']" position="after">
+            <field name="contractor"/>
+            <field name="contractor_date" invisible="move_type != 'out_invoice'"/>
+            <field name="utility_account_number"/>
+            <field name="utility_pin"/>
+            <!-- Included House Model Field -->
+            <!-- <field name="house_model" optional="show"/> -->
+        </xpath>
+
+        <xpath expr="//field[@name='payment_reference']" position="after">
+            <field name="payment_type_bills" invisible="move_type != 'in_invoice'"/>
+            <field name="employee_id" invisible="move_type != 'in_invoice'"/>
+            <field name="invoice_user_id" invisible="move_type != 'in_invoice'"/>
+            <!-- <field name="service_fee" invisible="move_type != 'out_invoice'"/> -->
+            <field name="service_fee"/>
+        </xpath>
+        <xpath expr="//field[@name='purchase_vendor_bill_id']" position="after">
+            <field name="priority" invisible="move_type != 'in_invoice'" widget="priority"/>
+        </xpath>
+    </field>
+</record>
+
+
+<record id="view_tax_form_inherit" model="ir.ui.view">
+    <field name="name">account.tax.form.inherit</field>
+    <field name="model">account.tax</field>
+    <field name="inherit_id" ref="account.view_tax_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='active']" position="after">
+            <field name="is_max_base" widget="boolean_toggle"/> 
+            <field name="max_base" widget="monetary" invisible="not is_max_base"/>
+            <field name="county"/>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_bank_statement_search_inherit" model="ir.ui.view">
+    <field name="name">account.move.line.search.line.inherit</field>
+    <field name="model">account.move.line</field>
+    <field name="inherit_id" ref="account_accountant.view_account_move_line_search_bank_rec_widget"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='date']" position="after">
+            <field name="amount_currency"/>
+        </xpath>
+    </field>
+</record>
+
+<!-- <record id="view_account_move_inherit" model="ir.ui.view">
+    <field name="name">account.move.select.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='journal_id']" position="after">
+            <field name="analytic_accounts" />
+        </xpath>
+    </field>
+</record> -->
+
+<!--
+<record id="view_bank_statement_tree_inherit" model="ir.ui.view">
+    <field name="name">account.bank.statement.tree.line.inherit</field>
+    <field name="model">account.bank.statement.line</field>
+    <field name="inherit_id" ref="account_accountant.view_bank_statement_line_tree_bank_rec_widget"/>
+    <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+    </field>
+</record>
+-->
+
+<record id="view_salesorder_tree_inherit" model="ir.ui.view">
+    <field name="name">sale.order.tree.inherit</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="analytic_account_id" optional="show"/>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_move_tree_inherit" model="ir.ui.view">
+    <field name="name">account.move.tree.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_move_line_tree_inherit" model="ir.ui.view">
+    <field name="name">account.move.line.tree.inherit</field>
+    <field name="model">account.move.line</field>
+    <field name="inherit_id" ref="account.view_move_line_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="cash_date" optional="show"/>
+            <field name="partial" optional="show"/>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_account_payment_tree_inherit" model="ir.ui.view">
+    <field name="name">account.payment.tree.inherit</field>
+    <field name="model">account.payment</field>
+    <field name="inherit_id" ref="account.view_account_payment_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_account_payment_tree_inherit" model="ir.ui.view">
+    <field name="name">account.analytic.line.tree.inherit</field>
+    <field name="model">account.analytic.line</field>
+    <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_account_move_line_filter_inherit" model="ir.ui.view">
+    <field name="name">account.move.line.search.inherit</field>
+    <field name="model">account.move.line</field>
+    <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+    <field name="arch" type="xml">
+        <xpath expr="//filter[@name='bank']" position="after">
+            <filter string="Only Bank" name="only_bank" domain="[('statement_line_id', '!=', False)]"/>
+        </xpath>
+        
+        <xpath expr="//filter[@name='to_check']" position="after">
+            <filter string="1099 Vendors" name="vendors_1099" domain="[('partner_id.box_1099_id', '!=', False)]"/>
+        </xpath>
+         <xpath expr="//field[@name='move_id']" position="after">
+            <field string="Analytic" name="analytic_distribution"/>
+            <filter string="Analytic" name="analytic_distribution" domain="[('analytic_distribution', '!=', False)]"/>
+        </xpath>
+    </field>
+</record>
+
+
+<record id="view_account_analytic_line_form_inherit" model="ir.ui.view">
+    <field name="name">account.analytic.line.form.inherit</field>
+    <field name="model">account.analytic.line</field>
+    <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//form" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+    </field>
+</record>
+
+<record id="documents_view_list_inherit" model="ir.ui.view">
+    <field name="name">documents.tree.inherit</field>
+    <field name="model">documents.document</field>
+    <field name="inherit_id" ref="documents.documents_view_list"/>
+    <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_account_payment_form_inherit" model="ir.ui.view">
+    <field name="name">account.payment.form.inherit</field>
+    <field name="model">account.payment</field>
+    <field name="inherit_id" ref="account.view_account_payment_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//form" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+    </field>
+</record>
+
+
+
+
+<record id="view_sales_quotation_tree_inherit" model="ir.ui.view">
+    <field name="name">sale.order.tree.inherit</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_quotation_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="analytic_account_id" optional="show"/>
+        </xpath>
+    </field>
+</record>
+
+<!-- Sale Order Form: Add editable notes fields for invoice templates -->
+<record id="view_sale_order_form_notes_inherit" model="ir.ui.view">
+    <field name="name">sale.order.form.notes.inherit</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='note']" position="after">
+            <separator string="Estimate/Quotation Notes"/>
+            <group>
+                <group>
+                    <field name="scope_of_work" widget="html" placeholder="Enter scope of work, terms and conditions that will appear on the printed estimate..."/>
+                </group>
+                <group>
+                    <field name="estimate_notes" widget="html" placeholder="Enter additional notes that will appear on the printed estimate..."/>
+                </group>
+            </group>
+        </xpath>
+    </field>
+</record>
+
+
+<!-- <record id="view_account_move_inherit" model="ir.ui.view">
+    <field name="name">account.move.select.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='journal_id']" position="after">
+            <field name="analytic_accounts" />
+        </xpath>
+    </field>
+</record> -->
+
+<record id="action_server_confirmorder" model="ir.actions.server">
+    <field name="name">Confirm order</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="binding_model_id" ref="sale.model_sale_order"/>
+    <field name="state">code</field>
+    <field name="code">
+for record in records:
+    if record:
+        records.action_confirm()
+    </field>
+</record>
+
+<record id="action_server_cancelorder" model="ir.actions.server">
+    <field name="name">Cancel order</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="binding_model_id" ref="sale.model_sale_order"/>
+    <field name="state">code</field>
+    <field name="code">
+for record in records:
+    if record:
+        records.action_cancel_button()
+    </field>
+</record>
+
+    <!-- Cancel Journal Action -->
+
+<record id="action_view_move_tree_cancel" model="ir.actions.server">
+    <field name="name">Cancel Journal</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="binding_model_id" ref="account.model_account_move"/>
+    <field name="state">code</field>
+    <field name="code">
+        action = model.cancel_journal()
+    </field> 
+</record>
+
+<record id="action_server_request_payment" model="ir.actions.server">
+    <field name="name">Request Payment</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="binding_model_id" ref="account.model_account_move"/>
+    <field name="state">code</field>
+    <field name="code">
+for record in records:
+    if record:
+        action = record.request_payment()
+    </field>
+</record>
+
+<record id="action_server_service_fee" model="ir.actions.server">
+    <field name="name">Calculate Service Fee</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="binding_model_id" ref="account.model_account_move"/>
+    <field name="state">code</field>
+    <field name="code">
+for record in records:
+    if record:
+        action = record.calculate_service_fee()
+    </field>
+</record>
+
+<record id="action_server_sales_tax" model="ir.actions.server">
+    <field name="name">Calculate Sales Tax</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="binding_model_id" ref="account.model_account_move"/>
+    <field name="state">code</field>
+    <field name="code">
+for record in records:
+    if record:
+        action = record.calculate_tax()
+    </field>
+</record>
+
+
+<record id="action_server_pms_open_message_crm_wizard_invoices" model="ir.actions.server">
+        <field name="name">Send Message with CRM</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">
+        if records:
+            action = records.open_message_crm_wizard()
+        </field>
+</record>
+
+<record id="action_server_export_pdf" model="ir.actions.server">
+    <field name="name">Export PDFs</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="account.model_account_move_line"/>
+    <field name="binding_model_id" ref="account.model_account_move_line"/>
+    <field name="state">code</field>
+    <field name="code">
+for record in records:
+    if record:
+        action = record.export_pdfs()
+    </field>
+</record>
+
+<data noupdate="1">
+    <record id="daily_3rdparty_unpaid_invoices_email_template" model="mail.template">
+        <field name="name">Send 3rd Party Unpaid Invoices Email Daily</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="email_from"></field>
+        <field name="email_to"></field>
+        <field name="subject"></field>
+        <field name="body_html" type="html">
+            <div>
+            </div>
+        </field>
+    </record>
+
+    <record id="daily_unpaid_invoices_email_template" model="mail.template">
+        <field name="name">Send Unpaid Invoices Email Daily</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="email_from"></field>
+        <field name="email_to"></field>
+        <field name="subject"></field>
+        <field name="body_html" type="html">
+            <div>
+            </div>
+        </field>
+    </record>
+</data>
+
+
+<record id="ir_cron_send_unpaid_invoices_email_weekly" model="ir.cron">
+            <field name="name">Send Unpaid Invoices Email: Weekly</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">
+env['pms.projects'].function_run_log("send_unpaid_invoices_email_weekly")
+model.send_unpaid_invoices_email_weekly()
+</field>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+</record>
+
+<record id="ir_cron_send_unpaid_invoices_email_daily" model="ir.cron">
+            <field name="name">Send Unpaid Invoices Email: Daily</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">
+env['pms.projects'].function_run_log("send_daily_reminder")
+invoices = env['account.move'].search(['&amp;', ("state", "=", "posted"), '&amp;', ("move_type", "=", "out_invoice"), ("payment_state", "=", "not_paid")])
+invoices.send_daily_reminder()           
+            </field>
+            <field name="interval_number">2</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+</record>
+
+<record id="update_last_customer_on_create_sched" model="ir.cron">
+    <field name="name">Update Last Customer Message Invoices</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="state">code</field>
+    <field name="code">
+        model.search([])._get_last_customer_message()
+    </field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">days</field>
+    <field name="numbercall">-1</field>
+    <!-- <field name="active" eval="True"/> -->
+</record>
+
+
+
+<record id="view_invoice_form_inherit" model="ir.ui.view">
+    <field name="name">account.move.form.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//header" position="after">
+            <div class="alert alert-warning d-flex align-items-center justify-content-between o_row" role="alert">
+                <p class="mb-0">
+                    You must request approval for invoices made for properties on status COC.
+                </p>
+                <button name="action_approve_coc"
+                        string="Approve"
+                        type="object"
+                        class="btn"
+                        icon="fa-check"
+                        invisible="not is_invoice_admin"/>
+            </div>
+            <div class="alert alert-success o_row" role="alert">
+                <p class="mb-0">
+                    The invoice has been approved.
+                </p>
+            </div>
+        </xpath>
+        <xpath expr="//form" position="attributes">
+            <attribute name="delete">false</attribute>
+        </xpath>
+        <xpath expr="//field[@name='name']" position="attributes">
+            <attribute name="readonly">false</attribute> 
+        </xpath>
+            <!-- Changing readonly here -->
+        <xpath expr="//group[@id='header_right_group']/field[@name='date']" position="replace">
+            <field name="date" string="Accounting Date"
+                invisible="move_type in ('out_invoice', 'out_refund', 'out_receipt') and quick_edit_mode == False"
+                readonly="state == 'cancel'"/>
+
+            <!-- <attribute name="attrs">
+                {
+                    'invisible': [('move_type', 'in', ('out_invoice', 'out_refund', 'out_receipt')), ('quick_edit_mode', '=', False)],
+                    'readonly': [('state', '=', 'cancel')],
+                }
+            </attribute> -->
+        </xpath>
+        <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="budget_date" invisible="move_type != 'entry'"/>
+                <field name="invoice_vendor_bill_id" string="Auto-complete" optional="show"/>
+                <field name="linked_material_order" string="Linked Material Order"/>
+                <!-- <field name="date_receipted" invisible="move_type != 'in_invoice'"/> -->
+                <field name="property_id" invisible="1"/>
+                <field name="linked_activities" string="Linked Activity" options="{'no_create': True}" domain="[('project_property.address', '=', property_id)]"/>
+                <field name="activity_completed" string="Linked Activity Completed"/>
+                <field name="date_paid"/>
+                <field name="completed_date"/>
+                <field name="linked_contractor_job" options="{'no_create': True}"/>
+                <field name="invoice_filter_type" invisible="move_type != 'out_invoice'"/>
+                <!-- invisible="move_type != 'in_invoice'"
+                invisible="move_type != 'in_invoice'" -->
+        </xpath>
+        <!-- <xpath expr="//group[@id='header_right_group']/field[@name='journal_id']" position="after">
+        </xpath> -->
+        <xpath expr="//notebook" position="inside">
+                <page string="Property Details">
+                    <group>
+                        <group>
+                            <field name="property_id"/>
+                            <field name="status_property"/>
+                            <field name="custodial_money"/>
+                            <field name="property_house_model"/>
+                        </group>
+                        <group>
+                            <field name="lock_on_coc"/>
+                            <field name="coc_approved"/>
+                            <field name="is_invoice_admin"/>
+                        </group>
+                    </group>
+                </page>
+        </xpath>
+        <xpath expr="//field[@name='product_id']" position="after">
+            <field name="subproducts" optional="hide"/>
+            <field name="activity" optional="hide"/>
+        </xpath>
+        <xpath expr="//field[@name='analytic_distribution']" position="after">
+            <field name="billable" optional="show"/>
+            <field name="markup" optional="show"/>
+        </xpath>
+        <xpath expr="//button[@name='action_post']" position="replace">
+        </xpath>
+        <xpath expr="//button[@name='action_post']" position="replace">
+            <button name="bill_check" string="Confirm" class="oe_highlight"
+                    type="object" groups="account.group_account_invoice" data-hotkey="v"
+                    context="{'validate_analytic': True}"
+                   />
+        </xpath>
+        <xpath expr="//div[@name='button_box']" position="inside">
+            <button name="open_contractor_job"
+                type="object"
+                class="oe_stat_button"
+                icon="fa-file-text-o"
+                string="Contractor Job"
+               
+            />
+        </xpath>
+    </field>
+</record>
+
+<record id="hr_expense_view_form_inherit" model="ir.ui.view">
+    <field name="name">hr.expense.form.inherit</field>
+    <field name="model">hr.expense</field>
+    <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='analytic_distribution']" position="after">
+            <field name="billable"/>
+            <field name="markup"/>
+            <field name="invoiced" readonly="True"/>
+        </xpath>
+    </field>
+</record>
+
+<record id="hr_expense_view_tree_inherit" model="ir.ui.view">
+    <field name="name">hr.expense.tree.inherit</field>
+    <field name="model">hr.expense</field>
+    <field name="inherit_id" ref="hr_expense.hr_expense_view_expenses_analysis_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='analytic_distribution']" position="after">
+            <field name="billable"/>
+        </xpath>
+    </field>
+</record>
+
+<record id="hr_expense_sheet_view_form_inherit" model="ir.ui.view">
+    <field name="name">hr.expense.sheet.form.inherit</field>
+    <field name="model">hr.expense.sheet</field>
+    <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='analytic_distribution']" position="after">
+            <field name="billable"/>
+        </xpath>
+    </field>
+</record>
+
+
+<record id="view_move_form_inherit_billable" model="ir.ui.view">
+    <field name="name">account.move.form.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//div[@name='button_box']" position="inside">
+            <field name="billables" invisible="1"/>
+            <button name="action_open_billables_report"
+                    class="oe_stat_button"
+                    string="Billable"
+                    icon="fa-file-text-o"
+                    type="object"
+                    invisible="not billables"/>
+        </xpath>
+    </field>
+</record>
+
+
+<record id="view_move_form_inherit_invoice" model="ir.ui.view">
+    <field name="name">account.move.form.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//div[@name='button_box']" position="inside">
+            <field name="invoiced" invisible="1"/>
+            <button name="action_open_invoiced_report"
+                    class="oe_stat_button"
+                    string="Invoices"
+                    icon="fa-file-text-o"
+                    type="object"
+                    invisible="not invoiced"/>
+            <field name="linked_activities" invisible="1"/>
+            <button name="open_linked_activities"
+                    class="oe_stat_button"
+                    string="Linked Activities"
+                    icon="fa-file-text-o"
+                    type="object"
+                    invisible="not linked_activities"/>
+            <button name="open_linked_material_order"
+                    class="oe_stat_button"
+                    string="Material Order"
+                    icon="fa-file-text-o"
+                    type="object"
+                    invisible="not linked_material_order"/>
+        </xpath>
+    </field>
+</record>
+
+
+<record id="account_move_off_hold" model="base.automation">
+   <field name="name">Put property off Hold</field>
+   <field name="model_id" ref="account.model_account_move"/>
+   <field name="state">code</field>
+   <field name="code">
+env['pms.projects'].function_run_log("off_hold_preprocessor")
+record.off_hold_preprocessor()
+   </field>
+   <field name="trigger">on_write</field>
+   <field name="active" eval="True"/>
+   <field name="filter_pre_domain">
+        [
+            ('payment_state', 'in', ('not_paid', 'partial')), ('move_type', '=', 'out_invoice')
+        ]
+   </field>
+   <field name="filter_domain">
+        [
+            ('payment_state', 'in', ('paid', 'in_payment')), 
+            ('move_type', '=', 'out_invoice')
+        ]
+   </field>
+</record>
+
+<!-- Set to true when utility and partial conditionals have been tested -->
+<record id="cron_account_move_put_hold" model="ir.cron">
+            <field name="name">Put properties on hold</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">
+env['pms.projects'].function_run_log("check_on_hold")
+model.check_on_hold()
+            </field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+</record>
+
+<!-- Set to true when utility and partial conditionals have been tested -->
+<record id="cron_drop_cash_tables" model="ir.cron">
+            <field name="name">Cash Drop Tables</field>
+            <field name="model_id" ref="account.model_account_report"/>
+            <field name="state">code</field>
+            <field name="code">
+env['account.report']._cleanup_cash_basis_data()
+            </field>
+            <field name="interval_number">2</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+</record>
+
+</odoo>

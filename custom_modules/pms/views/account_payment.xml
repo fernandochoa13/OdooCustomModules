@@ -1,0 +1,96 @@
+<odoo>
+
+    <!-- Account Payment Term Inherits -->
+
+    <record id="view_payment_term_form_inherit" model="ir.ui.view">
+        <field name="name">account.payment.term.form.inherit</field>
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_on_invoice']" position="after">
+                <label for="anticipated_payment" string="Anticipated Payment"/>
+                <field name="anticipated_payment"/> 
+                <label for="utility_payment" string="Utility Payment"/>
+                <field name="utility_payment"/>
+                <label for="material_payment" string="Material Payment"/>
+                <field name="material_payment" string="Material Payment"/> 
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Account Payment Inherits -->
+
+    <record id="view_payment_tree_inherit" model="ir.ui.view">
+        <field name="name">account.payment.tree.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                    <field name="delivery_date"/>
+                    <field name="check_number"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_payment_form_inherit" model="ir.ui.view">
+        <field name="name">account.payment.form.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='unmark_as_sent']" position="after">
+                <button name="action_open_reconcile" string="Reconcile" type="object" class="btn btn-primary"
+                        invisible="not can_reconcile"
+                        icon="fa-exchange"/>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="can_reconcile" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="delivery_date"/>
+            </xpath>
+            <!-- <xpath expr="//field[@name='payment_transaction_id']" position="after">
+                    <field name="account_number"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_transaction_id']" position="after">
+                    <field name="account_holder"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_transaction_id']" position="after">
+                    <field name="routing_number"/>
+            </xpath> -->
+            <xpath expr="//field[@name='check_number']" position="attributes">
+                    <attribute name="readonly">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Account Payment Register Inherits -->
+
+    <record id="view_payment_register_inherit" model="ir.ui.view">
+        <field name="name">account.payment.register.inherit</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_date']" position="after">
+                <field name="analytic_account_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Account Journal Inherits - Show payment settings for credit card journals -->
+    <record id="view_account_journal_form_inherit_pms" model="ir.ui.view">
+        <field name="name">account.journal.form.inherit.pms</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <!-- Show Incoming Payments page for bank, cash, and general (credit card) journals -->
+            <xpath expr="//page[@id='inbound_payment_settings']" position="attributes">
+                <attribute name="attrs">{'invisible': [('type', 'not in', ['cash', 'bank', 'general'])]}</attribute>
+            </xpath>
+            <!-- Show Outgoing Payments page for bank, cash, and general (credit card) journals -->
+            <xpath expr="//page[@id='outbound_payment_settings']" position="attributes">
+                <attribute name="attrs">{'invisible': [('type', 'not in', ['cash', 'bank', 'general'])]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

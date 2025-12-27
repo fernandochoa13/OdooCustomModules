@@ -1,0 +1,74 @@
+<odoo>
+
+<record id="draws_report_search" model="ir.ui.view">
+        <field name="name">draws.report.search</field>
+        <field name="model">draws.report</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="loan_number"/>
+                <field name="lender"/>
+                <field name="loan_amount"/>
+                <field name="available_balance"/>
+                <field name="property_address"/>
+                <field name="maturity_date"/>
+                <field name="loan_type"/>
+                <field name="interest_rate"/>
+                <field name="exit_status"/>
+                <field name="extensions"/>
+                <field name="mortgage_payment"/>
+                <field name="days_expired"/>
+
+                <field name="first_draw_date"/>
+                <field name="first_draw_amount"/>
+                <field name="second_draw_date"/>
+                <field name="second_draw_amount"/>
+                <field name="third_draw_date"/>
+                <field name="third_draw_amount"/>
+                <field name="fourth_draw_date"/>
+                <field name="fourth_draw_amount"/>
+                <field name="fifth_draw_date"/>
+                <field name="fifth_draw_amount"/>
+            </search>
+        </field>
+</record>
+
+<record id="draws_report_tree" model="ir.ui.view">
+    <field name="name">draws.report.tree</field>
+    <field name="model">draws.report</field>
+    <field name="arch" type="xml">
+        <list string="Draws Report" create="false">
+                <field name="loan_number"/>
+                <field name="lender"/>
+                <field name="loan_amount"/>
+                <field name="available_balance"/>
+                <field name="property_address"/>
+                <field name="maturity_date"/>
+                <field name="loan_type"/>
+                <field name="interest_rate"/>
+                <field name="exit_status"/>
+                <field name="extensions"/>
+                <field name="mortgage_payment"/>
+                <field name="days_expired"/>
+                <field name="first_draw_date"/>
+                <field name="first_draw_amount"/>
+                <field name="second_draw_date"/>
+                <field name="second_draw_amount"/>
+                <field name="third_draw_date"/>
+                <field name="third_draw_amount"/>
+                <field name="fourth_draw_date"/>
+                <field name="fourth_draw_amount"/>
+                <field name="fifth_draw_date"/>
+                <field name="fifth_draw_amount"/>
+        </list>
+    </field>
+</record>
+
+
+<record id="draws_report_action" model="ir.actions.act_window">
+    <field name="name">Draws Report</field>
+    <field name="res_model">draws.report</field>
+    <field name="view_mode">tree</field>
+    <field name="search_view_id" ref="pms.draws_report_search"/>
+</record>
+
+</odoo>

@@ -1,0 +1,64 @@
+<odoo>
+
+    <record id="partner_verify_wizard_form" model="ir.ui.view">
+        <field name="name">partner.verify.wizard.form</field>
+        <field name="model">partner.verify.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reclassify partner Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="employee_id"/>
+                        <field name="employee_pin" password="true"/>
+                    </group>
+                <footer>
+                    <button name="open_partner_wizard" string="Open Partner Wizard" type="object" class="btn-success"/>
+                    <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+        <record id="partner_selector_wizard_form" model="ir.ui.view">
+        <field name="name">partner.selector.wizard.form</field>
+        <field name="model">partner.selector.wizard</field>
+        <field name="arch" type="xml">
+            <form string="partner Selector Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="company_id" invisible="1"/>
+                        <field name="partner_to_change"/>
+                    </group>
+                <footer>
+                    <button name="change_partner" string="Change Partner" type="object" class="btn-success"/>
+                    <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="partner_action_verify_wizard" model="ir.actions.act_window">
+        <field name="name">Partner Verify Wizard</field>
+        <field name="res_model">partner.verify.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_partner_selector_wizard" model="ir.actions.act_window">
+        <field name="name">Partner Selector Wizard</field>
+        <field name="res_model">partner.selector.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+   
+<record id="action_server_change_partner" model="ir.actions.server">
+    <field name="name">Change partner</field>
+    <field name="model_id" ref="account.model_account_move_line"/>
+    <field name="binding_model_id" ref="account.model_account_move_line"/>
+    <field name="state">code</field>
+    <field name="code">
+        if records:
+            action = records.open_partner_verify_wizard()
+            action
+    </field>
+</record>
+
+
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+<record id="prueba_test_tree" model="ir.ui.view">
+    <field name="name">prueba.prueba.test.tree</field>
+    <field name="model">prueba.prueba.test</field>
+    <field name="arch" type="xml">
+        <list string="Prueba" create="false">
+        </list>
+    </field>
+</record>
+
+<record id="prueba_test_action" model="ir.actions.act_window">
+    <field name="name">Accounting Wizard</field>
+    <field name="res_model">prueba.prueba.test</field>
+    <field name="view_mode">tree</field>
+</record>
+</odoo>

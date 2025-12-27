@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="pms_projects_view_search" model="ir.ui.view">
+        <field name="name">pms.projects.search</field>
+        <field name="model">pms.projects</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="county"/>
+                <field name="house_model"/> 
+                <field name="parcel_id"/> 
+                <field name="project_manager"/>
+                <field name="status_construction"/>
+                <field name="on_off_hold"/>
+                <field name="visit_day"/>
+                <field name="last_updated_on"/>
+                <field name="loan_expiration"/>
+                <field name="expected_co_date"/>
+                <separator/>
+                <filter string="Active Projects" name="activeprojects" domain="[('status_construction', '!=', 'pending')]"/>
+                <filter string="Projects with escrow money" name="escrowprojects" domain="[('custodial_money', '=', True)]"/>
+            </search>
+        </field>
+</record>
+
+
+<record id="pms_projects_view_tree" model="ir.ui.view">
+    <field name="name">pms.projects.tree</field>
+    <field name="model">pms.projects</field>
+    <field name="arch" type="xml">
+        <list string="Projects Directory" create="true"
+            decoration-warning="septic_permit_warning_state == 'warning'"
+            decoration-danger="septic_permit_warning_state == 'severe_warning'"
+        >
+            <field name="septic_permit_warning_state" invisible="1"/> 
+            <field name="name" optional="hide"/>
+            <field name="address" optional="show"/>
+            <field name="parcel_id" optional="show"/>
+            <field name="county" optional="show"/>
+            <field name="house_model" optional="show"/> 
+            <field name="project_manager" optional="show"/>
+            <field name="superintendent" optional="hide"/>
+            <field name="zone_coordinator" optional="hide"/>
+            <field name="stand_by" optional="hide"/>
+            <field name="lot_clear" optional="hide"/>  
+            <field name="status_construction" optional="show"/>
+            <field name="construction_started" optional="show"/>
+            <field name="start_project" optional="hide"/> 
+            <field name="end_project" optional="hide"/>
+            <field name="project_duration" optional="hide"/>
+            <field name="own_third_property" optional="hide"/> 
+            <field name="on_off_hold" optional="show"/>
+            <field name="comments" optional="show"/>
+            <field name="project_routes" optional="hide"/> 
+            <field name="owner_property" optional="show"/>
+            <field name="next_activity" optional="hide"/>
+            <field name="next_orderdate" optional="hide"/>
+            <field name="next_vendor" optional="hide"/>
+            <field name="loan_expiration" optional="hide"/>
+            <field name="expected_co_date" optional="show"/>
+            <field name="issued_date" optional="show"/>
+            <field name="expiration_date" optional="show"/>
+            <field name="visit_day" optional="show"/>
+            <field name="last_visit_day" optional="show"/>
+            <field name="days_since_last_visit" optional="show"/>
+            <field name="last_updated_on" optional="show"/>
+            <field name="project_completed" optional="hide"/>
+            <field name="custodial_money" optional="hide"/>
+            <field name="available_for_rent" optional="hide"/>
+            <field name="available_for_sale" optional="hide"/>
+            <field name="active" invisible="1"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_projects_view_form" model="ir.ui.view">
+        <field name="name">pms.projects.form</field>
+        <field name="model">pms.projects</field>
+        <field name="arch" type="xml">
+            <form string="Project Form" class="o_sale_order">
+                <sheet class="o_form_sheet">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" widget="char" class="o_bold_title"/>
+                        </h1>
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="get_summary_view" type="object" icon="fa-pencil-square-o" string="Summary"/>
+                        <button class="oe_stat_button" name="get_phase_times" type="object" icon="fa-pencil-square-o" string="Phase Dates"/>
+                    </div>
+                    <header>
+                        <!-- <button id="on_hold" name="on_hold_button" string="On Hold" type="object" class="btn-primary" invisible="on_off_hold"/>
+                        <button id="off_hold" name="off_hold_button" string="Off Hold" type="object" class="btn-primary" invisible="not on_off_hold"/> -->
+                        <button id="start_construction" name="start_construction_button" string="Start Construction" type="object" class="btn-primary" />
+                        <button id="back_pending" name="back_to_pending" string="Return to Pending" type="object" class="btn-primary" />
+                        <button id="draw_item" name="request_draw" string="Request Draw" type="object" class="btn-primary" />
+                        <field name="status_construction" widget="statusbar" statusbar_visible="pending,epp,pip,pps,epp,ppa,cop,cop1,cop2,cop3,cop4,cop5,coc" options="{'clickable': True}"/>
+                    </header>
+
+                    <field name="septic_permit_issued" invisible="1"/>
+                    <field name="septic_permit_completed" invisible="1"/>
+                    <field name="septic_permit_warning_state" invisible="1"/>
+                    <div class="alert alert-warning o_text_center p-2 mt-3" role="alert"
+                        >
+                        <i class="fa fa-exclamation-triangle me-2"/> It has been more than 7 days since the septic permit was issued. Please follow up.
+                    </div>
+
+                    <div class="alert alert-danger o_text_center p-2 mt-3" role="alert"
+                        >
+                        <i class="fa fa-warning me-2"/>It has been more than 15 days since the septic permit was issued. Please contact the county again immediately!
+                    </div>
+
+                    <group name="general details" class="o_group">
+                        <group name="project details" string="Property Details">
+                            <field name="address"/>
+                            <field name="county"/>
+                            <field name="house_model"/>
+                            <field name="parcel_id"/>
+                            <field name="own_third_property"/> 
+                            <field name="status_construction"/>
+                            <field name="starting_activity"/>
+                            <field name="construction_started"/>
+                            <field name="project_manager"/>
+                            <field name="superintendent"/>
+                            <field name="zone_coordinator"/>
+                            <field name="project_routes"/>
+                        </group>
+                        <group string="Other Details">
+                            <field name="stand_by"/>
+                            <field name="lot_clear"/>     
+                            <field name="visit_day"/>
+                            <field name="second_visit_day"/>
+                            <field name="last_visit_day"/>
+                            <field name="days_since_last_visit"/>
+                            <field name="loan_expiration"/>
+                            <field name="expected_co_date"/>
+                            <field name="issued_date"/>
+                            <field name="expiration_date"/>
+                            <field name="custodial_money"/>
+                            <field name="escrow_company" invisible="not custodial_money"/>
+                            <field name="last_updated_on" readonly="0"/>
+                            <field name="comments"/>
+                            <field name="estimated_cop2"/>
+                            <!-- <field name="max_sequence"/> -->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Project Routes">
+                            <field name="auto_lines" invisible="1"/>
+                            <field name="project_routes_lines"/>
+                            <!-- <button name="action_create_project_activities"
+                                type="object"
+                                string="Generate Activities"
+                                class="btn-success rounded"
+                               
+                                confirm="Are you sure you want to generate project activities from the selected route template?"
+                            />
+                            <button name="action_clear_project_activities"
+                                type="object"
+                                string="Clear All Activities"
+                                class="btn-danger rounded" 
+                                
+                                confirm="WARNING: This will delete ALL existing activities for this project. Are you absolutely sure?"
+                            /> -->
+                        </page>
+                        <page string="Visit Days">
+                            <field name="visit_days"/>
+                        </page>
+                        <page string="Project Duration">
+                            <group>
+                                <group string="Project Dates">
+                                    <field name="start_project"/>
+                                    <field name="end_project"/>
+                                    <field name="project_duration_display" readonly="1"/>
+                                </group>
+                                <group string="Schedule Tracking">
+                                    <field name="days_on_pause_display" readonly="1"/>
+                                    <field name="total_effective_time_display" readonly="1"/>
+                                </group>
+                                <group string="Invoice Payments Status">
+                                    <field name="on_time_invoice_payments"/>
+                                    <field name="delayed_invoice_payments"/>
+                                </group>
+                            </group>
+                            <group string="Invoice Lists">
+                                <field name="delayed_invoice_list" options="{'tree_view_ref': 'pms.view_delayed_invoice_list_tree'}"/>
+                                <field name="on_time_invoice_list" options="{'tree_view_ref': 'pms.view_on_time_invoice_list_tree'}"/>
+                            </group>
+                            <group string="Schedule Metrics Summary">
+                                <div class="oe_read_only" style="padding: 16px; background-color: #f8f9fa; border-radius: 6px; border-left: 4px solid #17a2b8; margin-top: 16px;">
+                                    <div style="margin-bottom: 16px; display: flex; align-items: center;">
+                                        <i class="fa fa-info-circle" style="color: #17a2b8; margin-right: 10px; font-size: 16px;"></i>
+                                        <strong style="font-size: 15px; color: #212529;">Schedule Overview</strong>
+                                    </div>
+                                    <table style="width: 100%; border-collapse: separate; border-spacing: 0 8px;">
+                                        <tr>
+                                            <td style="width: 50%; padding-right: 8px; vertical-align: top;">
+                                                <div style="padding: 12px; background-color: white; border-radius: 4px; border: 1px solid #dee2e6; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                                    <div style="font-weight: 600; font-size: 13px; color: #495057; margin-bottom: 6px;">
+                                                        <i class="fa fa-calendar-check-o" style="color: #17a2b8; margin-right: 6px;"></i>Project Duration
+                                                    </div>
+                                                    <div style="font-size: 12px; color: #6c757d; line-height: 1.4;">Total days from start to end</div>
+                                                </div>
+                                            </td>
+                                            <td style="width: 50%; padding-left: 8px; vertical-align: top;">
+                                                <div style="padding: 12px; background-color: white; border-radius: 4px; border: 1px solid #dee2e6; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                                    <div style="font-weight: 600; font-size: 13px; color: #495057; margin-bottom: 6px;">
+                                                        <i class="fa fa-pause-circle" style="color: #ffc107; margin-right: 6px;"></i>Days on Pause
+                                                    </div>
+                                                    <div style="font-size: 12px; color: #6c757d; line-height: 1.4;">Total days the project has been on hold</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 50%; padding-right: 8px; vertical-align: top;">
+                                                <div style="padding: 12px; background-color: white; border-radius: 4px; border: 1px solid #dee2e6; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                                    <div style="font-weight: 600; font-size: 13px; color: #495057; margin-bottom: 6px;">
+                                                        <i class="fa fa-clock-o" style="color: #28a745; margin-right: 6px;"></i>Total Effective Time
+                                                    </div>
+                                                    <div style="font-size: 12px; color: #6c757d; line-height: 1.4;">Actual working days (Duration - Pause days)</div>
+                                                </div>
+                                            </td>
+                                            <td style="width: 50%; padding-left: 8px; vertical-align: top;">
+                                                <div style="padding: 12px; background-color: white; border-radius: 4px; border: 1px solid #dee2e6; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                                    <div style="font-weight: 600; font-size: 13px; color: #495057; margin-bottom: 6px;">
+                                                        <i class="fa fa-exclamation-triangle" style="color: #dc3545; margin-right: 6px;"></i>Delayed Invoice Payments
+                                                    </div>
+                                                    <div style="font-size: 12px; color: #6c757d; line-height: 1.4;">Number of invoices with overdue payments</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 50%; padding-right: 8px; vertical-align: top;">
+                                                <div style="padding: 12px; background-color: white; border-radius: 4px; border: 1px solid #dee2e6; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                                    <div style="font-weight: 600; font-size: 13px; color: #495057; margin-bottom: 6px;">
+                                                        <i class="fa fa-check-circle" style="color: #28a745; margin-right: 6px;"></i>On Time Invoice Payments
+                                                    </div>
+                                                    <div style="font-size: 12px; color: #6c757d; line-height: 1.4;">Number of invoices paid on time</div>
+                                                </div>
+                                            </td>
+                                            <td style="width: 50%; padding-left: 8px; vertical-align: top;">
+                                                <div style="padding: 12px; background-color: white; border-radius: 4px; border: 1px solid #dee2e6; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                                    <div style="font-weight: 600; font-size: 13px; color: #495057; margin-bottom: 6px;">
+                                                        <i class="fa fa-file-invoice" style="color: #17a2b8; margin-right: 6px;"></i>Total Invoice Payments
+                                                    </div>
+                                                    <div style="font-size: 12px; color: #6c757d; line-height: 1.4;">Total number of invoices for this project</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+</record>
+
+<record id="view_delayed_invoice_list_tree" model="ir.ui.view">
+    <field name="name">delayed.invoice.list.tree</field>
+    <field name="model">account.move</field>
+    <field name="arch" type="xml">
+        <list string="Delayed Invoices">
+            <field name="name" string="Number"/>
+            <field name="contractor" string="Contractor"/>
+            <field name="amount_untaxed_signed" string="Tax Excluded" sum="Total"/>
+            <field name="amount_total_signed" string="Total" sum="Total"/>
+            <field name="payment_state" string="Payment Status" widget="badge"
+                decoration-danger="payment_state == 'not_paid' or payment_state == 'reversed'"
+                decoration-warning="payment_state == 'partial'"
+                decoration-info="payment_state == 'in_payment'"
+                decoration-success="payment_state == 'paid'"
+                decoration-muted="payment_state == 'invoicing_legacy'"/>
+        </list>
+    </field>
+</record>
+
+<record id="view_on_time_invoice_list_tree" model="ir.ui.view">
+    <field name="name">on.time.invoice.list.tree</field>
+    <field name="model">account.move</field>
+    <field name="arch" type="xml">
+        <list string="On Time Invoices">
+            <field name="name" string="Number"/>
+            <field name="contractor" string="Contractor"/>
+            <field name="amount_untaxed_signed" string="Tax Excluded" sum="Total"/>
+            <field name="amount_total_signed" string="Total" sum="Total"/>
+            <field name="payment_state" string="Payment Status" widget="badge"
+                decoration-danger="payment_state == 'not_paid' or payment_state == 'reversed'"
+                decoration-warning="payment_state == 'partial'"
+                decoration-info="payment_state == 'in_payment'"
+                decoration-success="payment_state == 'paid'"
+                decoration-muted="payment_state == 'invoicing_legacy'"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_projects_view" model="ir.actions.act_window">
+    <field name="name">Projects</field>
+    <field name="res_model">pms.projects</field>
+    <field name="view_mode">list,form,graph</field>
+    <field name="search_view_id" ref="pms.pms_projects_view_search"/>
+    <field name="context">{"search_default_activeprojects": 1}</field>
+</record>
+
+<record model="ir.ui.view" id="view_pms_projects_graph">
+    <field name="name">projects.graph</field>
+    <field name="model">pms.projects</field>
+    <field name="arch" type="xml">
+        <graph string="Projects Analysis" type="line" sample="1">
+        </graph>
+    </field>
+</record>
+
+<record id="pms_projects_routes_view_search" model="ir.ui.view">
+        <field name="name">pms.projects.routes.search</field>
+        <field name="model">pms.projects.routes</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="name"/>
+                <field name="product"/>
+                <field name="vendor"/>
+                <field name="pct_completed"/>
+                <field name="activity_type"/>
+                <field name="duration"/>
+                <field name="phase"/>
+                <field name="company_id"/>
+                <field name="start_date"/>
+                <field name="order_date"/>
+                <field name="end_date"/>
+                <field name="time_spent"/>
+                <field name="completed"/>
+                <field name="county"/>
+                <field name="address"/>
+                <field name="owner_property"/>
+                <field name="comments"/>
+                <field name="visit_day"/>
+                <field name="project_manager"/>
+                <separator/>
+                <filter string="Activity Jobs" name="jobsactivity" domain="[('activity_type', '=', 'job')]"/>
+                <separator/>
+                <filter string="Activity Payment" name="paymentactivity" domain="[('activity_type', '=', 'payment')]"/>
+                <separator/>
+                <filter string="Completed Activites" name="completedact" domain="[('completed', '=', True)]"/>
+                <separator/>
+                <filter string="Not Completed Activites" name="notcompletedact" domain="[('completed', '=', False)]"/>
+                <separator/>
+                <filter string="Not Ordered Activites" name="notorderedact" domain="[('order_date', '=', False)]"/>
+                <separator/>
+                <filter string="Ordered Activites" name="orderedact" domain="[('order_date', '!=', False)]"/>
+                <separator/>
+                <filter string="Custodial Money" name="custmoney" domain="[('custodial_money', '=', True)]"/>
+                <separator/>
+                <filter string="No Custodial Money" name="nocustmoney" domain="[('custodial_money', '!=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_address" string="Property" context="{'group_by': 'address'}"/>
+                </group>
+            </search>
+        </field>
+</record>
+
+<!-- PMS PROJECT ACTIVITIES: PMS_PROJECTS_ROUTES -->
+
+   <record id="view_projects_routes_gantt" model="ir.ui.view">
+       <field name="name">pms.projects.routes.gantt</field>
+       <field name="model">pms.projects.routes</field>
+       <field name="arch" type="xml">
+           <gantt 
+                string="Project Activities" 
+
+                date_start="start_date" 
+                date_stop="end_date" 
+
+                scales="day,week,month,year"
+                default_scale="month"
+                offset="-1" 
+
+                default_group_by="project_property"
+                color="project_property"
+                progress="pct_completed"
+
+                disable_drag_drop="true" 
+                delete="false" 
+            >
+               <field name="start_date"/>
+               <field name="end_date"/>
+               <field name="pct_completed"/>
+               <field name="project_property"/>
+           </gantt>
+       </field>
+   </record>
+
+<record id="view_projects_routes_calendar" model="ir.ui.view">
+   <field name="name">pms.projects.routes.calendar</field>
+   <field name="model">pms.projects.routes</field>
+   <field eval="2" name="priority"/>
+   <field name="arch" type="xml">
+       <calendar date_start="expected_end_date" string="Project Activities" mode="month" color="act_work_order" event_limit="5"
+                 hide_time="true" js_class="materials_calendar" event_open_popup="true" quick_add="false">
+           <field name="act_work_order"/>
+                <field name="project_property"/>
+                <field name="name"/>
+                <field name="project_routes"/>
+                <field name="address"/>
+                <field name="county"/>
+                <field name="house_model"/>
+                <field name="owner_property"/>
+                <field name="project_manager"/>
+                <field name="superintendent"/>
+                <field name="zone_coordinator"/>
+                <field name="on_hold"/>
+                <field name="custodial_money"/>
+                <field name="product"/>
+                <field name="vendor"/>
+                <field name="pct_completed"/>
+                <field name="activity_type"/>
+                <field name="duration"/>
+                <field name="phase"/>
+                <field name="company_id" />
+                <field name="start_date"/>
+                <field name="order_date"/>
+                <field name="end_date"/>
+                <field name="expected_end_date"/>
+                <!-- <field name="solicited_end_date"/> -->
+                <field name="time_spent"/>
+                <field name="time_difference"/>
+                <field name="completed"/>
+                <field name="invoiced"/>
+                <field name="invoice_counter"/>
+                <field name="comments"/>
+                <field name="visit_day"/>
+                <field name="to_approve"/>
+                <field name="disputed"/>
+                <field name="to_approve_dispute"/>
+       </calendar>
+   </field>
+</record>
+
+        <record id="pms_projects_routes_kanban" model="ir.ui.view">
+            <field name="name">pms.projects.routes.kanban</field>
+            <field name="model">pms.projects.routes</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="address" class="o_kanban_small_column">
+                    <field name="phase"/>
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="project_property"/>
+                    <field name="house_model"/>
+                    <field name="end_date"/>
+                    <field name="pct_completed"/>
+                    <field name="on_hold"/>
+                    <field name="completed"/>
+                    <field name="invoice_payment_state"/>
+                    <field name="comments"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card">
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_title">
+                                        <!-- <a type="object" name="open_action"> -->
+                                            <strong><field name="name"/></strong>
+                                        <!-- </a> -->
+                                    </div>
+                                    <div class="o_kanban_record_subtitle text-muted">
+                                        <t t-if="record.project_property.raw_value">
+                                            <field name="project_property"/>
+                                        </t>
+                                        <!-- <t t-if="record.house_model.raw_value">
+                                            <span class="ms-2">/ <field name="house_model"/></span>
+                                        </t> -->
+                                    </div>
+
+                                    <div class="o_kanban_tags_section mb-0">
+                                        <span t-if="record.completed.raw_value" class="badge text-bg-success me-1">Completed</span>
+                                        <span t-if="record.on_hold.raw_value" class="badge text-bg-warning me-1">On Hold</span>
+                                        <field name="invoice_payment_state" widget="badge"
+                                            options="{'classes': {
+                                                'not_paid': 'text-bg-danger',
+                                                'reversed': 'text-bg-danger',
+                                                'partial': 'text-bg-warning',
+                                                'in_payment': 'text-bg-info',
+                                                'paid': 'text-bg-success',
+                                                'invoicing_legacy': 'text-bg-secondary'
+                                            }}"/>
+                                    </div>
+
+                                    <!-- <div class="o_kanban_content mt-2">
+                                        <div class="text-muted small">
+                                            <t t-if="record.end_date.raw_value">
+                                                <span>End Date: <field name="end_date"/></span>
+                                            </t>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+<record id="pms_projects_routes_tree" model="ir.ui.view">
+        <field name="name">pms.projects.routes.tree</field>
+        <field name="model">pms.projects.routes</field>
+        <field name="arch" type="xml">
+            <list string="Activities" editable="top" create="true">
+            <header>
+                <button name="new_bulk_activities" string="New Bulk" type="button_type" invisible="0"></button>
+            </header>
+                <field name="act_work_order" optional="show"/>
+                <field name="project_property" optional="show"/>
+                <field name="name" optional="show" options="{'no_create': True}"/>
+                <field name="project_routes" optional="hide"/>
+                <field name="address" optional="show"/>
+                <field name="county" optional="show"/>
+                <field name="house_model" optional="hide"/>
+                <field name="owner_property" optional="hide"/>
+                <field name="project_manager" optional="hide"/>
+                <field name="superintendent" optional="hide"/>
+                <field name="zone_coordinator" optional="hide"/>
+                <field name="on_hold" optional="show"/>
+                <field name="custodial_money" optional="show"/>
+                <field name="product" optional="hide"/>
+                <field name="vendor" optional="show"/>
+                <field name="pct_completed" optional="show"/>
+                <field name="activity_type" optional="hide"/>
+                <field name="phase" optional="hide"/>
+                <field name="company_id" optional="hide" />
+                <field name="start_date" optional="hide"/>
+                <field name="order_date" optional="show"/>
+                <field name="end_date" optional="hide"/>
+                <field name="expected_end_date" optional="hide"/>
+                <!-- <field name="solicited_end_date" optional="hide"/> -->
+                <!-- <field name="invoice_ids" optional="show" /> -->
+                <field name="invoice_payment_state" optional="show" widget="badge"
+                    decoration-danger="invoice_payment_state == 'not_paid' or invoice_payment_state == 'reversed'"
+                    decoration-warning="invoice_payment_state == 'partial'"
+                    decoration-info="invoice_payment_state == 'in_payment'"
+                    decoration-success="invoice_payment_state == 'paid'"
+                    decoration-muted="invoice_payment_state == 'invoicing_legacy'"
+                />
+                <field name="duration" optional="hide"/>
+                <field name="time_spent" optional="hide"/>
+                <field name="time_difference" optional="hide"/>
+                <field name="completed" optional="show"/>
+                <field name="invoiced" optional="show"/>
+                <field name="invoice_counter" optional="show"/>
+                <field name="comments" optional="show"/>
+                <field name="visit_day" optional="show"/>
+                <field name="to_approve" optional="hide"/>
+                <field name="disputed" optional="hide"/>
+                <!-- <field name="exclude_from_processing" optional="hide"/> -->
+                <field name="to_approve_dispute" optional="hide"/>
+                <button name="view_invoice" type="object" string="View Invoice" class="float-end btn-primary"/>
+                <field name="active" invisible="1"/>
+
+            </list>
+
+        </field>
+    </record>
+
+
+
+    <!-- Add County Wizard -->
+    <record id="update_house_model_wizard" model="ir.ui.view">
+        <field name="name">update.house.model.wizard</field>
+        <field name="model">pms.projects.update.house.model</field>
+        <field name="arch" type="xml">
+            <form string="Update House Model">
+                    <group name="general details" class="o_group">
+                        <field name="house_model" string="House Model" options="{'no_create': True}"/>
+                    </group>
+                <footer>
+                    <button name="update_house_model" string="ADD" type="object" class="btn-success" invisible="not house_model"/>
+                    <button special="cancel" string="BACK" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="update_house_model" model="ir.actions.act_window">
+        <field name="name">Update House Model</field>
+        <field name="res_model">pms.projects.update.house.model</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_server_update_house_model" model="ir.actions.server">
+        <field name="name">Update House Model</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_projects"/>
+        <field name="binding_model_id" ref="pms.model_pms_projects"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_update_house_model()
+        </field>
+    </record>
+    
+
+
+<record id="property_coc_auto" model="base.automation">
+    <field name="name">Update Property Status Automated Action</field>
+    <field name="model_id" ref="model_pms_projects"/>
+    <field name="trigger">on_write</field>
+    <field name="filter_domain">[('status_construction', 'in', ["coc", "completed"])]</field> 
+    <field name="state">code</field> 
+    <field name="code">
+env['pms.projects'].function_run_log("property_coc")
+record.property_coc()
+    </field>
+    <!-- <field name="active" eval="False"/> -->
+</record>
+
+<record id="property_cust_money_action" model="base.automation">
+    <field name="name">Update Customer Invoices when a Project has Custodial Money</field>
+    <field name="model_id" ref="model_pms_projects"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="filter_domain">[('custodial_money', 'in', [True, False])]</field> 
+    <field name="state">code</field> 
+    <field name="code">
+env['pms.projects'].function_run_log("_update_invoices_custodial_money")
+record._update_invoices_custodial_money()
+    </field>
+    <field name="active" eval="False"/>
+</record>
+
+<record id="action_server_available_sale_projects" model="ir.actions.server">
+    <field name="name">Set Available for Sale</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.set_available()
+    </field>
+</record>
+
+<record id="action_server_unavailable_sale_projects" model="ir.actions.server">
+    <field name="name">Set Unavailable for Sale</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.set_unavailable()
+    </field>
+</record>
+
+<record id="action_server_available_rent_projects" model="ir.actions.server">
+    <field name="name">Set Available for Rent</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.set_available_for_rent()
+    </field>
+</record>
+
+<record id="action_server_unavailable_rent_projects" model="ir.actions.server">
+    <field name="name">Set Unavailable for Rent</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.set_unavailable_for_rent()
+    </field>
+</record>
+
+
+<record id="action_server_pms_orderjobs" model="ir.actions.server">
+    <field name="name">Order Jobs</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.order_jobs()
+    </field>
+</record>
+
+<!-- <record id="action_server_pms_create_invoice" model="ir.actions.server">
+    <field name="name">Create Invoices</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="state">code</field>
+    <field name="code">
+    action = records.create_invoice_wizard()
+    </field>
+</record> -->
+
+<record id="action_server_pms_setvendor" model="ir.actions.server">
+    <field name="name">Put Vendor</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="state">code</field>
+    <field name="code">
+    action = records.open_job_wizard()
+    </field>
+</record>
+
+<record id="action_server_pms_visit_days" model="ir.actions.server">
+    <field name="name">Visit Days Bulk</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects"/>
+    <field name="state">code</field>
+    <field name="code">
+    action = records.open_visit_wizard()
+    </field>
+</record>
+
+<record id="action_server_pms_visit_days_projects" model="ir.actions.server">
+    <field name="name">Project Visit Days Bulk</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects"/>
+    <field name="state">code</field>
+    <field name="code">
+    action = records.open_visit_project_wizard()
+    </field>
+</record>
+
+<record id="action_server_pms_planned_visit_days" model="ir.actions.server">
+    <field name="name">Planned Visit Days Bulk</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects"/>
+    <field name="state">code</field>
+    <field name="code">
+    action = records.open_planned_visit_wizard()
+    </field>
+</record>
+
+<record id="action_server_pms_start_construction" model="ir.actions.server">
+    <field name="name">Start Construction</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects"/>
+    <field name="state">code</field>
+    <field name="code">
+        if records:
+            for record in records:
+                record.start_construction_button()
+    </field>
+</record>
+
+<record id="action_server_pms_completejobs" model="ir.actions.server">
+    <field name="name">Complete Jobs</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="state">code</field>
+    <field name="code">
+        action = records._complete_jobs()
+    </field>
+</record>
+
+<!-- <record id="action_server_pms_dispute" model="ir.actions.server">
+    <field name="name">Dispute Jobs</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="state">code</field>
+    <field name="code">
+action = records.dispute_job()
+    </field>
+</record> -->
+
+<!-- <record id="action_server_pms_approve" model="ir.actions.server">
+    <field name="name">Approve Jobs</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="state">code</field>
+    <field name="code">
+records.approve_completion()
+    </field>
+</record> -->
+
+<!-- <record id="action_server_pms_approvedispute" model="ir.actions.server">
+    <field name="name">Approve Disputed Jobs</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="state">code</field>
+    <field name="code">
+records.approve_dispute_job()
+    </field>
+</record> -->
+
+
+<record id="action_server_pms_uncompletejobs" model="ir.actions.server">
+    <field name="name">Uncomplete Jobs</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="binding_model_id" ref="pms.model_pms_projects_routes"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.uncomplete_jobs()
+    </field>
+</record>
+
+<data noupdate="1">
+   <record id="ir_cron_time_spent" model="ir.cron">
+        <field name="name">activity_time_spent</field>
+        <field name="model_id" ref="model_pms_projects_routes"/>
+        <field name="state">code</field>
+        <field name="code">
+env['pms.projects'].function_run_log("_end_start")
+model.search([])._end_start()
+        </field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+   </record>
+</data>
+
+<data noupdate="1">
+   <record id="ir_cron_time_difference" model="ir.cron">
+       <field name="name">activity_time_difference</field>
+       <field name="model_id" ref="model_pms_projects_routes"/>
+       <field name="state">code</field>
+       <field name="code">
+env['pms.projects'].function_run_log("_duration_time_spent")
+model.search([])._duration_time_spent()
+</field>
+       <field name="user_id" ref="base.user_root"/>
+       <field name="interval_number">1</field>
+       <field name="interval_type">days</field>
+       <field name="numbercall">-1</field>
+   </record>
+</data>
+
+   <record id="ir_cron_recompute_invoice_fields" model="ir.cron">
+       <field name="name">Recompute Project Invoice Fields</field>
+       <field name="model_id" ref="model_pms_projects"/>
+       <field name="state">code</field>
+       <field name="code">
+model.action_recompute_invoice_fields()
+</field>
+       <field name="user_id" ref="base.user_root"/>
+       <field name="interval_number">1</field>
+       <field name="interval_type">hours</field>
+       <field name="numbercall">-1</field>
+       <field name="active" eval="False"/>
+   </record>
+
+
+<record id="pms_projects_routes_view" model="ir.actions.act_window">
+    <field name="name">Project Activities</field>
+    <field name="res_model">pms.projects.routes</field>
+    <field name="view_mode">calendar,list,graph,gantt,kanban</field>
+    <field name="search_view_id" ref="pms.pms_projects_routes_view_search"/>
+</record>
+
+<record model="ir.ui.view" id="view_pms_activities_graph">
+    <field name="name">activities.graph</field>
+    <field name="model">pms.projects.routes</field>
+    <field name="arch" type="xml">
+        <graph string="Project Activities Analysis" type="line" sample="1">
+            <field name="completed" type="measure"/>
+            <field name="time_spent" type="measure"/>
+            <field name="vendor" type="measure"/>
+        </graph>
+    </field>
+</record>
+
+    <record id="pms_project_update_days_since_last_visit" model="ir.cron">
+            <field name="name">PMS Project: Update Days Since Last Visit</field>
+            <field name="model_id" ref="model_pms_projects"/>
+            <field name="state">code</field>
+            <field name="code">
+env['pms.projects'].function_run_log("_update_invoices_on_hold")
+model.search([])._update_days_since_last_visit()
+        </field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <!-- <field name="active" eval="True"/> -->
+    </record>
+
+    <!-- Scheduled Action: Project Expiration Date Reminder (30 days before permit expires) -->
+    <record id="pms_project_expiration_date_reminder_cron" model="ir.cron">
+        <field name="name">PMS Project: Permit Expiration Reminder (30 days)</field>
+        <field name="model_id" ref="model_pms_projects"/>
+        <field name="state">code</field>
+        <field name="code">
+env['pms.projects'].function_run_log("_send_expiration_date_reminders")
+model._send_expiration_date_reminders()
+        </field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Email Template: Project Expiration Date Reminder -->
+    <record id="email_template_project_expiration_reminder" model="mail.template">
+        <field name="name">Project Expiration Date Reminder</field>
+        <field name="model_id" ref="model_pms_projects"/>
+        <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+        <field name="email_to">{{ object._get_expiration_reminder_recipients() }}</field>
+        <field name="subject">Permit Expiration Reminder: {{ object.name }} - Expires in 30 Days</field>
+        <field name="body_html" type="html">
+            <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
+                <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <div style="background-color: #875A7B; color: white; padding: 20px; text-align: center;">
+                        <h1 style="margin: 0; font-size: 24px;">⚠️ Permit Expiration Reminder</h1>
+                    </div>
+                    <div style="padding: 30px;">
+                        <p style="font-size: 16px; color: #333;">Hello,</p>
+                        <p style="font-size: 16px; color: #333;">
+                            This is a reminder that the following project permit will <strong>expire in 30 days</strong>:
+                        </p>
+                        
+                        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                            <tr style="background-color: #f5f5f5;">
+                                <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold; width: 40%;">Project Name</td>
+                                <td style="padding: 12px; border: 1px solid #ddd;">{{ object.name }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Property Address</td>
+                                <td style="padding: 12px; border: 1px solid #ddd;">{{ object.address.name if object.address else 'N/A' }}</td>
+                            </tr>
+                            <tr style="background-color: #f5f5f5;">
+                                <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">County</td>
+                                <td style="padding: 12px; border: 1px solid #ddd;">{{ object.county.name if object.county else 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Construction Status</td>
+                                <td style="padding: 12px; border: 1px solid #ddd;">{{ object.status_construction.upper() if object.status_construction else 'N/A' }}</td>
+                            </tr>
+                            <tr style="background-color: #f5f5f5;">
+                                <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Project Manager</td>
+                                <td style="padding: 12px; border: 1px solid #ddd;">{{ object.project_manager.name if object.project_manager else 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Superintendent</td>
+                                <td style="padding: 12px; border: 1px solid #ddd;">{{ object.superintendent.name if object.superintendent else 'N/A' }}</td>
+                            </tr>
+                            <tr style="background-color: #ffe6e6;">
+                                <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold; color: #c00;">Expiration Date</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; color: #c00; font-weight: bold;">{{ object.expiration_date }}</td>
+                            </tr>
+                            <tr style="background-color: #f5f5f5;">
+                                <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Issued Date</td>
+                                <td style="padding: 12px; border: 1px solid #ddd;">{{ object.issued_date if object.issued_date else 'N/A' }}</td>
+                            </tr>
+                        </table>
+                        
+                        <p style="font-size: 16px; color: #333;">
+                            Please take the necessary actions before the expiration date.
+                        </p>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <a href="{{ object.env['ir.config_parameter'].sudo().get_param('web.base.url') }}/web#id={{ object.id }}&amp;model=pms.projects&amp;view_type=form" 
+                               style="background-color: #875A7B; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+                                View Project
+                            </a>
+                        </div>
+                    </div>
+                    <div style="background-color: #f5f5f5; padding: 15px; text-align: center; color: #666; font-size: 12px;">
+                        <p style="margin: 0;">This is an automated message from the PMS system.</p>
+                    </div>
+                </div>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,27 @@
+<odoo>
+
+    <record id="verification_wizard_form" model="ir.ui.view">
+        <field name="name">verification.wizard.form</field>
+        <field name="model">verification.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Verify Employee Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="employee_id" placeholder="Your name..." options="{'no_create': True}"/>
+                        <field name="employee_pin" placeholder="****" password="True"/>
+                    </group>
+                <footer>
+                    <button name="verify_employee_wizard" string="VERIFY" type="object" class="btn-success"/>
+                    <button special="cancel" string="BACK" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="verification_wizard" model="ir.actions.act_window">
+        <field name="name">Verification Wizard</field>
+        <field name="res_model">verification.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

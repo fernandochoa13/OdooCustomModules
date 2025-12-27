@@ -1,0 +1,162 @@
+<odoo>
+
+<record id="pms_inspections_view_tree" model="ir.ui.view">
+    <field name="name">pms.inspections.tree</field>
+    <field name="model">pms.inspections</field>
+    <field name="arch" type="xml">
+        <list string="Inspections">
+        <header>
+        <button name="print_inspections_report" type="object" string="Print Inspection Report" class="oe_highlight"/>
+        </header>   
+            <field name="name" optional="show"/>
+            <field name="date" optional="show"/>
+            <field name="end_date" optional="show"/>
+            <field name="construction_status" optional="show"/>
+            <field name="status" optional="show"/>
+            <field name="address" optional="show"/>
+            <field name="superintendent" optional="show"/>
+            <field name="county" optional="show"/>
+            <field name="inspections_type" optional="show"/>
+            <field name="fail_counter" optional="hide"/>
+            <field name="fail_reason" optional="hide"/>
+            <field name="comments" optional="hide"/>
+            <!-- <button name="link_activity" string="Linked Activity" type="object" class="btn-primary"/> -->
+        </list>
+    </field>
+</record>
+
+<record id="pms_inspections_view_search" model="ir.ui.view">
+        <field name="name">pms.inspections.search</field>
+        <field name="model">pms.inspections</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="end_date"/>
+                <field name="construction_status"/>
+                <field name="status"/>
+                <field name="address"/>
+                <field name="county"/>
+                <field name="inspections_type"/>
+            </search>
+        </field>
+</record>
+
+
+<record id="pms_inspections_view_form" model="ir.ui.view">
+    <field name="name">pms.inspections.form</field>
+    <field name="model">pms.inspections</field>
+    <field name="arch" type="xml">
+        <form string="Inspections Form" class="o_sale_order">
+            <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" widget="char" class="o_bold_title"/>
+                    </h1>
+                </div>
+                <header>
+                    <button id="partial_pass" name="to_partial_pass" string="Partial Pass"
+                        type="object" class="btn-warning"
+                       />
+                    <button id="passed" name="to_pass" string="Passed"
+                        type="object" class="btn-success"
+                       />
+                    <button id="failed" name="to_fail" string="Failed"
+                        type="object" class="btn-danger"
+                       />
+                    <button id="return" name="to_order" string="Returned to Ordered"
+                        type="object" class="btn-info"
+                       />
+
+                    <!-- <button id="repassed" name="to_repass" string="Passed after Reinspection"
+                        type="object" class="btn-primary"
+                       /> -->
+                
+                    <field name="status" widget="statusbar" statusbar_visible="ordered,passed,failed,passed_after"/>
+                </header>
+                <group name="general details" string="General Details" class="o_group">
+                    <field name="create_date" readonly="1" string="Creation Date"/>
+                    <field name="date" string="Ordered Date"/>
+                    <field name="end_date"/>
+                    <field name="construction_status"/>
+                    <field name="address"/>
+                    <field name="superintendent"/>
+                    <field name="county"/>
+                    <field name="inspections_type"/>
+                    <field name="fail_counter" invisible="1"/>
+                    <field name="failures" options="{'no_create': True}"/>
+                    <field name="comments"/>
+                </group>
+            </sheet>
+            <div class="oe_chatter">
+                <!-- <field name="activity_ids"/> -->
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="message_ids"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+    <record id="email_template_inspections_report_weekly" model="mail.template">
+        <field name="name">All Weekly Reports: Send by mail</field>
+        <field name="model_id" ref="pms.model_pms_inspections"/>
+        <field name="subject">Weekly Report</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Good Morning, this is your weekly report for Draws, Inspections, Activities and Purchases
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record id="email_template_inspections_report_daily" model="mail.template">
+        <field name="name">All Daily Reports: Send by mail</field>
+        <field name="model_id" ref="pms.model_pms_inspections"/>
+        <field name="subject">Daily Report</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Good Morning, this is your daily report for Draws, Inspections, Activities and Purchases
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record model="ir.ui.view" id="view_pms_inspections_graph">
+        <field name="name">inspections.graph</field>
+        <field name="model">pms.inspections</field>
+        <field name="arch" type="xml">
+            <graph string="Inspection Analysis" type="line" sample="1">
+                <field name="status" type="measure"/>
+                <field name="inspections_type" type="measure"/>
+                <field name="county" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+<record id="pms_inspections_view_pivot" model="ir.ui.view">
+    <field name="name">pms.inspections.pivot</field>
+    <field name="model">pms.inspections</field>
+    <field name="arch" type="xml">
+        <pivot string="Inspections Analysis" disable_linking="True">
+            <field name="inspections_type" type="row"/>
+            <field name="superintendent" type="row"/>
+
+            <field name="status" type="col"/>
+
+        </pivot>
+    </field>
+</record>
+
+<record id="pms_inspections_view" model="ir.actions.act_window">
+    <field name="name">Inspections</field>
+    <field name="res_model">pms.inspections</field>
+    <field name="view_mode">list,form,graph,pivot</field>
+    <field name="search_view_id" ref="pms.pms_inspections_view_search"/>
+</record>
+
+
+</odoo>

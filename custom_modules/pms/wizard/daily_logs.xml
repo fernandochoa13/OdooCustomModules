@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="daily_logs_wizard_form" model="ir.ui.view">
+            <field name="name">daily.logs.form</field>
+            <field name="model">daily.logs.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Daily Logs">
+                        <group name="general details" class="o_group">
+                            <field name="property_name"/>
+                            <field name="message"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    <footer>
+                        <button name="send_daily_log" string="Send Daily Log" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="daily_logs_wizard_action" model="ir.actions.act_window">
+            <field name="name">Daily Logs Wizard</field>
+            <field name="res_model">daily.logs.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

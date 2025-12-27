@@ -1,0 +1,61 @@
+<odoo>
+<menuitem name="Accounting Wizard Menu" id="acc_wizard_root_menu" web_icon="accounting_wizard,static/description/icon.png">
+    <menuitem name="Accounting Wizard" id="acc_wizard_menu" sequence="10">
+
+        <menuitem id="prueba_test" action="prueba_test_action">
+        </menuitem>
+
+    </menuitem>
+<!-- 
+     <menuitem name="ACH Transaction Details" id="acc_wizard_menu" sequence="15">
+
+        <menuitem id="ach_test" action="ach_transaction_action">
+        </menuitem>
+
+    </menuitem>  -->
+
+
+    <menuitem name="Simple Check" id="simple_check_menu" sequence="20">
+
+         <menuitem id="simple_check_action" action="view_simple_check_main_wizard_action">
+        </menuitem>
+
+    </menuitem>
+
+    <menuitem name="Loans Between Companies" id="lbc_menu" sequence="30">
+
+         <menuitem id="lbc_action" action="view_loan_between_companies_wizard_action">
+        </menuitem>
+
+    </menuitem>
+
+    <menuitem name="Transfer and Payments" id="credit_card_menu" sequence="40">
+        <menuitem id="ccp_action" action="view_credit_card_payments_wizard_action">
+        </menuitem>
+        <menuitem id="tbc_action" action="view_companies_transfer_wizard_action">
+        </menuitem>
+    </menuitem>
+
+    <menuitem name="Construction Report Wizard" id="cons_report_menu" sequence="50">
+        <menuitem id="crw_action" action="view_construction_report_wizard_action">
+        </menuitem>
+    </menuitem>
+
+    <menuitem name="Configuration" id="config_menu" sequence="60">
+         <menuitem id="budget_action" action="budget_model_action">
+        </menuitem>
+    </menuitem>
+
+    <menuitem name="Rules_action" id="rules_action" sequence="70">
+        <menuitem id="accrules_action" action="accounting_rules_action">
+        </menuitem>
+    </menuitem>
+    
+    <menuitem name="Bill Wizard" id="bill_wizard" sequence="80">
+        <menuitem id="billwz_action" action="view_auto_bill_action">
+        </menuitem>
+    </menuitem>
+
+</menuitem>
+
+</odoo>

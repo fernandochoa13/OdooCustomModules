@@ -1,0 +1,57 @@
+<odoo>
+
+    <record id="pms_properties_utility_sewage_search_view" model="ir.ui.view">
+                <field name="name">pms.utility.search</field>
+                <field name="model">pms.property</field>
+                <field name="arch" type="xml">
+                    <search string="Utility Sewage Search">
+                        <field name="name"/>
+                        <field name="utility_phase"/>
+                        <field name="superintendent"/>
+                        <field name="s_type"/>
+                        <field name="s_installer"/>
+                        <field name="s_install_date"/>
+                        <field name="s_agreements"/>
+                        <field name="s_inspection_approved"/>
+                        <field name="s_ppi_sent"/>
+                        <field name="s_comments"/>
+                    </search>
+                </field>
+    </record>
+
+<record id="pms_properties_utility_sewage_view_tree" model="ir.ui.view">
+    <field name="name">pms.utility.tree</field>
+    <field name="model">pms.property</field>
+    <field name="arch" type="xml">
+        <list string="Utility Sewage Table" editable="bottom">
+            <field name="name" readonly="1"/>
+            <field name="utility_phase" readonly="1"/>
+            <field name="superintendent" readonly="1"/>
+            <field name="s_type" optional="show"/>
+            <field name="s_septic_permit" optional="show"/>
+            <field name="s_comments" optional="show" class="italic"/>
+            <field name="s_installer" optional="show"/>
+            <field name="s_install_date" optional="show"/>
+            <field name="s_ppi_sent" optional="show"/>
+            <field name="s_maop" optional="show"/>
+            <field name="s_alarm_wired" optional="show"/>
+            <field name="s_sod_installation_date" optional="show"/>
+            <field name="s_inspection_submitted" optional="show"/>
+            <field name="s_inspection_approved" optional="show"/>
+            <field name="s_sod_to_inspection_approved" optional="show"/>
+            <field name="s_agreements" optional="hide"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_properties_utility_sewage_view" model="ir.actions.act_window">
+    <field name="name">Sewage Utilities</field>
+    <field name="res_model">pms.property</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="pms_properties_utility_sewage_view_tree"/>
+    <field name="context">{'tree_view_ref' : 'pms_properties_utility_sewage_view_tree'}</field>
+    <field name="search_view_id" ref="pms_properties_utility_sewage_search_view"/>
+</record>
+
+</odoo>
+

@@ -1,0 +1,61 @@
+<odoo>
+
+    <record id="view_pms_units_search" model="ir.ui.view">
+        <field name="name">pms.units.search</field>
+        <field name="model">pms.units</field>
+        <field name="arch" type="xml">
+            <search string="Search Units">
+                <field name="name" string="Unit Name"/>
+                <field name="property_address"/>
+                <field name="status"/>
+                <field name="rent"/>
+                <filter string="Available" name="available" domain="[('status', '=', 'available')]"/>
+                <filter string="Occupied" name="occupied" domain="[('status', '=', 'occupied')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Property Address" name="group_property_address" domain="[]" context="{'group_by': 'property_address'}"/>
+                    <filter string="Status" name="group_status" domain="[]" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="view_pms_units_tree" model="ir.ui.view">
+        <field name="name">pms.units.tree</field>
+        <field name="model">pms.units</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="property_address"/>
+                <field name="status"/>
+                <field name="rent"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_pms_units_form" model="ir.ui.view">
+        <field name="name">pms.units.form</field>
+        <field name="model">pms.units</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="property_address"/>
+                        <field name="status"/>
+                        <field name="rent"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pms_units" model="ir.actions.act_window">
+        <field name="name">PMS Units</field>
+        <field name="res_model">pms.units</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="pms_property_units_menu" name="PMS Units" parent="pms.pms_menu_properties"
+        sequence="205" action="action_pms_units"/> 
+
+</odoo>

@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record id="create_materials_order_wizard_form" model="ir.ui.view">
+            <field name="name">material.orders.wizard.form</field>
+            <field name="model">material.orders.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Create Material Order">
+                <h3>A material order will be created for this bill.</h3>
+                    <footer>
+                        <button name="create_material_order" string="Create Material Order" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="create_material_order_wizard_action" model="ir.actions.act_window">
+            <field name="name">Create Material Order</field>
+            <field name="res_model">material.orders.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

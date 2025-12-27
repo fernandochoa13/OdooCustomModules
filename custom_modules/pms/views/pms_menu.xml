@@ -1,0 +1,220 @@
+<odoo>
+<menuitem name="PMS" id="pms_root_menu_2" web_icon="pms/static/description/icon.png">
+<!-- <menuitem name="PMS" id="pms_root_menu" action="verification_wizard" web_icon="pms/static/description/icon.png"> -->
+    <menuitem name="Properties" id="pms_menu_properties" sequence="10">
+        <!-- <menuitem id="pms_menu_properties_action" action="pms_properties_view">       </menuitem>
+ -->
+        <!-- <menuitem id="pms_menu_loans_action" action="pms_loans_view">
+        </menuitem>  -->
+
+        <menuitem id="pms_menu_draws_action" action="pms_draws_view">
+        </menuitem>  
+
+        <menuitem id="pms_menu_draw_lines" action="pms_draw_lines_view">
+        </menuitem>
+
+        <menuitem id="pms_menu_draw_items" action="pms_draw_items_view">
+        </menuitem>
+
+        <menuitem id="pms_menu_on_hold_history" action="pms_on_hold_history_action">
+        </menuitem>
+
+        <menuitem id="pms_menu_daily_log" action="daily_logs_wizard_action">
+        </menuitem>
+
+        <!-- <menuitem id="pms_menu_utility_action" action="pms_properties_utility_view">
+        </menuitem> -->
+
+        <menuitem id="pms_menu_internal_purchases_action" action="internal_purchases_view">
+        </menuitem>
+
+        <!-- Utilities -->
+
+        <menuitem id="pms_utility_electrical_menu" action="pms_properties_utility_electrical_view">
+        </menuitem>
+
+        <menuitem id="pms_utility_water_menu" action="pms_properties_utility_water_view">
+        </menuitem>
+
+        <menuitem id="pms_utility_sewage_menu" action="pms_properties_utility_sewage_view">
+        </menuitem>       
+
+    </menuitem>
+
+    <menuitem name="Insurances" id="pms_menu_insurance" sequence="20">
+        <menuitem id="pms_menu_insurance_action" action="pms_properties_insurance_view">
+        </menuitem>
+
+        <menuitem id="pms_menu_insurance_line_action" action="pms_properties_insuranceline_view">
+        </menuitem>
+        
+        <menuitem id="pms_menu_insurance_liability_action" action="contact_liabilityinsurance">
+        </menuitem>
+
+        
+    </menuitem>
+
+    <menuitem name="Transactions" id="pms_menu_transactions" sequence="30">
+        <menuitem id="pms_menu_transactions_action" action="pms_properties_transaction_view">
+        </menuitem>
+        <menuitem id="pms_menu_leads_action" action="pms_leads_view">
+        </menuitem>
+        <menuitem id="pms_menu_closingproperty" action="pms_close_property">
+        </menuitem>
+    </menuitem>
+
+    <menuitem name="Investors" id="pms_menu_investors" sequence="35">
+        <menuitem id="pms_menu_investors_action" action="pms_investors_view">
+        </menuitem>
+    </menuitem>
+
+    <menuitem name="Project" id="pms_menu_jobs" sequence="40">
+        <!-- <menuitem id="pms_menu_projects_action" action="pms_projects_view">
+        </menuitem>  -->
+
+        <menuitem id="pms_menu_projects_activities_action" action="pms_projects_routes_view">
+        </menuitem>
+
+        <menuitem id="pms_menu_bulk" action="view_new_bulk_wizard">
+        </menuitem>
+
+        <menuitem id="pms_menu_projects_routes_action" action="pms_projects_routes_template_view">
+        </menuitem>
+        
+        <!-- <menuitem id="pms_menu_inspections_action" action="pms_inspections_view">
+        </menuitem>  -->
+
+        <menuitem id="pms_menu_inspections_type_action" action="pms_inspections_type_view">
+        </menuitem>
+
+        <menuitem id="pms_menu_projects_routes_template_lines_action" action="pms_projects_routes_template_lines_view">
+        </menuitem>
+
+        <menuitem id="pms_menu_planned_visit_days" action="pms_planned_visit_days_action">
+        </menuitem>
+
+        <menuitem id="pms_menu_visit_days" action="pms_visit_days_action">
+        </menuitem>
+
+        <menuitem id="menu_pms_job_creation" name="Job Creation" action="action_pms_job_creation">
+        </menuitem>
+
+        <menuitem id="menu_pms_job_prduct" name="Job Products" action="action_pms_job_product_tree">
+        </menuitem>
+
+        <menuitem id="menu_pms_auto_planned_visits" name="Create Planned Visits" action="auto_planned_visits_wizard_action">
+        </menuitem>
+
+        <menuitem id="menu_act_costs" name="Activity Costs" action="pms_activity_costs_view">
+        </menuitem>
+
+    </menuitem>
+
+    <menuitem name="House Details" id="pms_menu_housedetails" sequence="50">
+        <menuitem id="pms_menu_housemodels" action="pms_housemodels_view">
+        </menuitem>
+
+        <menuitem id="pms_menu_roofs" action="pms_roofs_view">
+        </menuitem>
+
+        <menuitem id="pms_menu_windows" action="pms_windows_view">
+        </menuitem>
+
+        <menuitem id="pms_menu_floors" action="pms_floors_view">
+        </menuitem>
+    </menuitem>
+
+    <menuitem name="Purchases" id="pms_menu_purchases" sequence="60">
+        <!-- <menuitem id="pms_menu_materials" action="pms_materials_view">
+        </menuitem>  -->
+
+        <menuitem id="purchase_template" name="Purchase Templates" action="purchase_template_view">
+        </menuitem>
+
+        <menuitem id="mat_prov_report" name="Material Provider Report" action="provider_report_action">
+        </menuitem>
+    
+    </menuitem>
+
+    <!-- Reports -->
+
+    <menuitem name="Reports" id="pms_menu_reports" sequence="70">
+        <menuitem id="pms_menu_reports_purchases" action="purchase_property_report">
+        </menuitem>
+
+        <menuitem id="pms_menu_approvals" action="action_pms_approvals">
+        </menuitem>
+
+        <!-- <menuitem id="pms_menu_daily_logs_report" action="pms_daily_log_action">
+        </menuitem> -->
+
+        <menuitem id="construction_fee_audit" action="construction_fee_audit_action">
+        </menuitem>
+
+        <menuitem id="menu_visit_report_wizard" name="Generate Visit Report" action="action_visit_report_wizard">
+        </menuitem>
+
+        <menuitem id="menu_draws" name="Draws Report" action="draws_report_action">
+        </menuitem>
+
+        <menuitem id="menu_property_times" name="Property Times Report" action="property_times_report_report_action">
+        </menuitem>
+        
+        <menuitem id="menu_construction_general_report"
+            name="Construction General Report"
+            action="action_construction_general_report"
+            />
+
+        <menuitem id="menu_supervisor_inspections_report"
+            name="Supervisor Inspections Report"
+            action="action_supervisor_inspections_report"
+            />
+
+        <menuitem id="menu_timeline_property_report"
+            name="Property Timeline Report"
+            action="timeline_property_selector_wizard"
+            />
+
+        <menuitem id="menu_exp_co_date" name="Expected CO Report" action="expectedco_wizard_action">
+        </menuitem>
+
+        <menuitem id="menu_commission_calculation" name="Commission Calculation" action="action_commission_calculation_wizard">
+        </menuitem>
+
+        <!-- replaces accounting > customers > Invoices but doesnt show up, not an access problem -->
+        <!-- <menuitem id="account.menu_finance_receivables"
+            name="Invoice Report"
+            action="pms.action_invoice_report"
+            sequence="2"
+        /> -->
+
+
+
+
+            <!-- groups="pms.access_invoice_report" -->
+            <!-- parent="account.menu_finance_receivables" -->
+
+        <!-- <menuitem id="menu_construction_utilities_report"
+            name="Construction Utilities Report"
+            action="action_construction_utilities_report"
+            />
+
+        <menuitem id="menu_purchases_general_report"
+            name="Purchases General Report"
+            action="action_purchases_general_report"
+            /> -->
+
+    </menuitem>
+
+    <!-- Configuration -->
+
+    <menuitem name="Configuration" id="pms_menu_settings_general" sequence="80">
+        <menuitem id="pms_menu_settings" action="pms_settings_action">
+        </menuitem>
+
+        <menuitem id="pms_menu_providers" action="pms_provider_config_view">
+        </menuitem>
+    </menuitem>
+
+</menuitem>
+</odoo>

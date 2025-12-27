@@ -1,0 +1,619 @@
+<odoo>
+    <data>
+        <record id="action_contractor_job_report" model="ir.actions.report">
+            <field name="name">Print Contractor Job Report</field>
+            <field name="model">pms.contractor.job</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pms.report_contractor_job</field>
+            <field name="report_file">pms.report_contractor_job</field>
+            <field name="binding_model_id" ref="model_pms_contractor_job"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- <record id="view_pms_contractor_job_form_qweb" model="ir.ui.view">
+            <field name="name">view.pms.contractor.job.form.qweb</field>
+            <field name="model">pms.contractor.job</field>
+            <field name="inherit_id" ref="pms.view_pms_contractor_job_form"/>  
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="%(action_contractor_job_report)d"
+                            string="Print Report"
+                            type="action"
+                            class="oe_highlight"/>
+                </div>
+            </field>
+        </record> -->
+    </data>
+
+<!-- Contractor Logic -->
+    <record id="view_pms_contractor_logic_form" model="ir.ui.view">
+        <field name="name">pms.contractor.logic.form</field>
+        <field name="model">pms.contractor.logic</field>
+        <field name="arch" type="xml">
+            <form string="Contractor Logic">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner"/>
+                            <field name="payment_method"/>
+                            <field name="product"/>
+                            <field name="company"/>
+                        </group>
+                        <group>
+                            <field name="first_party"/>
+                            <field name="third_party"/>
+                            <field name="partner_invoice"/>
+                            <field name="escrow_money"/>
+                            <field name="on_hold"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="pms_contractor_logic_tree" model="ir.ui.view">
+        <field name="name">pms.contractor.logic.tree</field>
+        <field name="model">pms.contractor.logic</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="partner" widget="many2one"/>
+                <field name="payment_method"/>
+                <field name="product"/>
+                <field name="first_party"/>
+                <field name="third_party"/>
+                <field name="company" widget="many2one"/>
+                <field name="partner_invoice"/>
+                <field name="escrow_money"/>
+                <field name="on_hold"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_pms_contractor_logic" model="ir.actions.act_window">
+        <field name="name">Contractor Logic</field>
+        <field name="res_model">pms.contractor.logic</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+    </record>
+
+    <!-- PMS Contractor Wizard Views -->
+
+    <record id="view_pms_contractor_login_wizard" model="ir.ui.view">
+        <field name="name">pms.contractor.login.wizard.form</field>
+        <field name="model">pms.contractor.login.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Contractor Login">
+                <group>
+                    <field name="employee_id" placeholder="Your name..." options="{'no_create': True}"/>
+                    <field name="employee_pin" placeholder="****" password="True"/>
+                </group>
+                <footer>
+                    <button name="action_login" string="Login" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pms_contractor_login_wizard" model="ir.actions.act_window">
+        <field name="name">Contractor Login</field>
+        <field name="res_model">pms.contractor.login.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_pms_contractor_job_order_form" model="ir.ui.view">
+        <field name="name">pms.contractor.job.order.form</field>
+        <field name="model">pms.contractor.job.order.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="description" readonly="1"/>
+                        <field name="deadline" readonly="1"/>
+                        <field name="job_id" readonly="1"/>
+                        <hr/><br/>
+                        <field name="property_id"  readonly="1"/>
+                        <field name="property_city"/>
+                        <field name="contractor_id" /> <!-- domain="[('city', '=', property_city)]" -->
+                        <field name="must_use_logic" invisible="1" />
+                        <field name="logic" domain="[('partner', '=', contractor_id)]" invisible="not must_use_logic" options="{'no_create': True}"/>
+                        <field name="order_date"/>
+                        <field name="estimated_job_co_date"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_order_job" string="ORDER JOB" type="object" class="btn-success"/>
+                    <!-- <button name="open_orders_wizard" string="OPEN ORDERS" type="object" class="btn-primary"/> -->
+                    <button special="cancel" string="CANCEL" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pms_contractor_order_wizard" model="ir.actions.act_window">
+        <field name="name">Order Job</field>
+        <field name="res_model">pms.contractor.job.order.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="view_pms_contractor_notify_wizard_form" model="ir.ui.view">
+        <field name="name">pms.contractor.notify.wizard.form</field>
+        <field name="model">pms.contractor.notify.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Job Details">
+                            <field name="job_id" />
+                            <field name="contractor_id" />
+                            <field name="contractor_phone" />
+                            <field name="contractor_email" />
+                            <br/>
+                        </group>
+                        <group string="Configure Notification">
+                            <field name="change_phone"/>
+                            <field name="new_phone"/>
+                            <field name="change_email"/>
+                            <field name="new_email"/>
+                        </group>
+                    </group>
+                    <group string="Customize your message">
+                    </group>
+                    <div invisible="not email_template" style="font-weight: bold;">
+                        Clear the email template to create a custom message.
+                    </div>
+                    <div invisible="email_template" style="font-weight: bold;">
+                        Select an email template or create a custom message.
+                    </div>
+                    <br/>
+                    <group>
+                        <field name="email_template"/>
+                    </group>
+                    <field name="custom_message" nolabel="1" tabindex="-1" invisible="email_template"/>
+                    <group string="Notification status">
+                        <group>
+                            <field name="email_sent" />
+                        </group>
+                        <group>
+                            <field name="sms_sent" />
+                        </group>
+                    </group>
+                    <group string="Preview" >
+                        <field name="preview_email" widget="html" string="E-mail" invisible="email_sent"/>
+                        <field name="preview_message" widget="html" string="SMS" invisible="sms_sent"/>
+                    </group>
+                    <button name="open_whatsapp" string="Notify via WhatsApp" type="object" class="btn-success"/>
+                </sheet>
+                <footer>
+                    <button name="send_notification" string="NOTIFY" type="object" class="btn-success"/>
+                    <button name="send_notification_in_progress" string="NOTIFY IN PROGRESS" type="object" class="btn-success"/>
+                    <button special="cancel" string="CANCEL" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pms_contractor_notify_wizard" model="ir.actions.act_window">
+        <field name="name">Notify Job</field>
+        <field name="res_model">pms.contractor.notify.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- PMS Contractor Job Views -->
+    <record id="view_pms_contractor_job_search" model="ir.ui.view">
+        <field name="name">pms.contractor.job.search</field>
+        <field name="model">pms.contractor.job</field>
+        <field name="arch" type="xml">
+            <search string="Contractor Jobs">
+                <field name="name" string="Job Name"/>
+                <field name="contractor_id"/>
+                <field name="property_id"/>
+                <field name="property_city"/>
+                <field name="state"/>
+                <field name="active" string="Archived"/>
+                <separator/>
+                <filter string="New" name="state_new" domain="[('state', '=', 'new')]"/>
+                <filter string="In Progress" name="state_in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Completed" name="state_completed" domain="[('state', '=', 'completed')]"/>
+                <filter string="Cancelled" name="state_cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="My Jobs" name="my_jobs"
+                        domain="[('contractor_id.user_id', '=', uid)]"/>
+                <filter string="Needs Billing" name="needs_billing" domain="[('billable', '=', True), ('bill_created', '=', False)]"/>
+                <filter string="Bill Created" name="bill_created_filter" domain="[('bill_created', '=', True)]"/>
+                <filter string="Overdue Deadline" name="overdue_deadline" domain="[('deadline', '&lt;', context_today().strftime('%Y-%m-%d')), ('state', 'not in', ('completed', 'cancelled'))]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Contractor" name="group_by_contractor" context="{'group_by': 'contractor_id'}"/>
+                    <filter string="Property" name="group_by_property" context="{'group_by': 'property_id'}"/>
+                    <filter string="City" name="group_by_city" context="{'group_by': 'property_city'}"/>
+                    <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+                    <filter string="Deadline" name="group_by_deadline" context="{'group_by': 'deadline'}"/>
+                    <filter string="Billing Status" name="group_by_billing_status" context="{'group_by': 'bill_created'}"/>
+                    <filter string="Payment State" name="group_by_payment_status" context="{'group_by': 'invoice_payment_state'}"/>
+                    <filter string="Hold Status" name="group_by_hold_status" context="{'group_by': 'on_hold_status'}"/>
+                    <filter string="Superintendent" name="group_by_superintendent" context="{'group_by': 'superintendent'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_pms_contractor_job_tree" model="ir.ui.view">
+        <field name="name">pms.contractor.job.tree</field>
+        <field name="model">pms.contractor.job</field>
+        <field name="arch" type="xml">
+            <list delete="false">
+                <!-- <field name="property_county" invisible="1"/> -->
+                <field name="billable" invisible="1"/>
+                <field name="active" invisible="1"/>
+                <field name="invoice_payment_state" invisible="1"/>
+
+                <field name="contractor_id" readonly="1" optional="show"/>
+                <field name="name" optional="show"/>
+                <field name="property_id" optional="show"/>
+                <field name="property_model" optional="show"/>
+                <field name="property_city" optional="show"/>
+                <field name="deadline" optional="show"/>
+                <field name="state" optional="show"/>
+                <!-- <field name="estimated_cost" optional="show"/> -->
+                <field name="order_sent" optional="show"/>
+                <field name="bill_created" optional="show"/>
+                <button 
+                    name="view_order_job"
+                    type="object"
+                    string="&#160;&#160;&#160;&#160;&#160;Order Job&#160;&#160;&#160;&#160;&#160;"
+                    class="btn-outline-success bold"
+                   
+                />
+                <button 
+                    name="view_notify_job"
+                    type="object"
+                    string="&#160;&#160;&#160;&#160;&#160;Notify Job&#160;&#160;&#160;&#160;&#160;"
+                    class="btn-info"
+                   
+                />
+                <button 
+                    name="complete_job"
+                    type="object"
+                    string="&#160;Complete Job&#160;"
+                    class="btn-success"
+                   
+                />
+                <button 
+                    name="job_in_progress"
+                    type="object"
+                    string="&#160;&#160;&#160;&#160;In Progress&#160;&#160;&#160;&#160;"
+                    class="btn-warning"
+                   
+                />
+                <!-- <button 
+                    name="cancel_job"
+                    type="object"
+                    string="✕"
+                    class="btn-danger"
+                   
+                /> -->
+                <button 
+                    name="redo_job"
+                    type="object"
+                    string="&#160;&#160;Re-order job&#160;&#160;"
+                    class="btn-outline-secondary"
+                   
+                />
+                    <!-- string="↷" -->
+            </list>
+        </field>
+    </record>
+
+<record id="view_pms_contractor_job_form" model="ir.ui.view">
+    <field name="name">pms.contractor.job.form</field>
+    <field name="model">pms.contractor.job</field>
+    <field name="arch" type="xml">
+        <form delete="false">
+            <sheet>
+            <header invisible="not id">
+                <!-- <button name="set_pending" type="object" string="Set Pending" class="btn-warning margin"/> -->
+                <button name="view_order_job" type="object" string="Order Job" class="btn-success margin"/>
+                <!-- <button name="view_order_job" type="object" string="Order Job" class="btn-success margin"/> -->
+                <button name="view_notify_job" type="object" string="Notify Job" class="btn-info margin"/>
+                <button name="skip_notification" string="Skip Notification" type="object" class="btn-warning"/>
+                <button name="job_in_progress" type="object" string="In Progress" class="btn-warning"/>
+                <button name="complete_job" type="object" string="Complete Job" class="btn-success"/>
+                <!-- <button name="cancel_job" type="object" string="Cancel Job" class="btn-danger"/> -->
+                <button name="redo_job" type="object" string="Re-order job" class="btn-outline-secondary margin"/>
+                <button name="send_message_team" type="object" string="Message Team" class="btn-success margin"/>
+                <field name="state" widget="statusbar" statusbar_visible="created,ordered,in_progress,completed,cancelled"/>
+            </header>
+                <br/>
+                <div invisible="not on_hold_status" class="alert alert-danger" role="alert">
+                    The selected property is on hold. Cannot order jobs or notify contractors until the hold is lifted.
+                    <br/>
+                    Days on hold: <field name="days_on_hold"/> days
+                </div>
+                <group>
+                    <group string="Invisible Fields" invisible="1">
+                        <field name="on_hold_status"/>
+                        <field name="contractor_city"/>
+                        <field name="property_status"/>
+                        <field name="must_use_logic"/>
+                    </group>
+                    <group string="Property Details">
+                        <field name="property_id"  options="{'no_create': True}"/> <!-- domain="[('city', '=', contractor_city)]" -->
+                        <field name="property_model"/>
+                        <field name="property_city"/>
+                        <field name="property_owner"/>
+                        <field name="own_third"/>
+                        <field name="property_custodial_money"/>
+                        <field name="superintendent"/>
+                        <hr/>
+                        <br/>
+                        <field name="company"/>
+                        <field name="partner_invoice"/>
+                        <!-- <field name="is_3rd_party"/> -->
+                    </group>
+                    <group string="Job Details"> 
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="deadline"/>
+                        <field name="maintenance_order" readonly="state == 'cancelled'"/>
+                        <field name="billable"/>
+                        <field name="logic" domain="[('partner', '=', contractor_id)]"  options="{'no_create': True}"/>
+                    </group>
+                    <group string="Contractor Details" invisible="not id">
+                        <field name="state" readonly="1"/>
+                        <field name="contractor_id" readonly="1"/>
+                        <field name="order_date" readonly="1"/>
+                        <field name="estimated_job_co_date" readonly="1"/>
+                    </group>
+                    <group string="Payment Details" invisible="not id">
+                        <field name="linked_invoice"/>
+                        <field name="invoice_payment_state"/>
+                        <hr/><br/>
+                        <field name="bill_created"/>
+                        <field name="bill_loaded"/>
+                        <field name="linked_bill"/>
+                        <field name="linked_journal_entry"/>
+                    </group>
+                    <group string="Other">
+                        <!-- '|', ('on_hold_status', '=', True), -->
+                        <!-- <field name="linked_budget_activity" options="{'no_create': True}" /> -->
+                        <!-- <field name="linked_budget_model" string="Linked Budget" options="{'no_create': True}"/> -->
+                        <field name="linked_project_activity" string="Linked Project Activity" options="{'no_create': True}"/>
+                        <field name="linked_project_activity_completed" string="Linked Project Activity Completed"/>
+
+                        <field name="linked_activity" string="Linked Activity" options="{'no_create': True}"
+                            required="not maintenance_order and id"
+                            invisible="maintenance_order"
+                            readonly="state == 'cancelled'"/>
+                        <field name="linked_product" string="Linked Product" options="{'no_create': True}"
+                            required="not maintenance_order and id"
+                            invisible="maintenance_order"
+                            readonly="state == 'cancelled'"/>
+                            <!-- domain="[
+                                ('supplier', '=', contractor_id),
+                                ('house_model', '=', property_model),
+                                ('city', '=', property_city),
+                            ]" -->
+                        <!-- <field name="estimated_cost"/> -->
+
+                        <field name="reorder_count"/>
+                    </group>
+
+                </group>
+                <notebook>
+                    <page string="Notifications" invisible="not id">
+                                            <!-- Banner for when state changes will NOT be notified -->
+                        <div class="alert alert-warning" role="alert" invisible="not skip_notify">
+                            <p class="mb-0">
+                                State changes will <span class="font-weight-bold">NOT</span> be notified.
+                            </p>
+                        </div>
+                        <!-- Banner for when state changes WILL be notified -->
+                        <div class="alert alert-info" role="alert" invisible="skip_notify">
+                            <p class="mb-0">
+                                State changes <span class="font-weight-bold">WILL</span> be notified.
+                            </p>
+                        </div>
+                        <group string="Notification Details" invisible="not id">
+                            <field name="assigned_users" widget="many2many_tags"/>
+                            <field name="email_sent"/>
+                            <field name="sms_sent"/>
+                            <field name="ws_sent"/>
+                            <field name="order_sent"/>
+                            <field name="skip_notify" invisible="1"/>
+                        </group>
+                    </page>
+                    <page string="KPI" invisible="not id">
+                        <group name="kpis_group" string="KPI's" invisible="not id">
+                            <field name="creation_date" invisible="1"/>
+                            <field name="order_date" invisible="1"/>
+                            <field name="in_progress_date" invisible="1"/>
+                            <field name="completed_date" invisible="1"/>
+                            <field name="created_to_ordered"/>
+                            <field name="ordered_to_in_progress"/>
+                            <field name="in_progress_to_completed"/>
+                            <field name="created_to_completed"/>
+                        </group>
+                    </page>                
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+<!-- domain="[('city', '=', property_city)]" -->
+
+    <record id="view_pms_contractor_job_calendar" model="ir.ui.view">
+        <field name="name">view.pms.contractor.job.calendar</field>
+        <field name="model">pms.contractor.job</field>
+        <field eval="2" name="priority"/>
+        <field name="arch" type="xml">
+            <calendar date_start="deadline" string="Job Orders" mode="month" color="property_id" event_limit="5"
+                        hide_time="true" event_open_popup="true" quick_add="false">
+                <field name="deadline"/>
+                <field name="property_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_pms_contractor_job_kanban" model="ir.ui.view">
+        <field name="name">view.pms.contractor.job.kanban</field>
+        <field name="model">pms.contractor.job</field>
+        <field name="arch" type="xml">
+            <kanban >
+                <field name="state"/>
+                <field name="property_id"/>
+                <field name="order_sent" invisible="1"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <div class="oe-kanban-card kanban-padding">
+                                <a type="object" name="open_action">
+                                    <h6>
+                                        <strong>
+                                            <i><field name="property_city"/></i>
+                                        </strong>
+                                    </h6>
+                                    <strong class="o_kanban_record_title mb4">
+                                        <h3>
+                                            <field name="name"/>
+                                        </h3>
+                                    </strong>
+                                </a>
+                                <hr/>
+                                <strong><h5>Order details:</h5></strong> 
+                                <ul>
+                                    <li><strong>Contractor: </strong><field name="contractor_id"/></li>
+                                    <li><strong>Property: </strong><field name="property_id"/></li>
+                                    <li><strong>Order State: </strong><field name="state"/></li>
+                                    <li><strong>Order Creation Date: </strong><field name="creation_date"/></li>
+                                    <li><strong>Deadline: </strong><field name="deadline"/></li>
+                                </ul>
+                            </div>
+                            <div class="text-center mb24">
+                                <button 
+                                    name="view_order_job"
+                                    type="object"
+                                    string="Order Job"
+                                    class="btn-success margin"
+                                   
+                                />
+                                <!-- <button 
+                                    name="view_notify_job"
+                                    type="object"
+                                    string="Notify Job"
+                                    class="btn-info margin"
+                                   
+                                /> -->
+                                <!-- <button 
+                                    name="cancel_job"
+                                    type="object"
+                                    string="✕"
+                                    class="btn-danger"
+                                   
+                                /> -->
+                                <button 
+                                    name="redo_job"
+                                    type="object"
+                                    string="Re-order job"
+                                    class="btn-outline-secondary margin"
+                                   
+                                />
+                                <button 
+                                    name="send_message_team"
+                                    type="object"
+                                    string="Message Team"
+                                    class="btn-success margin"
+                                />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_server_cancel_job" model="ir.actions.server">
+        <field name="name">Cancel Job</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="binding_model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.cancel_job()
+        </field>
+    </record>
+
+    <!-- <record id="action_server_notify_job" model="ir.actions.server">
+        <field name="name">Notify Job</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="binding_model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.view_notify_job()
+        </field>
+    </record> -->
+
+    <record id="action_server_toggle_state_change_notification" model="ir.actions.server">
+        <field name="name">Toggle State Change Notification</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="binding_model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="state">code</field>
+        <field name="code">
+            records.toggle_state_change_notification()
+        </field>
+    </record>
+
+    <record id="action_server_generate_invoice_job" model="ir.actions.server">
+        <field name="name">Create Invoice</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="binding_model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.generate_invoice()
+        </field>
+    </record>
+
+    <record id="action_server_create_bill_job" model="ir.actions.server">
+        <field name="name">Create Bill</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="binding_model_id" ref="pms.model_pms_contractor_job"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.create_bill()
+        </field>
+    </record>
+
+    <record id="action_pms_contractor_job_wizard" model="ir.actions.act_window">
+        <field name="name">Create Job</field>
+        <field name="res_model">pms.contractor.job</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_pms_contractor_job" model="ir.actions.act_window">
+        <field name="name">Jobs</field>
+        <field name="res_model">pms.contractor.job</field>
+        <field name="view_mode">kanban,list,form,calendar</field>
+    </record>
+
+    <menuitem id="menu_contractors_root" name="Contractors" web_icon="pms,static/description/contractor_icon.png" action="action_pms_contractor_login_wizard">
+        <menuitem id="menu_pms_jobs" name="Jobs" action="action_pms_contractor_job" sequence="1"/>
+        <menuitem id="menu_pms_logic" name="Logic" action="action_pms_contractor_logic" sequence="2"/>
+    </menuitem>
+
+</odoo>

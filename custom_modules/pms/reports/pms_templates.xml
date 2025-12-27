@@ -1,0 +1,549 @@
+<odoo>
+    <template id="report_inspections">
+         <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                <t t-set="status" t-value="['failed', 'passed', 'passed_after', 'ordered']"/>
+                <t t-foreach="status" t-as="st">
+                <t t-set="final_records" t-value="docs.filtered(lambda r: r.status == st)"/>
+                <t t-if="final_records">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Address</th>
+                                <th>Write Date</th>
+                                <th>County</th>
+                                <th>Inspections Type</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="final_records" t-as="record">
+                                <tr>
+                                    <td> <span t-field="record.name"/> </td>
+                                    <td> <span t-field="record.date"/> </td>
+                                    <td> <span t-field="record.status"/> </td>
+                                    <td> <span t-field="record.address"/> </td>
+                                    <td> <span t-field="record.write_date"/> </td>
+                                    <td> <span t-field="record.county"/> </td>
+                                    <td> <span t-field="record.inspections_type"/> </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    </t>
+                    </t>   
+                </div>            
+            </t>
+        </t>
+    </template>
+
+<template id="report_purchases_pms">
+         <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <table class="table">
+                        <thead>
+                            <h2>Purchase Report</h2>
+                            <tr>
+                                <th>Address</th>
+                                <th>House Model</th>
+                                <th>County</th>
+                                <th>Account</th>
+                                <th>Order Type</th>
+                                <th>Product</th>
+                                <th>Vendor</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Order Date</th>
+                                <th>Receipted Date</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <t t-foreach="docs" t-as="record">
+                                <t t-if="record.analytic_distribution">
+                                    <t t-set="object" t-value="record.env['pms.property'].browse(int(list(record.analytic_distribution.keys())[0]))"/>
+                                    <t t-set="address" t-value="object.name"/>
+                                    <t t-set="house_model" t-value="object.house_model.name"/>
+                                    <t t-set="county" t-value="object.county.name"/>
+                                
+                                <t t-if="record.move_id.move_type == 'in_invoice' or 'entry'">
+                                <tr>
+                                    <td> <span t-out="address"/> </td>
+                                    <td> <span t-out="house_model"/> </td>
+                                    <td> <span t-out="county"/> </td>
+                                    <td> <span t-field="record.account_id"/> </td>
+                                    <t t-if="record.subproducts">
+                                        <td> <span>Material</span> </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td> <span>Job</span> </td>
+                                    </t>
+                                    <td> <span t-field="record.product_id"/> </td>
+                                    <td> <span t-field="record.move_id.partner_id"/> </td>
+                                    <td> <span t-field="record.quantity"/> </td>
+                                    <td> <span t-field="record.price_unit"/> </td>
+                                    <td> <span t-field="record.move_id.invoice_date"/> </td>
+                                    <!-- <td> <span t-field="record.move_id.date_receipted"/> </td> -->
+                                    <td> <span t-field="record.price_total"/> </td>
+
+                                </tr>
+                                </t>
+                                </t>
+                            </t>
+                            <tr>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+              <!--  <h2>Sorted by Material</h2>
+                <t t-foreach="mapping_material" t-as="product">
+                <t t-set="products" t-value="docs.filtered(lambda r: r.product == product)"/>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td><strong> Sorted by Material</strong></td>
+                                <th>Address</th>
+                                <th>House Model</th>
+                                <th>County</th>
+                                <th>Order Type</th>
+                                <th>Receipt Status</th>
+                                <th>Product</th>
+                                <th>Vendor</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Order Date</th>
+                                <th>Receipted Date</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="products" t-as="record">
+                                <tr>
+                                    <td> <span/> </td>
+                                    <td> <span t-field="record.address"/> </td>
+                                    <td> <span t-field="record.house_model"/> </td>
+                                    <td> <span t-field="record.county"/> </td>
+                                    <td> <span t-field="record.order_type"/> </td>
+                                    <td> <span t-field="record.receipt_status"/> </td>
+                                    <td> <span t-field="record.product"/> </td>
+                                    <td> <span t-field="record.vendor"/> </td>
+                                    <td> <span t-field="record.quantity"/> </td>
+                                    <td> <span t-field="record.price_unit"/> </td>
+                                    <td> <span t-field="record.date_order"/> </td>
+                                    <td> <span t-field="record.effective_date"/> </td>
+                                    <td> <span t-field="record.total_amount"/> </td>
+
+                                    <t t-set="total_purchasem" t-value="total_purchasem + record.total_amount"/>
+                                </tr>
+                            </t>
+                            <tr>
+                                <th style="color:#000000">TOTAL AMOUNT </th>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td style="color:#000000"> $<span style="color:#000000" t-esc="total_purchasem"/> </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    </t>
+                    <h2>Sorted by Job</h2>
+                <t t-foreach="mapping_job" t-as="order_type">
+                <t t-set="jobs" t-value="docs.filtered(lambda r: r.order_type == order_type)"/>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td><strong> Sorted by Job</strong></td>
+                                <th>Address</th>
+                                <th>House Model</th>
+                                <th>County</th>
+                                <th>Order Type</th>
+                                <th>Receipt Status</th>
+                                <th>Product</th>
+                                <th>Vendor</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Order Date</th>
+                                <th>Receipted Date</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="jobs" t-as="record">
+                                <tr>
+                                    <td> <span/> </td>
+                                    <td> <span t-field="record.address"/> </td>
+                                    <td> <span t-field="record.house_model"/> </td>
+                                    <td> <span t-field="record.county"/> </td>
+                                    <td> <span t-field="record.order_type"/> </td>
+                                    <td> <span t-field="record.receipt_status"/> </td>
+                                    <td> <span t-field="record.product"/> </td>
+                                    <td> <span t-field="record.vendor"/> </td>
+                                    <td> <span t-field="record.quantity"/> </td>
+                                    <td> <span t-field="record.price_unit"/> </td>
+                                    <td> <span t-field="record.date_order"/> </td>
+                                    <td> <span t-field="record.effective_date"/> </td>
+                                    <td> <span t-field="record.total_amount"/> </td>
+
+                                    <t t-set="total_purchasej" t-value="total_purchasej + record.total_amount"/>
+                                </tr>
+                            </t>
+                            <tr>
+                                <th style="color:#000000">TOTAL AMOUNT </th>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td style="color:#000000"> $<span style="color:#000000" t-esc="total_purchasej"/> </td>
+                            </tr>
+                        </tbody> 
+
+                    </table> 
+                    </t> -->
+                </div>            
+            </t>
+        </t>
+    </template>
+
+    <template id="report_draws_pms">
+         <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                <t t-set="total" t-value="0"/>
+                <t t-set="status" t-value="['draft', 'pending', 'posted']"/>
+                <t t-foreach="status" t-as="st">
+                <t t-set="final_records" t-value="docs.filtered(lambda r: r.status == st)"/>
+                <t t-if="final_records">
+                    <table class="table">
+                        <thead>
+                            <h2>Draws Report</h2>
+                            <tr>
+                                <th>Address</th>
+                                <th>Loan ID</th>
+                                <th>Draw Amount</th>
+                                <th>Draw Fee</th>
+                                <th>Memo</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        <t t-foreach="final_records" t-as="record">
+                                <tr>
+                                    <td> <span t-field="record.address"/> </td>
+                                    <td> <span t-field="record.loan_id"/> </td>
+                                    <td> <span t-field="record.draw_amount"/> </td>
+                                    <td> <span t-field="record.draw_fee"/> </td>
+                                    <td> <span t-field="record.memo"/> </td>
+                                    <td> <span t-field="record.date"/> </td>
+                                    <td> <span t-field="record.status"/> </td>
+
+                                    <t t-set="total" t-value="total + record.draw_amount"/>
+                                </tr>
+
+                        </t>
+                            <tr>
+                                <th style="color:#000000">TOTAL AMOUNT DRAWED</th>
+                                <td> <span /> </td>
+                                <td style="color:#000000"> $<span style="color:#000000" t-esc="total"/> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                                <td> <span /> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </t>
+                    </t>
+                </div>            
+            </t>
+        </t>
+    </template>
+
+        <template id="report_projects_activities_pms">
+         <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <t t-set="mapping_vendor" t-value="set(docs.mapped('vendor'))"/>
+                    <h2>Project Activities Report Sorted by Activity</h2>
+                    <t t-foreach="mapping_vendor" t-as="vendor">
+                    <t t-set="final_records" t-value="docs.filtered(lambda r: r.vendor == vendor)"/> 
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Property Address</th>
+                                <th>County</th>
+                                <th>Activity Name</th>
+                                <th>Contractor</th>
+                                <th>Project Manager</th>
+                                <th>Start Date</th>
+                                <th>Order Date</th>
+                                <th>End Date</th>
+                                <th>Days of difference</th>
+                                <th>Days spent in activity</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="final_records" t-as="record">
+                                <tr>
+                                    <td> <span t-field="record.address"/> </td>
+                                    <td> <span t-field="record.county"/> </td>
+                                    <td> <span t-field="record.name"/> </td>
+                                    <td> <span t-field="record.vendor"/> </td>
+                                    <td> <span t-field="record.project_manager"/> </td>
+                                    <td> <span t-field="record.start_date"/> </td>
+                                    <td> <span t-field="record.order_date"/> </td>
+                                    <td> <span t-field="record.end_date"/> </td>
+                                    <td> <span t-field="record.time_difference"/> </td>
+                                    <td> <span t-field="record.time_spent"/> </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    </t>
+                </div>            
+            </t>
+        </t>
+    </template>
+
+<template id="report_utility_pms">
+         <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                <h2>Electrical Utilities</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Address</th>
+                                <th>County</th>
+                                <th>Phase</th>
+                                <th>Application Date</th>
+                                <th>Connection Type</th>
+                                <th>Is invoice paid?</th>
+                                <th>Electrical Meter</th>
+                                <th>Utility Provider</th>
+                                <th>Elec. Meter Request</th>
+                                <th>Connection Status</th>
+                                <th>Connection Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="docs" t-as="record">
+                                <tr>
+                                    <td> <span t-field="record.name"/> </td>
+                                    <td> <span t-field="record.county"/> </td>
+                                    <td> <span t-field="record.utility_phase"/> </td>
+                                    <td> <span t-field="record.e_app_date"/> </td>
+                                    <td> <span t-field="record.e_conn_type"/> </td>
+                                    <td> <span t-field="record.e_invoice"/> </td>
+                                    <td> <span t-field="record.elect_meter"/> </td>
+                                    <td> <span t-field="record.e_utility_provider"/> </td>
+                                    <td> <span t-field="record.elect_meter_request"/> </td>
+                                    <td> <span t-field="record.e_conn_status"/> </td>
+                                    <td> <span t-field="record.e_conn_date"/> </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <h2>Water Utilities</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Address</th>
+                                <th>County</th>
+                                <th>Phase</th>
+                                <th>App. Date</th>
+                                <th>Connection Type</th>
+                                <th>Is invoice paid?</th>
+                                <th>Utility Provider</th>
+                                <th>Connection Status</th>
+                                <th>Connection Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="docs" t-as="record">
+                                <tr>
+                                    <td> <span t-field="record.name"/> </td>
+                                    <td> <span t-field="record.county"/> </td>
+                                    <td> <span t-field="record.utility_phase"/> </td>
+                                    <td> <span t-field="record.w_app_date"/> </td>
+                                    <td> <span t-field="record.water_conn_type"/> </td>
+                                    <td> <span t-field="record.w_invoice"/> </td>
+                                    <td> <span t-field="record.w_utility_provider"/> </td>
+                                    <td> <span t-field="record.w_conn_status"/> </td>
+                                    <td> <span t-field="record.w_conn_date"/> </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <h2>Sewage Utilities</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Address</th>
+                                <th>County</th>
+                                <th>Construction phase</th>
+                                <th>Application Date</th>
+                                <th>Is invoice paid?</th>
+                                <th>Utility Provider</th>
+                                <th>Connection Status</th>
+                                <th>Connection Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="docs" t-as="record">
+                                <tr>
+                                    <td> <span t-field="record.name"/> </td>
+                                    <td> <span t-field="record.county"/> </td>
+                                    <td> <span t-field="record.utility_phase"/> </td>
+                                    <td> <span t-field="record.s_app_date"/> </td>
+                                    <td> <span t-field="record.s_invoice"/> </td>
+                                    <td> <span t-field="record.s_utility_provider"/> </td>
+                                    <td> <span t-field="record.s_conn_status"/> </td>
+                                    <td> <span t-field="record.s_conn_date"/> </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>            
+           </t> 
+        </t> 
+    </template>
+
+    <template id="report_materials">
+         <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                <h2>Materials Report</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Address</th>
+                                <th>House Model</th>
+                                <th>County</th>
+                                <th>Account</th>
+                                <th>Product</th>
+                                <th>Subproduct</th>
+                                <th>Vendor</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Order Date</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="docs" t-as="record">
+                            <t t-if="prod.subproducts">
+                                <t t-if="prod.analytic_distribution">
+                                    <t t-set="object" t-value="prod.env['pms.property'].browse(int(list(prod.analytic_distribution.keys())[0]))"/>
+                                    <t t-set="address" t-value="object.name"/>
+                                    <t t-set="house_model" t-value="object.house_model.name"/>
+                                    <t t-set="county" t-value="object.county.name"/>
+                                <tr>
+                                    <td> <span t-out="address"/> </td>
+                                    <td> <span t-out="house_model"/> </td>
+                                    <td> <span t-out="county"/> </td>
+                                    <td> <span t-field="prod.account_id"/> </td>
+                                    <td> <span t-field="prod.product_id"/> </td>
+                                    <td> <span t-field="prod.subproducts"/> </td>
+                                    <td> <span t-field="prod.move_id.partner_id"/> </td>
+                                    <td> <span t-field="prod.quantity"/> </td>
+                                    <td> <span t-field="prod.price_unit"/> </td>
+                                    <td> <span t-field="prod.move_id.invoice_date"/> </td>
+                                    <td> <span t-field="prod.price_total"/> </td>
+                                </tr>
+                                </t>
+                            </t>
+                            </t>
+                        </tbody>
+                    </table>
+                    
+                </div>            
+           </t> 
+        </t> 
+    </template>
+
+    <template id="provider_report_pdf_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Provider Report</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Provider Name</th>
+                                <th>Total Orders</th>
+                                <th>Total Delivered Orders</th>
+                                <th>Total Rejected Orders</th>
+                                <th>Percentage of Rejection</th>
+                                <th>Average Rejections per Order</th>
+                                <th>Average Delivery Time (Days)</th>
+                                <th>Median Delivery Time (Days)</th>
+                                <th>No Availability</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="doc_id">
+                                <t t-set="doc" t-value="env['provider.report'].browse(doc_id)"/>
+                                <tr>
+                                    <td><span t-esc="doc.provider_name"/></td>
+                                    <td><span t-esc="doc.total_orders"/></td>
+                                    <td><span t-esc="doc.total_delivered_orders"/></td>
+                                    <td><span t-esc="doc.total_rejected_orders"/></td>
+                                    <td><span t-esc="doc.pct_rejection"/>%</td>
+                                    <td><span t-esc="doc.average_rejection_per_order"/></td>
+                                    <td><span t-esc="doc.average_delivery_time"/></td>
+                                    <td><span t-esc="doc.median_delivery_time"/></td>
+                                    <td><span t-esc="doc.no_availability"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

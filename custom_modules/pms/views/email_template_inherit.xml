@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="mail_notification_layout_inherit" inherit_id="mail.mail_notification_layout">
+
+            <xpath expr="//div[@style='max-width: 900px; width: 100%;']//tr[td[img]]" position="replace">
+            </xpath>
+            <xpath expr="//div[@style='max-width: 900px; width: 100%;']//tr[td[@valign='center' and @style='white-space:nowrap;']]" position="replace">
+            </xpath>
+            <xpath expr="//div[@style='max-width: 900px; width: 100%;']//tr[td[hr]]" position="replace">
+            </xpath>
+            <xpath expr="//div[@style='max-width: 900px; width: 100%;']//div[@style='margin-top:32px;']" position="replace">
+            </xpath>
+            <xpath expr="//div[@style='max-width: 900px; width: 100%;']//p[@style='color: #555555; font-size:11px;']" position="replace">
+                <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 4px 0px;"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

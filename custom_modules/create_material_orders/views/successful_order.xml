@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="successful_order_wizard_form" model="ir.ui.view">
+            <field name="name">successful.order.wizard.form</field>
+            <field name="model">successful.order.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Order created successfully">
+                <h3>Order created successfully.</h3>
+                    <footer>
+                        <button name="continue_order" string="Continue" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="successful_order_wizard_action" model="ir.actions.act_window">
+            <field name="name">Material Order</field>
+            <field name="res_model">successful.order.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

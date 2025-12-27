@@ -1,0 +1,80 @@
+<odoo>
+
+<record id="duplicate_reference_search" model="ir.ui.view">
+        <field name="name">duplicate.reference.search</field>
+        <field name="model">duplicate.reference</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="move_name"/>
+                <field name="bill_date"/>
+                <field name="product_inv"/>
+                <field name="partner_name"/>
+                <field name="reference"/>
+                <field name="payment_reference"/>
+                <field name="analytic_accounts"/>
+                <field name="total_amount"/>
+                <field name="checked_duplicate"/>
+                <separator/>
+                <filter string="Checked" name="checkeddup" domain="[('checked_duplicate', '=', True)]"/>
+                <filter string="Unchecked" name="uncheckeddup" domain="[('checked_duplicate', '=', False)]"/>
+
+            </search>
+        </field>
+</record>
+
+<record id="duplicate_reference_tree" model="ir.ui.view">
+    <field name="name">duplicate.reference.tree</field>
+    <field name="model">duplicate.reference</field>
+    <field name="arch" type="xml">
+        <list string="Possible Duplicates Report" create="false">
+                <field name="move_name"/>
+                <field name="bill_date"/>
+                <field name="product_inv"/>
+                <field name="partner_name"/>
+                <field name="reference"/>
+                <field name="payment_reference"/>
+                <field name="analytic_accounts"/>
+                <field name="total_amount"/>
+                <field name="checked_duplicate"/>
+                <button name="check_duplicate" type="object" string="Checked" class="oe_highlight"/>
+                <button name="open_record" type="object" string="Open Record" class="oe_highlight"/>
+        </list>
+    </field>
+</record>
+
+
+<record id="duplicate_reference_action" model="ir.actions.act_window">
+    <field name="name">Possible Duplicates Report (Payment Reference)</field>
+    <field name="res_model">duplicate.reference</field>
+    <field name="view_mode">tree,form</field>
+    <field name="search_view_id" ref="pms.duplicate_reference_search"/>
+</record>
+
+<menuitem id="menu_account_possible_duplicates_reference" name="Possible Duplicates Report (Payment Reference)" parent="account.menu_finance_reports" action="duplicate_reference_action" sequence="120"/>
+
+
+<record id="action_server_checked_duplicate_ref" model="ir.actions.server">
+    <field name="name">Check Duplicates</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_duplicate_reference"/>
+    <field name="binding_model_id" ref="pms.model_duplicate_reference"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.check_duplicate_all()
+    </field>
+</record>
+
+<record id="action_server_uncheck_dup_ref" model="ir.actions.server">
+    <field name="name">Uncheck Duplicates</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_duplicate_reference"/>
+    <field name="binding_model_id" ref="pms.model_duplicate_reference"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.uncheck_duplicate_all()
+    </field>
+</record>
+
+</odoo>

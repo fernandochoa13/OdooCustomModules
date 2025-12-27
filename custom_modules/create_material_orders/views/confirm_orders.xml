@@ -1,0 +1,325 @@
+<odoo>
+
+    <!-- Material Orders Wizard -->
+    <!-- Pre-entry verification -->
+
+    <record id="_material_orders_search" model="ir.ui.view">
+    <field name="name">material.orders.search</field>
+    <field name="model">pms.materials</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="order_creator"/>
+            <field name="name"/>
+            <field name="property_id"/>
+            <field name="county"/>
+            <field name="property_owner"/>
+            <field name="project_manager"/>
+            <field name="zone_coordinator"/>
+            <field name="superintendent"/>
+            <field name="house_model"/>
+            <field name="on_hold"/>
+            <field name="own_third"/>
+            <field name="project_phase"/>
+            <field name="provider"/>
+            <field name="reference"/>
+            <field name="order_creation_date"/>
+            <field name="estimated_delivery_date"/>
+            <field name="actual_delivery_date"/>
+            <field name="payment_date"/>
+            <field name="payment_method"/>
+            <field name="payment_method_journal"/>
+            <field name="order_status"/>
+            <separator/>
+            <filter string="Delivered" name="delivered" domain="[('order_status', '=', 'delivered')]"/>
+            <separator/>
+            <filter string="Ordered" name="ordered" domain="[('order_status', '=', 'ordered')]"/>
+            <separator/>
+            <filter string="Gave Payment" name="gavepayment" domain="[('order_status', '=', 'gave_payment')]"/>
+            <separator/>
+            <filter string="Waiting Payment" name="waitingpayment" domain="[('order_status', '=', 'waiting_payment')]"/>
+            <separator/>
+            <filter string="Rejected" name="rejected" domain="[('order_status', '=', 'rejected')]"/>
+            <separator/>
+            <filter string="Not Ordered" name="notordered" domain="[('order_status', '=', 'not_ordered')]"/>
+            <separator/>            
+            <filter name="no_followup_24_hours" string="No Follow-up in 24 Hours"
+                    domain="[('last_followup_date', '&lt;', (context_today() - datetime.timedelta(hours=24)))]"
+                    help="Show materials with no follow-up in the last 24 hours"/>
+            <filter name="no_followup_7_days" string="No Follow-up in 7 Days"
+                    domain="[('last_followup_date', '&lt;', (context_today() - datetime.timedelta(days=7)))]"
+                    help="Show materials with no follow-up in the last 7 days"/>
+        </search>
+    </field>
+</record>
+
+    <record id="material_orders_view_form" model="ir.ui.view">
+        <field name="name">material.orders.view.form</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <form string="Materials Form">
+                <sheet class="o_form_sheet">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" widget="char" class="o_bold_title"/>
+                        </h1>
+                    </div>
+                    <header>
+                        <field name="order_status" widget="statusbar" statusbar_visible="not_ordered,wait_cust,waiting_payment,gave_payment,ordered,delivered,rejected"/>
+                    </header>
+                    <group name="general details" class="o_group">
+                        <field name="provider" readonly="1"  />
+                        <field name="order_status" readonly="1" />
+                        <field name="county" readonly="1" />
+                        <field name="order_creation_date" readonly="1" />
+                        <field name="material_lines" readonly="1" />
+                        <field name="followups" readonly="1" />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="material_orders_view_kanban" model="ir.ui.view">
+        <field name="name">material.orders.view.kanban</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <kanban >
+                <field name="order_status"/>
+                <field name="property_id"/>
+                <field name="provider"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <div class="oe-kanban-card kanban-padding">
+                                <a type="object" name="open_action">
+                                    <h6><strong><i><field name="county"/></i></strong></h6>
+                                    <strong class="o_kanban_record_title mb4">
+                                        <h3><field name="name"/></h3>
+                                    </strong>
+                                </a>
+                                <hr/>
+                                <strong><h5>Order details:</h5></strong> 
+                                <ul>
+                                    <li><strong>Order Creator: </strong><field name="order_creator"/></li>
+                                    <li><strong>Provider: </strong><field name="provider"/></li>
+                                    <li><strong>Order Status: </strong><field name="order_status"/></li>
+                                    <li><strong>Order Creation Date: </strong><field name="order_creation_date"/></li>
+                                    <li><strong>Reference: </strong><field name="reference"/></li>
+                                    <li><strong>Delivery Date: </strong><field name="actual_delivery_date"/></li>
+                                </ul>
+                                <hr/>
+                                <div style="background-color: #FFFACD; padding: 8px; border-radius: 4px;">
+                                    <!-- <strong>Latest Follow-up:</strong> -->
+                                    <i>
+                                        <strong>
+                                            <field style="white-space: pre-wrap;" name="last_followup_message"/>
+                                        </strong>
+                                        <br/>
+                                        <br/><field name="last_followup_date"/>
+                                    </i>
+                                </div>
+                            </div>
+                            <div class="text-center mb24">
+                                <button name="open_action" string="VIEW" type="object" class="btn-success"/>
+                                <span>   </span>
+                                <button name="confirm_order" string="CONFIRM" type="object" class="btn-primary"/>
+                                <span>   </span>
+                                <button name="send_message_team" string="TEAM MESSAGE" type="object" class="btn-outline-primary"/> 
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    
+    <record id="material_orders_view_tree" model="ir.ui.view">
+        <field name="name">material.orders.view.tree</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <list string="Material Orders">
+                <field name="name" optional="show"/>
+                <field name="order_creator" optional="hide"/>
+                <field name="property_id" optional="show"/>
+                <field name="county" optional="hide"/>
+                <field name="property_owner" optional="hide"/>
+                <field name="project_manager" optional="hide"/>
+                <field name="zone_coordinator" optional="hide"/>
+                <field name="superintendent" optional="hide"/>
+                <field name="house_model" optional="hide"/>
+                <field name="on_hold" optional="hide"/>
+                <field name="own_third" optional="hide"/>
+                <field name="project_phase" optional="hide"/>
+                <field name="provider" optional="show"/>
+                <field name="order_creation_date" optional="hide"/>
+                <field name="estimated_delivery_date" optional="hide"/>
+                <field name="actual_delivery_date" optional="hide"/>
+                <field name="has_bill" optional="hide"/>
+                <field name="payment_date" optional="hide"/>
+                <field name="payment_method" optional="hide"/>
+                <field name="payment_method_journal" optional="hide"/>
+                <field name="order_status" optional="show"/>
+            </list>
+        </field>
+    </record> 
+
+    <record id="material_orders_view_calendar" model="ir.ui.view">
+        <field name="name">material.orders.view.calendar</field>
+        <field name="model">pms.materials</field>
+        <field name="arch" type="xml">
+            <calendar date_start="estimated_delivery_date" string="Materials" mode="month" color="property_id" event_limit="5"
+                        hide_time="true" event_open_popup="true" quick_add="false">
+                <field name="order_creator"/>
+                <field name="property_id"/>
+                <field name="property_status"/>
+                <field name="county" />
+                <field name="property_owner" />
+                    <field name="project_manager"/>
+                    <field name="zone_coordinator"/>
+                    <field name="superintendent"/>
+                <field name="reference"/>
+                    <field name="house_model"/>
+                    <field name="on_hold"/>
+                    <field name="own_third"/>
+                    <field name="project_phase"/>
+                    <field name="provider"/>
+                    <field name="order_creation_date"/>
+                    <field name="estimated_delivery_date"/>
+                    <field name="actual_delivery_date"/>
+                    <field name="payment_date"/>
+                    <field name="payment_method"/>
+                    <field name="payment_method_journal"/>
+                    <field name="special_order"/>
+            </calendar>
+        </field>
+    </record>
+
+   <record id="material_orders_view_kanban_back_button" model="ir.ui.view">
+       <field name="name">material.orders.view.kanban.back.button</field>
+       <field name="model">pms.materials</field>
+       <field name="inherit_id" ref="create_material_orders.material_orders_view_kanban"/>
+       <field name="arch" type="xml">
+           <xpath expr="//kanban" position="attributes">
+               <attribute name="js_class">button_in_kanban</attribute>
+           </xpath>
+       </field>
+   </record>
+
+   <record id="material_orders_view_tree_buttons" model="ir.ui.view">
+        <field name="name">material.orders.view.tree.buttons</field>
+        <field name="model">pms.materials</field>
+        <field name="inherit_id" ref="create_material_orders.material_orders_view_tree"/>  
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">  
+                <attribute name="js_class">button_in_tree</attribute>  
+            </xpath>
+        </field>
+    </record>
+
+    <record id="orders_selection_wizard_form" model="ir.ui.view">
+        <field name="name">verify.orders.wizard.form</field>
+        <field name="model">verify.orders.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Verify Orders Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="employee_id" placeholder="Your name..." options="{'no_create': True}"/>
+                        <field name="employee_pin" placeholder="****" password="True"/>
+                    </group>
+                <footer>
+                    <button name="create_order_wizard" string="NEW ORDER" type="object" class="btn-success"/>
+                    <button name="open_orders_wizard" string="OPEN ORDERS" type="object" class="btn-primary"/>
+                    <button special="cancel" string="BACK" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="confirm_orders_wizard_form" model="ir.ui.view">
+            <field name="name">confirm.orders.wizard.form</field>
+            <field name="model">confirm.orders.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Order Wizard" class="o_sale_order">
+                    <sheet class="o_form_sheet">
+                        <group name="general details" class="o_group">
+                            <field name="order_lines"/>
+                            <field name="confirmed_by"/>
+                            <field name="quant_qual"/>
+                            <field name="signature" widget="signature"/>
+                        </group>
+                        <footer>
+                            <button name="confirm_order" string="CONFIRM ORDER" type="object" class="btn-success" />
+                            <button name="reject_order" string="REJECT ORDER" type="object" class="btn-danger" />
+                            <button special="cancel" string="Cancel" type="object" class="btn-secondary" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+    </record>
+
+    <record id="reject_orders_wizard_form" model="ir.ui.view">
+            <field name="name">reject.orders.wizard.form</field>
+            <field name="model">reject.orders.wizard</field>
+            <field name="arch" type="xml">
+                <form string="reject Order Wizard" class="o_sale_order">
+                    <sheet class="o_form_sheet">
+                        <group name="general details" class="o_group">
+                            <field name="rejected_by" />
+                            <field name="rejection_note"/>
+                            <field name="signed_by" widget="signature"/>
+                            <field name="attachments" widget="many2many_binary"/>
+                        </group>
+                        <footer>
+                            <button name="reject_order" string="Reject Order" type="object" class="btn-primary" />
+                            <button special="cancel" string="Cancel" type="object" class="btn-primary" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+    </record>
+
+    <record id="reject_orders_wizard" model="ir.actions.act_window">
+        <field name="name">Reject Orders Wizard</field>
+        <field name="res_model">reject.orders.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+<!-- #################################################################################################### -->
+
+    <!-- Material Orders Actions -->
+
+    <record id="material_orders_view" model="ir.actions.act_window">
+        <field name="name">Material Orders</field>
+        <field name="res_model">pms.materials</field>
+        <field name="view_mode">kanban,form,list,calendar</field>
+        <field name="target">fullscreen</field>
+    </record>
+
+  
+
+    <!-- Material Orders Selection Wizard Action -->
+    <record id="orders_selection_wizard" model="ir.actions.act_window">
+        <field name="name">Material Order Selection</field>
+        <field name="res_model">verify.orders.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="confirm_order_wizard" model="ir.actions.act_window">
+        <field name="name">Confirm Order Wizard</field>
+        <field name="res_model">confirm.orders.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    
+
+</odoo>

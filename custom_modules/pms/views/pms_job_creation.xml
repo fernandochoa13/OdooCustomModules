@@ -1,0 +1,132 @@
+<odoo>
+    <data>
+        <record id="company_selection_wizard_form" model="ir.ui.view">
+            <field name="name">company.selection.wizard.form</field>
+            <field name="model">company.selection.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Company Selection Wizard">
+                        <group name="general details" class="o_group">
+                            <field name="company"/>
+                        </group>
+                    <footer>
+                        <button name="confirm_selection" string="Confirm Selection" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!-- Tree View -->
+        <record id="view_pms_job_creation_tree" model="ir.ui.view">
+            <field name="name">pms.job.creation.tree</field>
+            <field name="model">pms.job.creation</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="display_name"/>
+                    <field name="name"/>
+                    <field name="project_activity"/>
+                    <field name="address"/>
+                    <field name="county"/>
+                    <field name="superintendent"/>
+                    <field name="contractor"/>
+                    <field name="due_date"/>
+                    <field name="completed_date"/>
+                    <field name="assigned_to"/>
+                    <field name="status"/>
+                    <field name="invoiced"/>
+                    <field name="collected"/>
+                    <field name="activity_created"/>
+                    <button name="view_invoice" string="View Invoice" type="object" class="oe_highlight"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_pms_job_creation_form" model="ir.ui.view">
+            <field name="name">pms.job.creation.form</field>
+            <field name="model">pms.job.creation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="display_name"/>
+                            <field name="status"/>
+                            <field name="name"/>
+                            <field name="project_activity"/>
+                            <field name="description"/>
+                            <field name="address"/>
+                            <field name="county"/>
+                            <field name="superintendent"/>
+                            <field name="contractor"/>
+                            <field name="amount"/>
+                            <field name="priotity"/>
+                            <field name="due_date"/>
+                            <field name="completed_date"/>
+                            <field name="assigned_to"/>
+                            <field name="photo" widget="many2many_binary"/>
+                        </group>
+                        <header>
+                            <button name="set_draft" string="Set to Draft" type="object" class="oe_highlight"/>
+                            <button name="set_in_progress" string="Set to In Progress" type="object" class="oe_highlight"/>
+                            <button name="set_completed" string="Set to Complete" type="object" class="oe_highlight"/>
+                            <button name="open_invoice_creation" string="Create Invoice" type="object" class="oe_highlight"/>
+                        </header>
+                    </sheet>
+                    <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+        </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_create_activities" model="ir.actions.server">
+            <field name="name">Create Project Activity</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="pms.model_pms_job_creation"/>
+            <field name="binding_model_id" ref="pms.model_pms_job_creation"/>
+            <field name="state">code</field>
+            <field name="code">
+        if records:
+            records.create_project_activity()
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_pms_job_creation" model="ir.actions.act_window">
+            <field name="name">Job Creation</field>
+            <field name="res_model">pms.job.creation</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="company_selection_wizard_action" model="ir.actions.act_window">
+            <field name="name">Company Selection Wizard</field>
+            <field name="res_model">company.selection.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+    <!-- Tree Editable View -->
+    <record id="view_pms_job_product_tree" model="ir.ui.view">
+        <field name="name">pms.job.product.tree</field>
+        <field name="model">pms.job.product</field>
+        <field name="arch" type="xml">
+            <list editable="top">
+                <field name="job_name"/>
+                <field name="product_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action for Tree Editable View -->
+    <record id="action_pms_job_product_tree" model="ir.actions.act_window">
+        <field name="name">Job Product</field>
+        <field name="res_model">pms.job.product</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    </data>
+
+
+</odoo>

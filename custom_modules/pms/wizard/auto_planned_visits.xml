@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="auto_planned_visits_wizard_form" model="ir.ui.view">
+            <field name="name">auto.planned.visits.form</field>
+            <field name="model">auto.planned.visits</field>
+            <field name="arch" type="xml">
+                <form string="Automatic Planned Visits">
+                <h3>Planned Visit Days will be created for all the projects that have a visit day assigned.</h3>
+                    <footer>
+                        <button name="create_planned_visits" string="Confirm" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="auto_planned_visits_wizard_action" model="ir.actions.act_window">
+            <field name="name">Planned Visits Wizard</field>
+            <field name="res_model">auto.planned.visits</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

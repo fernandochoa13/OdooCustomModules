@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="pms_transaction_journal_wizard_form" model="ir.ui.view">
+            <field name="name">pms.transaction.journal.wizard.form</field>
+            <field name="model">pms.transaction.journal.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Transaction Accounting Move">
+                    <h3>Purchase, Refinance or Sell:</h3>
+                        <br></br>
+                        <group name="general details" class="o_group">
+                            <field name="transaction_type"/>
+                            <field name="owner"/> 
+                            <field name="old_owner"/>
+                            <field name="property_address"/>
+                            <field name="residential_unit_closure"/>
+                            <field name="type_purchase_sale"/>
+
+                            <field name="net_closing_cost"/>
+                            <field name="escrow_money"/>
+                            <field name="amount_to_pay"/>
+                            <field name="amount_to_receive"/>
+                            <field name="price_of_land"/>
+
+                            <field name="sales_price"/>
+                            <field name="property_cost"/>
+                            <field name="item_details"/>
+
+                            <field name="has_previous_loan"/>
+                            <field name="previous_loan_amount"/>
+                            <field name="previous_loan_interest"/>
+                            <field name="previous_loan_secure_investment"/>
+                            <field name="previous_loan_amount_match"/>
+
+                            <field name="mortgage_cost_refinance"/>
+                            <field name="escrow_money_refinance"/>
+                            <field name="insurance_refinance"/>
+                            <field name="taxes_refinance"/>
+                            <field name="new_loan_amount"/>
+
+
+                            <field name="warranty_deed" widget="many2many_binary"/>
+                            <field name="hud_attachment" widget="many2many_binary" />
+                            <field name="payoff_details" widget="many2many_binary"/>
+                            <field name="lender_package" widget="many2many_binary"/>
+
+                            <field name="note"/>
+                            
+                        </group>
+                    <footer>
+                        <button name="create_closing" string="Create Closing" type="object" class="oe_highlight"/>
+                        <button name="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="pms_close_property" model="ir.actions.act_window">
+            <field name="name">PMS Close Property</field>
+            <field name="res_model">pms.close.property</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

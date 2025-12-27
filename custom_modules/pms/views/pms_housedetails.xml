@@ -1,0 +1,42 @@
+<odoo>
+
+<record id="pms_housemodels_view" model="ir.actions.act_window">
+    <field name="name">House Models</field>
+    <field name="res_model">pms.housemodels</field>
+    <field name="view_mode">list,form</field>
+</record>
+
+<record id="pms_housemodels_view_tree" model="ir.ui.view">
+    <field name="name">pms.housemodels.tree</field>
+    <field name="model">pms.housemodels</field>
+    <field name="arch" type="xml">
+        <list string="House Models">
+            <field name="name" optional="show"/>
+            <field name="floor" optional="show"/>
+            <field name="roof" optional="show"/>
+            <field name="windows" optional="show"/>
+            <field name="budget_model" optional="show"/>
+        </list>
+    </field>
+</record>
+
+
+<record id="pms_roofs_view" model="ir.actions.act_window">
+    <field name="name">Roof Types</field>
+    <field name="res_model">pms.roof</field>
+    <field name="view_mode">list,form</field>
+</record>
+
+<record id="pms_windows_view" model="ir.actions.act_window">
+    <field name="name">Windows Types</field>
+    <field name="res_model">pms.windows</field>
+    <field name="view_mode">list,form</field>
+</record>
+
+<record id="pms_floors_view" model="ir.actions.act_window">
+    <field name="name">Floor Types</field>
+    <field name="res_model">pms.floors</field>
+    <field name="view_mode">list,form</field>
+</record>
+
+</odoo>

@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_new_bulk_wizard_form" model="ir.ui.view">
+            <field name="name">new.bulk.wizard.form</field>
+            <field name="model">new.bulk.wizard</field>
+            <field name="arch" type="xml">
+                <form string="New Bulk Wizard">
+                    <h3>Add new activities in bulk:</h3>
+                        <br></br>
+                        <group name="general details" class="o_group">
+                            <field name="act_name"/>
+                            <field name="vendor"/> 
+                            <field name="projects" />
+                        </group>
+                    <footer>
+                        <button name="create_activities" string="Create Activities" type="object" class="oe_highlight"/>
+                        <button name="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_new_bulk_wizard" model="ir.actions.act_window">
+            <field name="name">New Bulk Activities</field>
+            <field name="res_model">new.bulk.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+<odoo>
+
+    <record id="pms_inspections_general_report_action" model="ir.actions.report">
+            <field name="name">Inspections General Report</field>
+            <field name="model">pms.inspections.general.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pms.inspections_general_report</field>
+    </record>
+
+</odoo>

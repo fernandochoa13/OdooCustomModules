@@ -1,0 +1,173 @@
+<odoo>
+<record id="pms_investors_view_tree" model="ir.ui.view">
+    <field name="name">pms.investors.tree</field>
+    <field name="model">pms.investors</field>
+    <field name="arch" type="xml">
+        <list string="Investors Control">
+            <field name="name" optional="show"/>
+            <field name="partner_id" optional="show"/>
+            <field name="project" optional="show"/>
+            <field name="property_id" optional="show"/>
+            <field name="project_status" optional="show"/>
+            <field name="date" optional="show"/>
+            <field name="capital_funds" optional="show"/>
+            <field name="interest_rate" optional="show"/>
+            <field name="total_profit" optional="show"/>
+            <field name="total_amount" optional="show"/>
+            <field name="date_paid" optional="show"/>
+            <field name="liquidation_date" optional="show"/>
+            <field name="investment_type" optional="show"/>
+            <field name="remarks_note" optional="show"/>
+            <field name="payment_comments" optional="show"/>
+            <field name="exit_strategy" optional="show"/>
+            <field name="pctg_principal_reinvested" optional="show"/>
+            <field name="pctg_profit_reinvested" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_investors_view_form" model="ir.ui.view">
+    <field name="name">pms.investors.form</field>
+    <field name="model">pms.investors</field>
+    <field name="arch" type="xml">
+        <form string="Investors Control Form">
+        <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" widget="char" class="o_bold_title"/>
+                    </h1>
+                </div>
+        <header>
+        <button name="action_invested" string="Mark as Invested" type="object" class="btn-primary"/>
+        <button name="action_liquidated" string="Mark as Liquidated" type="object" class="btn-primary"/>
+        <field name="status" widget="statusbar" statusbar_visible="draft,invested,liquidated"/>
+       </header>
+        <group name="general details" class="o_group">
+            <field name="partner_id"/>
+            <field name="project"/>
+            <field name="property_id"/>
+            <field name="project_status"/>
+            <field name="date"/>
+            <field name="capital_funds"/>
+            <field name="interest_rate"/>
+            <field name="total_profit"/>
+            <field name="total_amount"/>
+            <field name="date_paid"/>
+            <field name="liquidation_date"/>
+            <field name="investment_type"/>
+            <field name="remarks_note"/>
+            <field name="payment_comments"/>
+            <field name="exit_strategy"/>
+            <field name="projects_where_reinvested"/>
+            <field name="pctg_principal_reinvested"/>
+            <field name="pctg_profit_reinvested"/>
+        </group>
+        </sheet>
+        <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+<record id="pms_investors_view" model="ir.actions.act_window">
+    <field name="name">Investors Control</field>
+    <field name="res_model">pms.investors</field>
+    <field name="view_mode">list,form</field>
+</record>
+
+
+<record id="pms_invested_wizard_view_form" model="ir.ui.view">
+    <field name="name">pms.invested.wizard.form</field>
+    <field name="model">pms.invested.wizard</field>
+    <field name="arch" type="xml">
+        <form string="Invested Wizard">
+            <sheet>
+                <group>
+                    <field name="date"/>
+                    <field name="company"/>
+                    <field name="remarks"/>
+                </group>
+                <div style="font-weight: bold;">
+                    <hr/>
+                    <field name="without_journal"/>
+                    Check the box if you want to set as invested without creating a journal entry.
+                </div>
+                <br/>
+                <group>
+                    <field name="payment_journal"/>
+                </group>
+                <footer>
+                    <button string="Confirm" type="object" name="create_entry" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="pms_invested_wizard_view" model="ir.actions.act_window">
+    <field name="name">Invested Wizard</field>
+    <field name="res_model">pms.invested.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+<record id="pms_liquidated_wizard_view_form" model="ir.ui.view">
+    <field name="name">pms.liquidated.wizard.form</field>
+    <field name="model">pms.liquidated.wizard</field>
+    <field name="arch" type="xml">
+        <form string="Liquidated Wizard">
+            <sheet>
+                <group>
+                    <field name="date"/>
+                    <field name="remarks"/>
+                </group>
+                <div style="font-weight: bold;">
+                    <hr/>
+                    <field name="without_journal"/>
+                    Check the box if you want to set as invested without creating a journal entry.
+                </div>
+                <br/>
+                <group>
+                    <field name="payment_journal"/>
+                </group>
+                <footer>
+                    <button string="Confirm" type="object" name="create_entry" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="pms_liquidated_wizard_view" model="ir.actions.act_window">
+    <field name="name">liquidated Wizard</field>
+    <field name="res_model">pms.liquidated.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+
+<record id="pms_reinvestments_view_tree" model="ir.ui.view">
+    <field name="name">pms.reinvestments.tree</field>
+    <field name="model">pms.reinvestments</field>
+    <field name="arch" type="xml">
+        <list string="PMS Reinvestments" editable='bottom'>
+            <field name="project"/>
+            <field name="pctg_investments"/>
+        </list>
+    </field>
+</record> 
+
+
+<record id="pms_reinvestments_view" model="ir.actions.act_window">
+    <field name="name">ReInvestments</field>
+    <field name="res_model">pms.reinvestments</field>
+    <field name="view_mode">list</field>
+</record>
+
+
+</odoo> 

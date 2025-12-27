@@ -1,0 +1,100 @@
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_account_recurring_tree" model="ir.ui.view">
+            <field name="name">account.recurring.tree</field>
+            <field name="model">account.recurring</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="model_journal"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="state"/>
+                    <field name="company"/>
+                    <field name="period"/>
+                    <field name="period_count"/>
+                    <field name="next_date"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_account_recurring_form" model="ir.ui.view">
+            <field name="name">account.recurring.form</field>
+            <field name="model">account.recurring</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet class="o_form_sheet">
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="get_posted_entries_view" type="object" icon="fa-pencil-square-o" string="Posted Entries">
+                            </button>
+                        </div>
+
+                    <header>
+                        <button id="start_recurring" name="action_start" string="Start" type="object" class="btn-primary"/>
+                        <button id="stop_recurring" name="action_stop" string="Stop" type="object" class="btn-primary"/>
+                        <button id="post_next_moves" name="post_next_moves" string="Post Next Move" type="object" class="btn-primary"/>
+                        
+                        <field name="state" widget="statusbar" statusbar_visible="draft,running,stop"/>
+                    </header>
+
+
+                        <group name="Details">
+                            <field name="name"/>
+                            <field name="model_journal"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="state"/>
+                            <field name="company"/>
+                            <field name="period"/>
+                            <field name="period_count"/>
+                            <field name="next_date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_account_recurring" model="ir.actions.act_window">
+            <field name="name">Account Recurring</field>
+            <field name="res_model">account.recurring</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="action_post_next_move" model="ir.actions.server">
+            <field name="name">Action Post Next Move</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="pms.model_account_recurring"/>
+            <field name="binding_model_id" ref="pms.model_account_recurring"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    records.post_next_moves()
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_account_recurring" name="Account Recurring" parent="account.menu_finance_configuration" action="action_account_recurring" sequence="10"/>
+        
+        <!-- Scheduled Action -->
+        <data noupdate="1">
+        <record id="scheduled_action_account_recurring" model="ir.cron">
+            <field name="name">Account Recurring Action</field>
+            <field name="model_id" ref="model_account_recurring"/>
+            <field name="state">code</field>
+            <field name="code">
+env['pms.projects'].function_run_log("_post_moves")
+model._post_moves()
+</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+        </record>
+        </data>
+    
+    
+    </data>
+</odoo>

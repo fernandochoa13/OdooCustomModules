@@ -1,0 +1,41 @@
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.center {
+    text-align: center; 
+}
+
+.big {
+    font-size: 1.2em;
+}
+
+.padding {
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.right {
+    text-align: right;
+}
+
+.margin {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.o_list_view .o_data_row .text-positive {
+    color: green !important;
+}
+
+.o_list_view .o_data_row .text-negative {
+    color: red !important;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+  }

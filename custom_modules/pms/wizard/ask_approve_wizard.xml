@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="view_ask_approve_wizard_form" model="ir.ui.view">
+            <field name="name">pms.ask.approve.wizard.form</field>
+            <field name="model">pms.askapprove</field>
+            <field name="arch" type="xml">
+                <form string="Ask Approve Wizard">
+                    <!-- Add your fields here -->
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="pin" password="True"/>
+                        <!-- Add your fields here -->
+                    </group>
+                    <footer>
+                        <button name="create_approval_record" string="Create Approval" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ask_approve_wizard" model="ir.actions.act_window">
+            <field name="name">Ask Approve Wizard</field>
+            <field name="res_model">pms.askapprove</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

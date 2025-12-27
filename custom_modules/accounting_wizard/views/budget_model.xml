@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <!-- Define the view for budget.model -->
+        <record id="view_budget_model_form" model="ir.ui.view">
+            <field name="name">budget.model.form</field>
+            <field name="model">budget.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet class="o_form_sheet">
+                        <group name="general_details" class="o_group">
+                            <field name="supplier"/>
+                            <field name="activity"/>
+                            <field name="city"/>
+                            <field name="house_model" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="product_model" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="amount"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_budget_model_tree" model="ir.ui.view">
+            <field name="name">budget.model.tree</field>
+            <field name="model">budget.model</field>
+            <field name="arch" type="xml">
+                <list string="Budget Model">
+                    <field name="supplier"/>
+                    <field name="activity"/>
+                    <field name="city"/>
+                    <field name="house_model"/>
+                    <field name="product_model"/>
+                    <field name="amount"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="budget_model_action" model="ir.actions.act_window">
+            <field name="name">Budget Model</field>
+            <field name="res_model">budget.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>
+

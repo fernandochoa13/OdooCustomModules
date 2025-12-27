@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="material_order_bill_wizard_form" model="ir.ui.view">
+            <field name="name">material.order.bill.wizard.form</field>
+            <field name="model">material.order.bill.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Material Order Bill Wizard">
+                <h3>The company that owns the property is not the same company that you have selected.</h3>
+                    <footer>
+                        <button name="continue_bill" string="Continue" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="material_order_bill_wizard_action" model="ir.actions.act_window">
+            <field name="name">Material Order Bill Wizard</field>
+            <field name="res_model">material.order.bill.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

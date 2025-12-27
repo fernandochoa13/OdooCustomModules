@@ -1,0 +1,98 @@
+<odoo>
+
+    <!-- Supervisor Inspections Report -->
+    <record id="view_supervisor_inspections_report_tree" model="ir.ui.view">
+        <field name="name">supervisor.inspections.report.tree</field>
+        <field name="model">supervisor.inspections.report</field>
+        <field name="arch" type="xml">
+            <list string="Supervisor Inspections Report" create="false">
+                <field name="county" optional="show" />
+                <field name="address" optional="show" />
+                <field name="owner_property" optional="show" />
+                <field name="own_third" optional="show" />
+                <field name="superintendent" optional="show" />
+                <field name="project_manager" optional="show" />
+                <field name="on_hold" optional="show" />
+                <field name="zone_coordinator" optional="show" />
+                <field name="status_construction" optional="show" />
+                <field name="last_activity_html" string="Last Activity" widget="html" optional="show"/>
+                <field name="pending_activity_html" string="Pending Activities" widget="html" optional="show"/>
+                <field name="upcoming_activity_html" string="Upcoming Activities" widget="html" optional="show"/>
+                <field name="next_activity_html" string="Next Activities" widget="html" optional="show"/>
+                <field name="last_message_html" string="Last Message" optional="show" widget="html" class="italic" />
+                <field name="visit_day" optional="show" />
+                <field name="last_visit_day" optional="show" class="italic"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_supervisor_inspections_report_search" model="ir.ui.view">
+        <field name="name">supervisor.inspections.report.search</field>
+        <field name="model">supervisor.inspections.report</field>
+        <field name="arch" type="xml">
+            <search string="Supervisor Inspections Report">
+                <field name="county"/>
+                <field name="address"/>
+                <field name="owner_property"/>
+                <field name="own_third"/>
+                <field name="on_hold"/>
+                <field name="superintendent"/>
+                <field name="project_manager"/>
+                <field name="zone_coordinator"/>
+                <field name="status_construction"/>
+                <field name="visit_day"/>
+                <field name="last_visit_day"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_update_supervisor_comment" model="ir.actions.server">
+        <field name="name">Update Supervisor Comment</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_supervisor_inspections_report"/>
+        <field name="binding_model_id" ref="pms.model_supervisor_inspections_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.add_comment()
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_supervisor_inspections_report" model="ir.actions.act_window">
+        <field name="name">Supervisor Inspections Report</field>
+        <field name="res_model">supervisor.inspections.report</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data available for the Supervisor Inspections Report
+            </p>
+        </field>
+    </record>
+
+
+    <record id="action_supervisor_comment_form" model="ir.ui.view">
+        <field name="name">action.supervisor.comment.form</field>
+        <field name="model">supervisor.comment</field>
+        <field name="arch" type="xml">
+            <form string="Update Supervisor Comment">
+                <group>
+                    <field name="comment"/> 
+                </group>
+                <footer>
+                    <button name="create_comment" string="Comment" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_supervisor_comment" model="ir.actions.act_window">
+        <field name="name">Update Supervisor Comment</field>
+        <field name="res_model">supervisor.comment</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

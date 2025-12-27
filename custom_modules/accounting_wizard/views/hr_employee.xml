@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <record id="view_hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_type']" position="after">
+                    <field name="allowed_to_give_points" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- <record id="view_hr_points_allowed_form" model="ir.ui.view">
+            <field name="name">hr.points.allowed.form</field>
+            <field name="model">hr.points.allowed</field>
+            <field name="arch" type="xml">
+                <form string="HR Points Allowed">
+                    <sheet>
+                        <field name="employee_id"/>
+                        <field name="allowed_to" widget="many2many"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_points_allowed" model="ir.actions.act_window">
+            <field name="name">HR Points Allowed</field>
+            <field name="res_model">hr.points.allowed</field>
+            <field name="view_mode">form</field>
+        </record> -->
+
+        <record id="view_hr_points_tree" model="ir.ui.view">
+            <field name="name">hr.points.tree</field>
+            <field name="model">hr.points</field>
+            <field name="arch" type="xml">
+                <list string="HR Points" create="false" delete="false">
+                    <field name="received_by"/>
+                    <field name="given_by"/>
+                    <field name="date"/>
+                    <field name="description"/>
+                    <field name="points"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_hr_points" model="ir.actions.act_window">
+            <field name="name">HR Points</field>
+            <field name="res_model">hr.points</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_hr_points" name="Points" parent="hr_attendance.menu_hr_attendance_root"
+            sequence="95" action="action_hr_points">
+        </menuitem> 
+
+
+    </data>
+</odoo>

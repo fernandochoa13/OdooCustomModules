@@ -1,0 +1,188 @@
+<odoo>
+
+<record id="pms_loans_view_tree" model="ir.ui.view">
+    <field name="name">pms.loans.tree</field>
+    <field name="model">pms.loans</field>
+    <field name="arch" type="xml">
+        <list string="Loans">
+            <field name="name" optional="show"/>
+            <field name="lender" optional="show"/>
+            <field name="company_id" optional="hide"/>
+            <field name="loan_amount" optional="show"/>
+            <field name="property_address" optional="show"/>
+            <field name="project_phase" optional="show"/>
+            <field name="maturity_date" optional="show"/>
+
+            <!-- New Fields -->
+            <field name="servicing_company" optional="show"/>
+            <field name="first_mortgage_payment_date" optional="show"/>
+            <field name="available_balance" optional="show"/>
+
+            <field name="loan_type" optional="show"/>
+            <field name="loan_payment_type" optional="show"/>
+            <field name="interest" optional="show"/>
+            <field name="exit_status" optional="show"/>
+            <field name="extension_count" optional="show"/>
+            <field name="monthly_payment" optional="show"/>
+            <field name="days_to_expire_loan" optional="show"/>
+            <field name="loan_balance" optional="show"/>
+            <!-- New Fields -->
+            <field name="extension_requested" optional="show"/>
+            <field name="refinancing_process_check" optional="show"/>
+
+        </list>
+    </field>
+</record>
+
+<record id="pms_loans_view_search" model="ir.ui.view">
+        <field name="name">pms.loans.search</field>
+        <field name="model">pms.loans</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="name"/>
+                <field name="lender"/>
+                <field name="loan_amount"/>
+                <field name="property_address"/>
+                <field name="maturity_date"/>
+                <!-- New Fields -->
+                <field name="servicing_company"/>
+                <field name="first_mortgage_payment_date"/>
+
+                <field name="loan_type"/>
+                <field name="loan_payment_type"/>
+                <field name="interest"/>
+                <field name="exit_status"/>
+                <field name="extension_count"/>
+                <field name="monthly_payment"/>
+                <field name="days_to_expire_loan"/>
+                <field name="extension_requested" />
+                <field name="refinancing_process_check"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_project_phase" string="Project Phase" context="{'group_by': 'project_phase'}"/>
+                </group>
+                
+                <field name="project_phase" optional="show"/>
+            </search>
+        </field>
+</record>
+
+
+<record id="pms_loans_view_form" model="ir.ui.view">
+        <field name="name">pms.loans.form</field>
+        <field name="model">pms.loans</field>
+        <field name="arch" type="xml">
+            <form string="Loans Form" class="o_sale_order">
+
+            <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" widget="char" class="o_bold_title"/>
+                    </h1>
+                </div>
+
+            <header>
+                <button id="extend" name="extend_loan" string="Extend Loan"
+                    type="object" class="btn-primary"
+                   />
+                <button id="create_items" name="create_draw_items" string="Create Draw Items"
+                    type="object" class="btn-primary"/>
+                <button id="refinanced" name="refinanced" string="Set as Refinanced"
+                    type="object" class="btn-primary"/>
+                <button id="sold" name="sold" string="Set as Sold"
+                    type="object" class="btn-primary"/>
+                <field name="exit_status" widget="statusbar" statusbar_visible="ongoing,extended,refinanced,sold"/>
+            </header>
+            <group>
+                <group string="General Details" class="o_group">
+                    <field name="lender"/>
+                    <field name="loan_amount"/>
+                    <field name="maturity_date"/>
+                    <field name="extension_count"/>
+                    <field name="days_to_expire_loan"/>
+                    <field name="interest"/>
+                    <field name="property_address"/>
+                    <field name="project_phase"/>
+                </group>
+                <group string="Mortgage Details" class="o_group">
+                    <!-- New Fields -->
+                    <field name="servicing_company"/>
+                    <field name="servicing_loan_number"/>
+
+                    <field name="monthly_payment"/>
+                    <!-- New Fields -->
+                    <field name="max_date_to_pay"/>
+                    <field name="first_mortgage_payment_date"/>
+                    <hr/><br/>
+                    <field name="loan_type"/>
+                    <field name="loan_payment_type"/>
+                    <field name="loan_balance"/>
+                    <!-- <field name="computed_loan_balance" readonly="1" invisible="1"/> 
+                    <field name="manual_loan_balance" string="Loan Balance*"/> 
+                    <field name="loan_balance" readonly="1"/> -->
+                </group>
+            </group>
+            <group>
+                <group string="Draw Details" class="o_group">
+                    <field name="available_balance"/>
+                    <field name="total_drawed_amount"/>
+                </group>
+                <group string="Control Fields" class="o_group">
+                    <field name="extension_requested"/>
+                    <field name="refinancing_process_check"/>
+                    <field name="exit_status"/>
+                </group>
+            </group>
+
+
+                <notebook>
+                    <page string="Draw History">
+                        <field name="draw_history"/>
+                    </page>
+                    
+                    <page string="Draw Items">
+                        <field name="draw_item" 
+                        
+                        context="{'tree_view_ref': 'pms_draw_items_tree'}"/>
+                    </page>                 
+                </notebook>
+
+
+
+            </sheet>
+
+            <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+            </form>
+        </field>
+
+</record>
+
+
+<record id="pms_loans_view" model="ir.actions.act_window">
+    <field name="name">Loans</field>
+    <field name="res_model">pms.loans</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="pms.pms_loans_view_search"/>
+</record>
+
+<data noupdate="1">
+   <record id="ir_cron_days_to_expire_loans" model="ir.cron">
+       <field name="name">days_to_expire_loans</field>
+       <field name="model_id" ref="model_pms_loans"/>
+       <field name="state">code</field>
+       <field name="code">
+env['pms.projects'].function_run_log("_days_to_expire_loan")
+model.search([])._days_to_expire_loan()
+</field>
+       <field name="user_id" ref="base.user_root"/>
+       <field name="interval_number">1</field>
+       <field name="interval_type">days</field>
+       <field name="numbercall">-1</field>
+   </record>
+</data>
+
+</odoo>

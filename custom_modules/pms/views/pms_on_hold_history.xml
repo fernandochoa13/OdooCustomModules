@@ -1,0 +1,192 @@
+<odoo>
+    <data>
+
+        <record id="pms_on_hold_history_view_search" model="ir.ui.view">
+                <field name="name">pms.on.hold.history.search</field>
+                <field name="model">pms.on.hold.history</field>
+                <field name="arch" type="xml">
+                    <search string="Default Search">
+                        <field name="property_name"/>
+                        <field name="county"/>
+                        <field name="property_owner"/>
+                        <field name="date"/>
+                        <field name="responsible"/>
+                        <field name="mail_notification"/>
+                        <field name="previous_status"/>
+                        <field name="comments"/> 
+                        <field name="jennys_calls"/>
+                        <field name="hold_end_date"/>
+                        <field name="off_hold_reason"/>   
+                        <separator/>
+                        <group expand="0" string="Group By">
+                            <filter name="county" string="County" context="{'group_by':'county'}"/>
+                            <filter name="group_by_date" string="Create Date" context="{'group_by':'create_date'}"/>
+                            <filter name="group_by_hold_owner" string="Hold By Owner" context="{'group_by':'hold_by_owner'}"/>
+                        </group>
+                    </search>
+                </field>
+        </record>
+
+
+        <record id="pms_on_hold_history_view_tree" model="ir.ui.view">
+            <field name="name">pms.on.hold.history.tree</field>
+            <field name="model">pms.on.hold.history</field>
+            <field name="arch" type="xml">
+                <list string="On Hold History" create="true">
+                                <field name="property_name"/>
+                                <field name="county"/>
+                                <field name="property_owner"/>
+                                <field name="date"/>
+                                <field name="responsible"/>
+                                <field name="mail_notification"/>
+                                <field name="previous_status"/>
+                                <field name="comments"/> 
+                                <field name="jennys_calls"/>
+                                <field name="hold_end_date"/>
+                                <field name="off_hold_reason"/>  
+                </list>
+            </field>
+        </record>
+
+        <record id="pms_on_hold_history_view_form" model="ir.ui.view">
+                <field name="name">pms.on.hold.history.form</field>
+                <field name="model">pms.on.hold.history</field>
+                <field name="arch" type="xml">
+                    <form string="On Hold History Form" class="o_sale_order">
+
+                    <sheet class="o_form_sheet">
+                                <!-- <field name="set_off_hold" invisible="1"/>
+                                <field name="mail_sent" invisible="1"/>
+
+                        <div class="alert alert-info" role="alert">
+                            <p class="mb-2">
+                                This property was set on hold automatically. Please check if it's correct.
+                            </p>
+                            <p class="mb-2 italic bold">
+                                Keep in mind that records older than the 11th of July 2025 may have already been notified.
+                            </p>
+                            <br/>
+                            <button name="manual_hold_email" string="Send Notification" type="object" class="btn btn-secondary oe_highlight" confirm="Are you sure you want to notify via email the hold status?"/>
+                            <button name="set_property_off_hold" string="Put Off Hold" type="object" class="btn btn-secondary oe_highlight" confirm="Are you sure you want to set the property to off hold?"/>
+                        </div> -->
+
+                        <!-- Banner for Auto On Hold (Mail Sent) -->
+                        <!-- <div class="alert alert-success" role="alert">
+                            <p class="mb-0">
+                                Mail notification sent for this automatically held property.
+                            </p>
+                        </div>
+
+                        <div class="alert alert-success" role="alert">
+                            <p class="mb-0">
+                                Property has been put off hold.
+                            </p>
+                        </div> -->
+
+                        <group string="Property On Hold Details" class="o_group">
+                            <group name="project details">
+                                <field name="property_name"/>
+                                <field name="county"/>
+                                <field name="property_owner"/>
+                                <field name="hold_by_owner"/>
+                                <field name="date"/>
+                                <field name="responsible"/>
+                                <field name="mail_notification"/>
+                                <field name="previous_status"/>
+                                <field name="comments"/> 
+                                <field name="jennys_calls"/>
+                                <field name="hold_end_date"/>
+                                <field name="off_hold_reason"/>   
+                            </group>
+                        </group>
+                        <group string="Property Outstanding Invoices">
+                            <field name="invoice_ids" readonly="1">
+                                <list editable="False" create="False" delete="False">
+                                    <field name="name"/>
+                                    <field name="invoice_date"/>
+                                    <field name="invoice_date_due"/>
+                                    <field name="amount_untaxed_signed"/>
+                                    <field name="amount_total_signed"/>
+                                    <field name="payment_state"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>   
+                        </group>
+                        <group>
+                            <field name="product_ids" widget="many2many_tags" readonly="1"/>
+                        </group>
+                        <div class="italic bold">
+                            In order to see invoices, all companies must be selected.
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+
+                    </form>
+                </field>
+        </record>
+
+        <record id="view_on_hold_wizard_form" model="ir.ui.view">
+                    <field name="name">on.hold.wizard.form</field>
+                    <field name="model">on.hold.wizard</field>
+                    <field name="arch" type="xml">
+                        <form string="PMS On Hold Wizard">
+                            <group>
+                                <field name="date"/>
+                                <field name="responsible"/>
+                                <field name="hold_by_owner"/>
+                                <field name="mail_notification"/>
+                                <field name="previous_status"/>
+                                <field name="comments"/> 
+                                <field name="jennys_calls"/>  
+                            </group>
+                            <footer>
+                                <button name="save_history" string="Save History" type="object" class="oe_highlight"/>
+                            </footer>
+                        </form>
+                    </field>
+        </record>
+
+
+        <record id="view_on_hold_wizard" model="ir.actions.act_window">
+            <field name="name">On Hold Wizard</field>
+            <field name="res_model">on.hold.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    <record id="view_off_hold_wizard_form" model="ir.ui.view">
+                    <field name="name">off.hold.wizard.form</field>
+                    <field name="model">off.hold.wizard</field>
+                    <field name="arch" type="xml">
+                        <form string="PMS Off Hold Wizard">
+                            <group>
+                                <field name="off_hold_reason"/>
+                            </group>
+                            <footer>
+                                <button name="save_history" string="Save History" type="object" class="oe_highlight"/>
+                            </footer>
+                        </form>
+                    </field>
+        </record>
+
+
+        <record id="view_off_hold_wizard" model="ir.actions.act_window">
+            <field name="name">Off Hold Wizard</field>
+            <field name="res_model">off.hold.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+    <record id="pms_on_hold_history_action" model="ir.actions.act_window">
+            <field name="name">On Hold History</field>
+            <field name="res_model">pms.on.hold.history</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="pms.pms_on_hold_history_view_search"/>
+        </record>
+    </data>
+</odoo>

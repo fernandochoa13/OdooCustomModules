@@ -1,0 +1,118 @@
+<odoo>
+
+    <record id="view_select_rent_report_wizard" model="ir.ui.view">
+        <field name="name">Rent Report Date Wizard</field>
+        <field name="model">select.rent.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select Report Date">
+                <group>
+                    <field name="month"/>
+                    <field name="year" options="{'enable_formatting': false}"/>
+                </group>
+                <footer>
+                    <button name="open_report" string="Open Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_rent_report_search" model="ir.ui.view">
+        <field name="name">view.rent.report.search</field>
+        <field name="model">pms.rent.report</field>
+        <field name="arch" type="xml">
+            <search string="Search Rent Report">
+                <field name="property_address" string="Property"/>
+                <field name="unit"/>
+                <field name="lender"/>
+                <field name="portfolio"/>
+                <field name="loan_number"/>
+                <field name="property_owner"/>
+                <group expand="0" string="Group By">
+                    <filter string="Portfolio" name="group_portfolio" domain="[]" context="{'group_by': 'portfolio'}"/>
+                    <filter string="Lender" name="group_lender" domain="[]" context="{'group_by': 'lender'}"/>
+                    <filter string="Unit Status" name="group_unit_status" domain="[]" context="{'group_by': 'unit_status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_rent_report_tree" model="ir.ui.view">
+        <field name="name">view.rent.report.tree</field>
+        <field name="model">pms.rent.report</field>
+        <field name="arch" type="xml">
+            <list string="Rent Report" edit="false" delete="false" default_order="portfolio">
+                <field name="property_address" optional="hidden"/>
+                <field name="property_address_html" widget="html" string="Property Address" optional="show"/>
+                <field name="status_house"/>
+                <field name="unit" optional="show"/>
+                <field name="unit_status" optional="show"/>
+                <field name="lender" optional="show"/>
+                <field name="portfolio" optional="show"/>
+                <field name="loan_number" optional="show"/>
+                <field name="interest" optional="show"/>
+                <field name="property_owner" optional="show"/>
+                <field name="rent" optional="show" sum="Rent"/>
+                <field name="mortgage" optional="show" sum="Mortgage"/>
+                <field name="profit" optional="show" class="bold" sum="Profit"
+                    decoration-success="profit &gt; 0"
+                    decoration-muted="profit == 0"
+                    decoration-danger="profit &lt; 0"
+                />
+                <field name="repairs" optional="show" sum="Repairs"/>
+                <field name="utilities" optional="show" sum="Utilities"/>
+                <field name="taxes" optional="show" sum="Taxes"/>
+                <field name="insurance" optional="show" sum="Insurance"/>
+                <field name="hoa" optional="show" sum="HOA"/>
+                <field name="services" optional="show" sum="Services"/>
+                <field name="turnover" optional="show" sum="Turnover"/>
+                <field name="cashflow" optional="show" class="bold" sum="Cashflow"
+                    decoration-success="cashflow &gt; 0"
+                    decoration-muted="cashflow == 0"
+                    decoration-danger="cashflow &lt; 0"
+                />
+                <field name="arv" optional="show" class="bold" sum="ARV"/>
+                <field name="loan_balance" optional="show" class="bold" sum="Loan Balance"/>
+                <field name="equity_refinance" optional="show" class="bold" sum="Equity Refinance"/>
+                <field name="net_worth" optional="show" class="bold" sum="Networth"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- <record id="action_rent_report_button_inherit" model="ir.ui.view">
+       <field name="name">action.property.loan.report.button.inherit</field>
+       <field name="model">pms.rent.report</field>
+       <field name="inherit_id" ref="pms.view_rent_report_tree"/>
+       <field name="arch" type="xml">
+           <xpath expr="//tree" position="attributes">
+               <attribute name="js_class">button_in_rent_report_tree</attribute>
+           </xpath>
+       </field>
+   </record> -->
+
+    <record id="action_rent_report" model="ir.actions.act_window">
+        <field name="name">Proprety Rent Report</field>
+        <field name="res_model">pms.rent.report</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data available for the Rent Report
+            </p>
+        </field>
+    </record>
+
+<!-- UPDATED -->
+
+    <record id="action_select_rent_report_wizard" model="ir.actions.act_window">
+        <field name="name">Select Rent Report Wizard</field>
+        <field name="res_model">select.rent.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_rent_report"
+        name="Rent Report"
+        action="action_select_rent_report_wizard"
+        parent="pms.pms_menu_reports"
+    />
+</odoo>

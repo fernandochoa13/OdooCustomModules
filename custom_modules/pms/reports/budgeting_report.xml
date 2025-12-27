@@ -1,0 +1,162 @@
+
+<odoo>
+    <!-- BEGIN: Wizard View -->
+    <record id="view_budgeting_report_wizard" model="ir.ui.view">
+        <field name="name">budgeting.report.wizard.form</field>
+        <field name="model">budgeting.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Budgeting Report Wizard">
+                <field name="journal_id" string="Select"/>
+                <footer>
+                    <button name="open_report" string="Open Budget" type="object" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <!-- END: Wizard View -->
+
+<record id="action_budget_clear" model="ir.actions.server">
+    <field name="name">Clear Records</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_budgeting_report"/>
+    <field name="binding_model_id" ref="pms.model_budgeting_report"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.clear_records()
+    </field>
+</record>
+
+<record id="action_budget_date" model="ir.actions.server">
+    <field name="name">Add Budget Date</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_budgeting_report"/>
+    <field name="binding_model_id" ref="pms.model_budgeting_report"/>
+    <field name="state">code</field>
+    <field name="code">
+    action = records.set_budget_date()
+    </field>
+</record>
+
+<record id="action_return)draft" model="ir.actions.server">
+    <field name="name">Return to Draft</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_budgeting_report"/>
+    <field name="binding_model_id" ref="pms.model_budgeting_report"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.return_draft()
+    </field>
+</record>
+
+<record id="action_cancell_records" model="ir.actions.server">
+    <field name="name">Cancell Records</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_budgeting_report"/>
+    <field name="binding_model_id" ref="pms.model_budgeting_report"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.cancel_records()
+    </field>
+</record>
+
+<record id="action_reconcile" model="ir.actions.server">
+    <field name="name">Reconcile</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_budgeting_report"/>
+    <field name="binding_model_id" ref="pms.model_budgeting_report"/>
+    <field name="state">code</field>
+    <field name="code">
+action = records.action_open_reconcile()
+    </field>
+</record>
+
+
+    <record id="view_budgetreport_wizard" model="ir.actions.act_window">
+        <field name="name">Open budget Wizard</field>
+        <field name="res_model">budgeting.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- BEGIN: Tree View -->
+    <record id="view_budgeting_report_tree" model="ir.ui.view">
+        <field name="name">budgeting.report.tree</field>
+        <field name="model">budgeting.report</field>
+        <field name="arch" type="xml">
+            <list string="Budgeting Report Tree"
+            decoration-info="transaction_type == 'Draft'" delete="false" create="false">
+                <field name="bank_date" optional="hide"/>
+                <field name="journal_date" optional="show"/>
+                <field name="cleared_state"/>
+                <field name="reference"/>
+                <field name="labell" optional = "hide"/>
+                <field name="partner" optional ="show"/>
+                <field name="amount"/>
+                <field name="running_balance"/>
+                <field name="check_number"/>
+                
+                <field name="transaction_type" widget="badge" decoration-info="transaction_type == 'Draft'" decoration-success="transaction_type == 'Banking'" decoration-primary="transaction_type == 'Unmatched'"/>
+                <button name="clear_records" string="Clear Entry" type="object" class="oe_highlight"/>
+                <button name="open_record" string="Open Entry" type="object" class="oe_highlight"/>
+                <button name="action_open_reconcile" string="Reconcile" type="object" class="btn btn-primary" icon="fa-exchange"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_budgeting_report_search" model="ir.ui.view">
+        <field name="name">budgeting.report.search</field>
+        <field name="model">budgeting.report</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <filter string="Cleared" name="cleared_transactions" domain="['|', ('cleared_state', '=', 'True'), ('transaction_type', '=', 'Banking')]"/>
+                
+            </search>
+        </field>
+</record>
+
+    <!-- END: Tree View -->
+
+    <record id="view_budgetreport" model="ir.actions.act_window">
+        <field name="name">Budget Report</field>
+        <field name="res_model">budgeting.report</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="pms.view_budgeting_report_search"/>
+        <field name="context">{"search_default_cleared_transactions": 1}</field>
+    </record>
+
+    <record id="view_summary_budget_report_tree" model="ir.ui.view">
+        <field name="name">budgeting.report.summary.tree</field>
+        <field name="model">budgeting.report.summary</field>
+        <field name="arch" type="xml">
+            <list string="Summary Budget Report Tree">
+                <field name="company"/>
+                <field name="bank_name"/>
+                <field name="banking_total_amount"/>
+                <field name="banking_total_unmatched" string="Banking Total Cleared"/>
+                <field name="banking_total_unmatched_all" string="Banking Total Unmatched"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_summary_budget_repor" model="ir.actions.act_window">
+        <field name="name">Summary Budget Report</field>
+        <field name="res_model">budgeting.report.summary</field>
+        <field name="view_mode">list</field>
+    </record>
+
+
+    <menuitem id="menu_budget_report" name="Budget Report Management" parent="account.menu_finance_reports">
+        <menuitem id="budget_report"
+        name="Budget Report"
+        action="view_budgetreport_wizard"/>
+
+        <menuitem id="summary_budget_report"
+        name="Summary Budget Report"
+        action="view_summary_budget_repor"/>
+
+    </menuitem>    
+
+</odoo>

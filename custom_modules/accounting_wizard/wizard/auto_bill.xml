@@ -1,0 +1,118 @@
+<odoo>
+    <record id="view_auto_bill_form" model="ir.ui.view">
+        <field name="name">autobill.1stwizard.form</field>
+        <field name="model">autobill.1stwizard</field>
+        <field name="arch" type="xml">
+            <form string="Create a Bill">
+                    <group name="general details" class="o_group">
+                        <field name="vendor_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="date"/>
+                        <field name="reference"/>
+                        <field name="invoice_number"/>
+                        <field name="payment_link"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                <footer>
+                    <button name="next" string="Next" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_auto_bill_action" model="ir.actions.act_window">
+        <field name="name">Auto Bill</field>
+        <field name="res_model">autobill.1stwizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_auto_bill_tree" model="ir.ui.view">
+                <field name="name">autobill.2ndwizard.line.tree</field>
+                <field name="model">autobill.2ndwizard.line</field>
+                <field name="arch" type="xml">
+                    <list string="Second Wizard" editable="bottom">
+                        <field name="property_address" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="company" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="product_type"/>
+                        <field name="product_id" domain="[('id', 'in', allowed_products), '|', ('company_id', '=', company), ('company_id', '=', False) ]" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="account_id" domain="[('company_id', '=', company)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="subproduct" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="label"/>
+                        <field name="quantity"/>
+                        <field name="price_unit"/>
+                        <field name="total"/>
+                        <field name="allowed_products" invisible="not quantity"/>
+                        <field name="rule_to_apply"/>
+                    </list>
+                </field>
+        </record>
+
+    <record id="view_auto_bill_lines_action" model="ir.actions.act_window">
+        <field name="name">Auto Bill Lines</field>
+        <field name="res_model">autobill.2ndwizard.line</field>
+        <field name="view_mode">tree</field>
+        <field name="target">new</field>
+    </record>
+    
+    <record id="view_auto_bill_2ndwizard_form" model="ir.ui.view">
+        <field name="name">autobill.2ndwizard.form</field>
+        <field name="model">autobill.2ndwizard</field>
+        <field name="arch" type="xml">
+            <form string="Create a Bill">
+                <field name="second_wizard_data"/>
+
+                <field name="duplicate_alert" invisible="not duplicate_alert"/>
+                <field name="price_alert" invisible="not price_alert"/>
+
+                <footer>
+                    <button name="confirm" string="Confirm" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_auto_bill_2ndwizard_action" model="ir.actions.act_window">
+        <field name="name">Auto Bill 2nd Wizard</field>
+        <field name="res_model">autobill.2ndwizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+        <!-- Form View -->
+        <record id="view_auto_duplicate_bill_wizard_form" model="ir.ui.view">
+            <field name="name">auto.duplicate.wizard.form</field>
+            <field name="model">auto.duplicate.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Confimation Wizard">
+                    <h3>Confirm before posting in accounting.</h3>
+                    <br></br>
+                        <h4><field name="duplicate_alert" class="oe_inline"/></h4>
+                    <br></br>
+                        <h4> <field name="price_alert" class="oe_inline"/></h4>
+                    <br></br>
+                        <h4> <field name="servicio_alert" class="oe_inline"/></h4>
+                    <br></br>
+                        <h4> <field name="bills_msg" class="oe_inline"/></h4>
+
+                    <footer>
+                        <button name="post" string="Post Bills" type="object" class="oe_highlight"/>
+                        <button name="view_similar_bills" string="View Similar Bills" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_auto_duplicate_bill_wizard" model="ir.actions.act_window">
+            <field name="name">Auto Duplicate Bills Wizard</field>
+            <field name="res_model">auto.duplicate.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+        </record>
+
+
+</odoo>

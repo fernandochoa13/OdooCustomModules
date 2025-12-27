@@ -1,0 +1,69 @@
+<odoo>
+
+<record id="county_orange" model="pms.county">
+    <field name="name">Orange County</field>
+    <field name="has_association">False</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_hillsborough" model="pms.county">
+    <field name="name">Hillsborough County</field>
+    <field name="has_association">False</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_polk" model="pms.county">
+    <field name="name">Polk County</field>
+    <field name="has_association">True</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_volusia" model="pms.county">
+    <field name="name">Volusia County</field>
+    <field name="has_association">False</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_charlotte" model="pms.county">
+    <field name="name">Charlotte County</field>
+    <field name="has_association">True</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_marion" model="pms.county">
+    <field name="name">Marion County</field>
+    <field name="has_association">False</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_pasco" model="pms.county">
+    <field name="name">Pasco County</field>
+    <field name="has_association">False</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_highlands" model="pms.county">
+    <field name="name">Highlands County</field>
+    <field name="has_association">False</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_lee" model="pms.county">
+    <field name="name">Lee County</field>
+    <field name="has_association">False</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_osceola" model="pms.county">
+    <field name="name">Osceola County</field>
+    <field name="has_association">True</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+<record id="county_citrus" model="pms.county">
+    <field name="name">Citrus County</field>
+    <field name="has_association">False</field>
+    <field name="state" ref="base.state_us_10"/>
+</record>
+
+</odoo>

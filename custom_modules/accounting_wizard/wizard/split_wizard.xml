@@ -1,0 +1,26 @@
+
+<odoo>
+    <data>
+        <record id="view_split_wizard_form" model="ir.ui.view">
+            <field name="name">split.wizard.form</field>
+            <field name="model">split.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Split Wizard">
+                            <field name="second_wizard_data"/>
+                    <footer>
+                        <button name="confirm" string="Confirm" type="object" class="oe_highlight"/>
+                        <button name="go_back" string="Go Back" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_split_wizard" model="ir.actions.act_window">
+            <field name="name">Split Wizard</field>
+            <field name="res_model">split.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

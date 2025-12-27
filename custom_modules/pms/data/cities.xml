@@ -1,0 +1,257 @@
+<odoo>
+
+<record id="cities_orlando" model="pms.cities">
+    <field name="name">Orlando</field>
+    <field name="county" ref="pms.county_orange"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_poinciana" model="pms.cities">
+    <field name="name">Poinciana</field>
+    <field name="county" ref="pms.county_polk"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_thonotosassa" model="pms.cities">
+    <field name="name">Thonotosassa</field>
+    <field name="county" ref="pms.county_hillsborough"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_winterhaven" model="pms.cities">
+    <field name="name">Winter haven</field>
+    <field name="county" ref="pms.county_polk"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_lakeland" model="pms.cities">
+    <field name="name">Lakeland</field>
+    <field name="county" ref="pms.county_polk"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_orange" model="pms.cities">
+    <field name="name">Orange City</field>
+    <field name="county" ref="pms.county_volusia"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_charlotte" model="pms.cities">
+    <field name="name">Port Charlotte</field>
+    <field name="county" ref="pms.county_charlotte"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_ocala" model="pms.cities">
+    <field name="name">Ocala</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_fort_meade" model="pms.cities">
+    <field name="name">Fort Meade</field>
+    <field name="county" ref="pms.county_polk"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_tampa" model="pms.cities">
+    <field name="name">Tampa</field>
+    <field name="county" ref="pms.county_hillsborough"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_deltona" model="pms.cities">
+    <field name="name">Deltona</field>
+    <field name="county" ref="pms.county_volusia"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_haines" model="pms.cities">
+    <field name="name">Haines City</field>
+    <field name="county" ref="pms.county_polk"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_deland" model="pms.cities">
+    <field name="name">Deland</field>
+    <field name="county" ref="pms.county_volusia"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_summerfield" model="pms.cities">
+    <field name="name">Summerfield</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_zephyrhills" model="pms.cities">
+    <field name="name">Zephyrhills</field>
+    <field name="county" ref="pms.county_pasco"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_belleview" model="pms.cities">
+    <field name="name">Belleview</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_spring_hill" model="pms.cities">
+    <field name="name">Spring Hill</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_bartow" model="pms.cities">
+    <field name="name">Bartow</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_clearwater" model="pms.cities">
+    <field name="name">Clearwater</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_plant" model="pms.cities">
+    <field name="name">Plant City</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_venice" model="pms.cities">
+    <field name="name">Venice</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+
+<record id="cities_kissimmee" model="pms.cities">
+    <field name="name">Kissimmee</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_holiday" model="pms.cities">
+    <field name="name">Holiday</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_petersburg" model="pms.cities">
+    <field name="name">St Petersburg</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_port_richey" model="pms.cities">
+    <field name="name">New Port Richey</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_seminole" model="pms.cities">
+    <field name="name">Seminole</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_lake_alfred" model="pms.cities">
+    <field name="name">Lake Alfred</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_largo" model="pms.cities">
+    <field name="name">Largo</field>
+    <field name="county" ref="pms.county_marion"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_apopka" model="pms.cities">
+    <field name="name">Apopka</field>
+    <field name="county" ref="pms.county_orange"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_englewood" model="pms.cities">
+    <field name="name">Englewood</field>
+    <field name="county" ref="pms.county_charlotte"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_debary" model="pms.cities">
+    <field name="name">Debary</field>
+    <field name="county" ref="pms.county_volusia"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_sebring" model="pms.cities">
+    <field name="name">Sebring</field>
+    <field name="county" ref="pms.county_highlands"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_lehigh_acres" model="pms.cities">
+    <field name="name">Lehigh Acres</field>
+    <field name="county" ref="pms.county_lee"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_citru" model="pms.cities">
+    <field name="name">Citrus</field>
+    <field name="county" ref="pms.county_citrus"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+
+<record id="cities_rotonda" model="pms.cities">
+    <field name="name">Rotonda</field>
+    <field name="county" ref="pms.county_charlotte"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+<record id="cities_auburdale" model="pms.cities">
+    <field name="name">Auburdale</field>
+    <field name="county" ref="pms.county_polk"/>
+    <field name="state" ref="base.state_us_10"/>
+    <field name="country" ref="base.us"/>
+</record>
+
+</odoo>

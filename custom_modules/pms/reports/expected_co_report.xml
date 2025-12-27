@@ -1,0 +1,90 @@
+<odoo>
+    <record id="expectedco_wizard_form" model="ir.ui.view">
+        <field name="name">expectedco.wizard.form</field>
+        <field name="model">expectedco.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Expected CO Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="month"/>
+                        <field name="status_construction"/>
+                    </group>
+                <footer>
+                    <button name="open_report" string="Open Expected CO Report" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="expectedco_wizard_action" model="ir.actions.act_window">
+        <field name="name">Expected CO Wizard</field>
+        <field name="res_model">expectedco.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="expectedco_search" model="ir.ui.view">
+            <field name="name">expectedco.report.search</field>
+            <field name="model">expectedco.report</field>
+            <field name="arch" type="xml">
+                <search string="Default Search">
+                    <field name="project_name"/>
+                    <field name="incomplete_activities"/>
+                    <field name="expected_co_date"/>
+                </search>
+            </field>
+    </record>
+
+
+    <record id="expectedco_tree" model="ir.ui.view">
+        <field name="name">expectedco.report.tree</field>
+        <field name="model">expectedco.report</field>
+        <field name="arch" type="xml">
+            <list string="Expected CO Report">
+                <field name="project_name"/>
+                <field name="county"/>
+                <field name="own_third_property"/>
+                <field name="incomplete_activities"/>
+                <field name="total_duration"/>
+                <field name="expected_co_date"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="action_expected_co_report_button_inherit" model="ir.ui.view">
+       <field name="name">action.expected.co.report.button.inherit</field>
+       <field name="model">expectedco.report</field>
+       <field name="inherit_id" ref="pms.expectedco_tree"/>
+       <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="js_class">button_in_expectedco_report_tree</attribute>
+        </xpath>
+       </field>
+   </record>
+
+    <record id="expectedco_report_action" model="ir.actions.act_window">
+        <field name="name">Expected CO Report</field>
+        <field name="res_model">expectedco.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="pms.expectedco_search"/>
+    </record>
+
+    <!-- SCHEDULED ACTION NO LONGER NEEDED, IMPLEMENTED TO PMS.PROJECTS -->
+
+    <!-- <record id="ir_cron_update_expected_co_dates" model="ir.cron">
+        <field name="name">Update Expected CO Dates</field>
+        <field name="model_id" ref="model_expectedco_report"/>
+        <field name="state">code</field>
+        <field name="code">model.update_expected_co_dates()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="nextcall" eval="(DateTime.now().replace(hour=5, minute=0, second=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record> -->
+
+
+</odoo>

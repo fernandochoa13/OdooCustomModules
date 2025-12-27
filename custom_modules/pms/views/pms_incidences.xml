@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Incidence Category -->
+
+        <record id="pms_incidence_category_tree_view" model="ir.ui.view">
+            <field name="name">pms.incidence.category.tree</field>
+            <field name="model">pms.incidence.category</field>
+            <field name="arch" type="xml">
+                <list string="Incidence Categories">
+                    <field name="name"/>
+                    <field name="description"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="pms_incidence_category_form_view" model="ir.ui.view">
+            <field name="name">pms.incidence.category.form</field>
+            <field name="model">pms.incidence.category</field>
+            <field name="arch" type="xml">
+                <form string="Incidence Category">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_pms_incidence_category" model="ir.actions.act_window">
+            <field name="name">Incidence Categories</field>
+            <field name="res_model">pms.incidence.category</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Define your incidence categories here!
+                </p>
+            </field>
+        </record>
+
+        <!-- Incidences -->
+
+        <record id="incidence_incidence_tree_view" model="ir.ui.view">
+            <field name="name">incidence.incidence.tree</field>
+            <field name="model">pms.incidence</field> <field name="arch" type="xml">
+                <list string="Incidences" decoration-danger="status in ('new', 'in_progress')" decoration-success="status == 'resolved'">
+                    <field name="name"/>
+                    <field name="reported_by_id"/>
+                    <field name="date_reported"/>
+                    <field name="category_id"/>
+                    <field name="status" widget="badge" decoration-success="status == 'resolved'" decoration-info="status == 'in_progress'" decoration-warning="status == 'new'" decoration-danger="status == 'critical'"/>
+                    <field name="priority" widget="priority"/>
+                    <field name="assigned_to_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="incidence_incidence_form_view" model="ir.ui.view">
+            <field name="name">incidence.incidence.form</field>
+            <field name="model">pms.incidence</field> <field name="arch" type="xml">
+                <form string="Incidence Report">
+                    <header>
+                        <button name="action_set_in_progress" type="object" string="Start Progress" class="oe_highlight"/>
+                        <button name="action_set_resolved" type="object" string="Resolve" class="oe_highlight"/>
+                        <field name="status" widget="statusbar" statusbar_visible="new,in_progress,resolved"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" placeholder="Incidence Subject"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="reported_by_id" readonly="1"/>
+                                <field name="date_reported" readonly="1"/>
+                                <field name="category_id"/>
+                            </group>
+                            <group>
+                                <field name="priority" widget="priority"/>
+                                <field name="assigned_to_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            <page string="Resolution">
+                                <field name="resolution_notes"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="incidence_incidence_search_view" model="ir.ui.view">
+            <field name="name">incidence.incidence.search</field>
+            <field name="model">pms.incidence</field> <field name="arch" type="xml">
+                <search string="Search Incidences">
+                    <field name="name" string="Incidence Subject" filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"/>
+                    <field name="reported_by_id"/>
+                    <field name="assigned_to_id"/>
+                    <field name="category_id"/>
+                    <field name="status"/>
+                    <field name="priority"/>
+                    <filter string="New" name="status_new" domain="[('status', '=', 'new')]"/>
+                    <filter string="In Progress" name="status_in_progress" domain="[('status', '=', 'in_progress')]"/>
+                    <filter string="Resolved" name="status_resolved" domain="[('status', '=', 'resolved')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="status" name="group_by_status" context="{'group_by': 'status'}"/>
+                        <filter string="Category" name="group_by_category" context="{'group_by': 'category_id'}"/>
+                        <filter string="Assigned To" name="group_by_assigned_to" context="{'group_by': 'assigned_to_id'}"/>
+                        <filter string="Reported By" name="group_by_reported_by" context="{'group_by': 'reported_by_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Automated Action to send a message on new incidence creation -->
+        <record id="pms_incidence_message_automated_action" model="base.automation">
+            <field name="name">Send Message on New Incidence</field>
+            <field name="model_id" ref="model_pms_incidence"/>
+            <field name="state">code</field>
+            <!-- The 'on_create' trigger is ideal for your use case -->
+            <field name="trigger">on_create</field>
+            <field name="code">
+                if record:
+                    record._send_message_to_channel()
+            </field>
+        </record>
+
+        <record id="action_pms_incidence" model="ir.actions.act_window">
+            <field name="name">Incidences</field>
+            <field name="res_model">pms.incidence</field> 
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new incidence report!
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_incidence_root" name="Incidences" sequence="10" web_icon="pms,static/description/incidence_pms.png">
+            <menuitem id="menu_incidence_reports" name="Reports" action="action_pms_incidence"/>
+            <menuitem id="menu_incidence_category" name="Categories" action="action_pms_incidence_category"/>
+        </menuitem>
+    </data>
+</odoo>
+
+<!--  
+        <menuitem id="menu_qb_payment_root" name="QuickBooks" sequence="10" web_icon="odoo_quickbooks,static/description/icon.png">
+            <menuitem id="menu_qb_payment_transactions" name="Transactions" action="action_qb_payment_transaction"/>
+            <menuitem id="menu_qb_payment_configuration" name="Configuration" action="action_qb_payment_provider"/>
+        </menuitem>
+-->

@@ -1,0 +1,25 @@
+<odoo>
+
+<record id="view_crm_lead_form_inherit_pms" model="ir.ui.view">
+    <field name="name">crm.lead.form.inherit.pms</field>
+    <field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//notebook" position="inside">
+            <page string="Property Request" name="property_request_page">
+                <group>
+                    <group>
+                        <field name="property_id"/>
+                    </group>
+                    <group>
+                        <field name="request_open_date"/>
+                        <field name="request_close_date"/>
+                    </group>
+                </group>
+            </page>
+        </xpath>
+
+    </field>
+</record>
+
+</odoo>

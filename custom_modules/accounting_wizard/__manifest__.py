@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+
+{
+    'name': 'Accounting Wizard',
+    'version': '18.0.1.0.0',
+    'category': 'Services/accounting_wizard',
+    'depends': ['base', 'account_payment', 'account', 'documents', 'analytic', 'purchase', 'stock', 'sale', 'hr_expense', 'pms'],
+    'license': 'LGPL-3',
+    'description': "Module for accounting wizards",
+    'installable': True,
+    'application': True,
+    'data': [
+        'security/group.xml',
+        'security/ir.model.access.csv',
+        'views/test.xml',
+        'views/daily_report.xml',
+        'views/budget_model.xml',
+        'views/hr_employee.xml',
+        'views/ach_transaction_details.xml',
+        'views/accounting_rules.xml',
+        'views/missing_reports.xml',
+        'wizard/simple_check_main_wizard.xml',
+        'wizard/loans_between_companies.xml',
+        'wizard/credit_card_payments.xml',
+        'wizard/give_points_wizard.xml',
+        'wizard/companies_transfer.xml',
+        'wizard/construction_report_wizard.xml',
+        'wizard/lbc_second_wizard.xml',
+        'wizard/second_wizard.xml',
+        'wizard/split_wizard.xml',
+        'wizard/auto_bill.xml',
+        'views/acc_menu.xml',
+        'views/reclassify_accounts.xml',
+        'views/reclassify_partner.xml'
+    ],
+}

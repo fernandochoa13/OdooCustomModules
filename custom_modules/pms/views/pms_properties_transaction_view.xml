@@ -1,0 +1,87 @@
+<odoo>
+
+<record id="pms_properties_transaction_view_tree" model="ir.ui.view">
+    <field name="name">pms.transactions.tree</field>
+    <field name="model">pms.transactions</field>
+    <field name="arch" type="xml">
+        <list string="Transaction List">
+            <field name="name" optional="show"/>
+            <field name="transaction_date" optional="show"/>
+            <field name="invested_external_money" optional="show"/>
+            <field name="transaction_type" optional="show"/>
+            <field name="owner" optional="show"/>
+            <field name="old_owner" optional="show"/>
+            <field name="property_address" optional="show"/>
+            <field name="transaction_id" optional="show"/>
+            <field name="status" widget="badge" decoration-success="status == 'posted'" decoration-info="status == 'draft'" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_properties_transaction_view_form" model="ir.ui.view">
+    <field name="name">pms.transactions.form</field>
+    <field name="model">pms.transactions</field>
+    <field name="arch" type="xml">
+        <form string="Transaction Form">
+        <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" widget="char" class="o_bold_title"/>
+                    </h1>
+                </div>
+        <header>
+        <button id="opentransactionjournalw" name="open_transactions_journal_wizard" string="Create Journal Transaction"
+                    type="object" class="btn-primary"/>
+        <field name="status" widget="statusbar" statusbar_visible="draft,posted"/>
+        </header>
+        <group name="general details" class="o_group">
+                <field name="property_address" readonly="status == 'posted'"/>
+                <field name="transaction_date" readonly="status == 'posted'"/>
+                <field name="invested_external_money" readonly="status == 'posted'"/>
+                <field name="transaction_type" readonly="status == 'posted'"/>
+                <field name="owner" readonly="status == 'posted'"/>
+                <field name="old_owner" readonly="status == 'posted'"/>
+                <!-- <field name="transaction_id" readonly="status == 'posted'"/> -->
+                <!-- <field name="asset_product" readonly="status == 'posted'"/> -->
+                <field name="is_rent" readonly="status == 'posted'"/>
+                <field name="is_construction" readonly="status == 'posted'"/>
+                <field name="is_thirdpart" readonly="status == 'posted'"/>
+                <field name="attachment" readonly="status == 'posted'"/>
+                <button id="postjournalentry" name="post_journal_entry" string="Post Entry"
+                    type="object" class="btn-primary"/>
+
+        </group>
+        </sheet>
+        <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+<record id="pms_transaction_view_search" model="ir.ui.view">
+        <field name="name">pms.transactions.search</field>
+        <field name="model">pms.transactions</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="name" string="Transaction Name" />
+                <field name="transaction_date"/>
+                <field name="invested_external_money"/>
+                <field name="transaction_type"/>
+                <field name="property_address"/>
+                <field name="owner"/>
+                <field name="old_owner"/>
+            </search>
+        </field>
+</record>
+
+<record id="pms_properties_transaction_view" model="ir.actions.act_window">
+    <field name="name">Transaction</field>
+    <field name="res_model">pms.transactions</field>
+    <field name="view_mode">list,form</field>
+</record>
+
+
+</odoo>

@@ -1,0 +1,47 @@
+<odoo>
+
+<record id="project_summary_report_search" model="ir.ui.view">
+        <field name="name">pms.project.summary.search</field>
+        <field name="model">pms.project.summary</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="name"/>
+                <field name="activity_type"/>
+                <field name="duration"/>
+                <field name="phase"/>
+                <field name="start_date"/>
+                <field name="order_date"/>
+                <field name="end_date"/>
+                <field name="time_spent"/>
+                <field name="time_difference"/>
+                <field name="completed"/>
+            </search>
+        </field>
+</record>
+
+<record id="project_summary_report" model="ir.actions.act_window">
+    <field name="name">Project summary Report</field>
+    <field name="res_model">pms.project.summary</field>
+    <field name="view_mode">list</field>
+</record>
+
+<record id="project_summary_report_tree" model="ir.ui.view">
+    <field name="name">pms.project.summary.tree</field>
+    <field name="model">pms.project.summary</field>
+    <field name="arch" type="xml">
+        <list string="Purchase Report" create="false" edit="false" default_order='sequence'>
+            <field name="name"/>
+            <field name="activity_type"/>
+            <field name="duration"/>
+            <field name="phase"/>
+            <field name="start_date"/>
+            <field name="order_date"/>
+            <field name="end_date"/>
+            <field name="time_spent"/>
+            <field name="time_difference"/>
+            <field name="completed"/>
+        </list>
+    </field>
+</record>
+
+</odoo>

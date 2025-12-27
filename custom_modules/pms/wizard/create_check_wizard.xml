@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="create_check_wizard_view_form" model="ir.ui.view">
+            <field name="name">create.check.wizard.form</field>
+            <field name="model">create.check.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Create Check">
+                    <group>
+                        <field name="receiver"/>
+                        <field name="amount"/>
+                        <field name="date"/>
+                        <field name="memo"/>
+                        <field name="check_number"/>
+                    </group>
+                    <footer>
+                        <button name="create_check" string="Create Check" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="create_check_wizard_view" model="ir.actions.act_window">
+            <field name="name">Create Check Wizard</field>
+            <field name="res_model">create.check.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

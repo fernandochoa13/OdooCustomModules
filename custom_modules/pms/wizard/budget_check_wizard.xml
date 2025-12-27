@@ -1,0 +1,25 @@
+<odoo>
+<data>
+        <record id="budget_check_wizard_form" model="ir.ui.view">
+        <field name="name">budget.check.wizard.form</field>
+            <field name="model">budget.check.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Budget Payment Wizard">
+                <h3>One or more products have exceeded the budget amount:</h3>
+                    <h4><field name="wizard_text"/></h4>
+                    <footer>
+                        <button name="continue_bill" string="Continue" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="budget_check_wizard" model="ir.actions.act_window">
+            <field name="name">Budget Check Wizard</field>
+            <field name="res_model">budget.check.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+</data>
+</odoo>

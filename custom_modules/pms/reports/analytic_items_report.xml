@@ -1,0 +1,73 @@
+<!-- views/analytic_report_views.xml -->
+<odoo>
+    <data>
+        <!-- Tree View for Analytic Items Report -->
+        <record id="view_account_analytic_line_report_tree" model="ir.ui.view">
+            <field name="name">analytic.items.report.tree</field>
+            <field name="model">account.analytic.line.report</field>
+            <field name="arch" type="xml">
+                <list string="Analytic Items Report">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="analytic_account_id"/>
+                    <field name="account_type"/>
+                    <field name="amount"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Pivot View for Analytic Items Report -->
+        <record id="view_account_analytic_line_report_pivot" model="ir.ui.view">
+            <field name="name">analytic.items.report.pivot</field>
+            <field name="model">account.analytic.line.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Analytic Items Report" sample="1">
+                    <field name="account_type" type="row"/>
+                    <field name="analytic_account_id" type="row"/>
+                    <field name="amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Search View for Analytic Items Report -->
+        <record id="view_account_analytic_line_report_filter" model="ir.ui.view">
+            <field name="name">analytic.items.report.search</field>
+            <field name="model">account.analytic.line.report</field>
+            <field name="arch" type="xml">
+                <search string="Analytic Items Report">
+                    <field name="date"/>
+                    <field name="analytic_account_id"/>
+                    <field name="account_type"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_account_type" string="Account Type" context="{'group_by':'account_type'}"/>
+                        <filter name="group_by_analytic_account" string="Analytic Account" context="{'group_by':'analytic_account_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+
+
+        <!-- Action Window for Analytic Items Report -->
+        <record id="action_account_analytic_line_report" model="ir.actions.act_window">
+            <field name="name">Analytic Items Report</field>
+            <field name="res_model">account.analytic.line.report</field>
+            <field name="view_mode">tree,pivot,form</field>
+            <field name="context">{'group_by':'account_type'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Generate your P&amp;L report by class and analytic account.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Item to access the report -->
+        <!-- <menuitem
+            id="menu_account_analytic_line_report"
+            name="Analytic Items Report"
+            action="action_account_analytic_line_report"
+            parent="pms.menu_finance_analytic_reports_main"
+            sequence="100"/> -->
+    </data>
+</odoo>

@@ -1,0 +1,499 @@
+<odoo>
+
+<record id="pms_properties_view_tree" model="ir.ui.view">
+    <field name="name">pms.property.tree</field>
+    <field name="model">pms.property</field>
+    <field name="arch" type="xml">
+        <list string="Properties Directory">
+            <field name="name" optional="show"/>
+            <field name="city" optional="show"/>
+            <field name="partner_id" optional="show"/>
+            <field name="state_ids" optional="hide"/>
+            <field name="status_property" optional="show"/>
+            <field name="available" optional="show"/>
+            <field name="available_for_rent" optional="show"/>
+            <field name="vacant" optional="hide"/>
+            <field name="arv" optional="hide"/>
+            <field name="permit_number" optional="hide"/>
+            <field name="house_model"/>
+            <field name="budget_ids" optional="show"/>
+            <field name="on_hold" optional="hide"/>
+            <field name="has_dumbster" optional="hide"/>
+            <field name="has_toilet" optional="hide"/>
+            <field name="own_third"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_properties_view_search" model="ir.ui.view">
+        <field name="name">pms.property.search</field>
+        <field name="model">pms.property</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+             
+                <field name="name" string="Property"/>
+                <field name="city"/>
+                <field name="zipcode"/>
+                <field name="county"/>
+                <field name="partner_id"/>
+                <field name="status_property"/>
+                <field name="own_third"/>
+                <field name="permit_number"/>
+                <separator/>
+                <filter string="Active Properties" name="activefilter" domain="[('status_property', '!=', 'draft')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Has Dumbster" name="group_by_dumbster" context="{'group_by':'has_dumbster'}"/>
+                    <filter string="Has Toilet" name="group_by_toilet" context="{'group_by':'has_toilet'}"/>
+                </group>
+            </search>
+        </field>
+</record>
+
+<record id="pms_properties_view_form" model="ir.ui.view">
+    <field name="name">pms.property.form</field>
+    <field name="model">pms.property</field>
+    <field name="arch" type="xml">
+        <form string="Property Form" class="o_sale_order">
+            <div>
+                <sheet class="o_form_sheet">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" widget="char" class="o_bold_title"/>
+                        </h1>
+                    </div>
+
+                    <header>
+                        
+                        <button id="construction" name="to_construction" string="To Construction"
+                            type="object" class="btn-primary"
+                           />
+                        
+                        <button id="coc" name="to_coc" string="To COC" type="object" class="btn-primary"
+                       />
+
+                        <button id="purchase" name="purchase_property" string="Purchase Property"
+                            type="object" class="btn-primary"
+                           />
+
+                        <button id="rent" name="to_rent" string="Rented"
+                            type="object" class="btn-primary"/>
+                        <!-- <button id="for_rent" name="for_rent" string="For Rent"
+                            type="object" class="btn-primary"
+                           /> -->
+                        <button id="sell" name="sell_property" string="Sell"
+                            type="object" class="btn-primary"
+                           />
+                        
+                        <button id="draft" name="to_draft" string="Return to draft"
+                            type="object" class="btn-primary"
+                           />
+                        
+                        <button id="hold" name="put_on_hold" string="Put on Hold"
+                            type="object" class="btn-primary"
+                           />
+
+                        <button id="offhold" name="put_off_hold" string="Put off Hold"
+                            type="object" class="btn-primary"
+                            invisible="not on_hold"/>
+                        <button id="repairs" name="to_repairs" string="In Repair"
+                            type="object" class="btn-primary"
+                           />
+                        <field name="status_property" widget="statusbar" statusbar_visible="draft,construction,coc,rented,repair,sold"/>
+                    </header>
+                    <group name="general details" class="o_group">
+                        <group name="address details" >
+                            <field name="address" options='{"always_reload": True}'/>
+                            <field name="city" options='{"always_reload": True}'/>
+                            <field name="country_id" options='{"always_reload": True}'/>
+                            <field name="state_ids" options='{"always_reload": True}'/>
+                            <field name="county" options='{"always_reload": True}'/>
+                            <field name="zipcode" options='{"always_reload": True}'/>
+                            <field name="parcel_id" options='{"always_reload": True}'/>
+                            <field name="nunits"/>
+                            <field name="house_model" options="{'no_create': True}"/>
+                            <field name="analytical_plan" options='{"always_reload": True}'/>
+                            <field name="vacant"/>
+                            <field name="arv"/>
+                            <field name="permit_number"/>
+                            <field name="on_hold"/>
+                            <field name="is_on_hold_manager" invisible="1"/>
+                            <!-- <field name="exclude_on_hold"/> -->
+                            <field name="available"/>
+                            <field name="available_for_rent"/>
+                            <field name="own_third"/>
+                            <field name="residential_unit_closure" options='{"read_only": True}'/>
+                            <field name="residential_unit_date" options='{"read_only": True}'/>
+                        </group>
+                    </group>
+                    <group name="owner details" col="2">
+                        <group name="owner detail">
+                            <field name="partner_id" options='{"always_reload": True}'/>
+                            <field name="description" options='{"always_reload": True}'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Hold Details" invisible="not on_hold">
+                            <group>
+                                <field name="on_hold"/>
+                                <field name="hold_by_owner"/>
+                                <field name="date_last_set_on_hold"/>
+                                <field name="days_on_hold"/>
+                            </group>
+                        </page>
+                        <page string="Insurance Details">
+                            <field name="property_insurance"/>
+                            <group>
+                                <field name="flood_zone"/>
+                            </group>
+                        </page>
+                        <page string="Property Units">
+                            <!-- Multi-record fields (one2many/many2many) become non-editable lists/trees when readonly is applied -->
+                            <field name="units"/>
+                        </page>
+                        <page string="Utilities Accounts">
+                            <group string="General Details">
+                            <field name="utilities_accounts"/>
+                            </group>
+                        </page>
+                        <page string="Transaction History">
+                            <group string="Transaction History">
+                            <field name="transaction_history"/>
+                            </group>
+                        </page>
+                        <page string="Loans History">
+                            <group string="Loans History">
+                            <field name="loans"/>
+                            </group>
+                        </page>
+                        <!-- <page string="Materials">
+                            <group>
+                            </group>
+                            <group string="Ordered">
+                                <field name="ordered_materials"/>
+                            </group>
+                            <group string="Not Ordered">
+                                <field name="not_ordered_materials"/>
+                            </group>
+                        </page> -->
+                        <page string="Water Utility Info">
+                            <group string="Water Utility Info">
+                                <field name="name"/>
+                                <field name="w_type"/>
+                                <field name="w_work_order"/>
+                                <field name="w_account_number"/>
+                                <field name="w_app_date"/>
+                                <field name="co_date"/>
+                                <field name="water_conn_type"/>
+                                <field name="w_utility_provider"/>
+                                <field name="water_connection_request"/>
+                                <field name="w_price_sheet"/>
+                                <field name="w_conn_status"/>
+                                <field name="w_conn_date"/>
+                                <field name="w_disconn_date"/>
+                                <field name="w_comments"/>
+                                <field name="has_toilet" optional="show"/>
+                            </group>
+                            <group string="Water Utility Payment Details">
+                                <field name="w_invoice"/>
+                                <field name="w_payment_date"/>
+                                <field name="w_monthly_bill"/>
+                                <field name="w_monthly_payment_date"/>
+                            </group>
+                        </page>
+                        <page string="Electrical Utility Info">
+                            <group string="Electrical Utility Info">
+                                <field name="name"/>
+                                <field name="e_type"/>
+                                <field name="e_work_order"/>
+                                <field name="e_account_number"/>
+                                <field name="e_conn_type"/>
+                                <field name="e_app_date"/>
+                                <field name="elect_meter"/>
+                                <field name="e_tug"/>
+                                <field name="e_utility_provider"/>
+                                <field name="elect_meter_position"/>
+                                <field name="elect_meter_request"/>
+                                <field name="e_conn_status"/>
+                                <field name="elect_meter_request_date"/>
+                                <field name="elect_utility_engineer"/>
+                                <field name="e_disconn_date"/>
+                                <field name="e_conn_date"/>
+                                <field name="e_comments"/>
+                            </group>
+                            <group string="Electrical Utility Payment Details">
+                                <field name="e_invoice"/>
+                                <field name="e_payment_date"/>
+                                <field name="e_monthly_bill"/>
+                                <field name="e_monthly_payment_date"/>
+                            </group>
+                        </page>
+                        <page string="Sewage Utility Info">
+                            <group string="Sewage Utility Info">
+                                <!-- General -->
+                                <field name="name" readonly="1"/>
+                                <field name="utility_phase" readonly="1"/>
+                                <field name="superintendent" readonly="1"/>
+                                <!-- Sewage -->
+                                <field name="s_type" optional="show"/>
+                                <field name="s_installer" optional="show"/>
+                                <field name="s_install_date" optional="show"/>
+                                <field name="s_agreements" optional="show"/>
+                                <field name="s_inspection_approved" optional="show"/>
+                                <field name="s_septic_permit" optional="show"/>
+                                <field name="s_sod_installation" optional="show"/>
+                                <field name="has_dumbster" optional="show"/>
+                            </group>
+                        </page>
+                        <page string="Sunshine">
+                            <group>
+                                <field name="general_sunshine"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </div>
+            <div class="oe_chatter" >
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+
+
+<record id="property_on_hold_action" model="base.automation">
+    <field name="name">Update Customer Invoices when Property is On Hold</field>
+    <field name="model_id" ref="model_pms_property"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="filter_domain">[('on_hold', 'in', [True, False])]</field> 
+    <field name="state">code</field> 
+    <field name="code">
+env['pms.projects'].function_run_log("_update_invoices_custodial_money")
+record._update_invoices_on_hold()
+    </field>
+    <field name="active" eval="False"/>
+</record>
+
+
+<record id="action_server_construction" model="ir.actions.server">
+    <field name="name">Move to construction</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.to_construction()
+    </field>
+</record>
+
+<!-- <record id="action_server_budget" model="ir.actions.server">
+    <field name="name">Create Budget</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.create_budgets()
+    </field>
+</record> -->
+
+
+<record id="action_server_draft" model="ir.actions.server">
+    <field name="name">Move to draft</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.to_draft()
+    </field>
+</record>
+
+<record id="action_server_rent" model="ir.actions.server">
+    <field name="name">Move to rent</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.to_rent()
+    </field>
+</record>
+
+<record id="action_server_available_sale" model="ir.actions.server">
+    <field name="name">Set Available for Sale</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.set_available()
+    </field>
+</record>
+
+<record id="action_server_unavailable_sale" model="ir.actions.server">
+    <field name="name">Set Unavailable for Sale</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.set_unavailable()
+    </field>
+</record>
+
+<record id="action_server_available_rent" model="ir.actions.server">
+    <field name="name">Set Available for Rent</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.set_available_for_rent()
+    </field>
+</record>
+
+<record id="action_server_unavailable_rent" model="ir.actions.server">
+    <field name="name">Set Unavailable for Rent</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.set_unavailable_for_rent()
+    </field>
+</record>
+
+<record id="action_server_hold" model="ir.actions.server">
+    <field name="name">Put on Hold</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.put_on_hold()
+    </field>
+</record>
+
+<record id="action_server_off_hold" model="ir.actions.server">
+    <field name="name">Put off Hold</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.put_off_hold()
+    </field>
+</record>
+
+    <record id="action_server_update_arv" model="ir.actions.server">
+        <field name="name">Update ARV</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_pms_property"/>
+        <field name="binding_model_id" ref="pms.model_pms_property"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.open_arv_wizard()
+        </field>
+    </record>
+
+<!-- <record id="action_server_service" model="ir.actions.server">
+    <field name="name">Move to Service</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    records.to_service()
+    </field>
+</record> -->
+
+<!-- SCHEDULED ACTION COMMENTED BECAUSE ON_HOLD_COMMENTS FIELD REMOVED FROM ACCOUNT_MOVE MODEL -->
+
+<!-- <record id="pms_properties_on_hold_comments" model="ir.cron">
+        <field name="name">On Hold Comments Update</field>
+        <field name="model_id" ref="model_pms_property"/>
+        <field name="state">code</field>
+        <field name="code">
+model.search([]).scheduled_actions_on_hold_comments()
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False"/>
+</record> -->
+
+<!-- <record id="pms_properties_exclude_from_follow_up" model="ir.cron">
+        <field name="name">PMS Properties: Exclude from Follow Up</field>
+        <field name="model_id" ref="model_pms_property"/>
+        <field name="state">code</field>
+        <field name="code">model.search([]).exclude_from_follow_up()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+</record> -->
+
+<!-- SCHEDULED ACTION COMMENTED BECAUSE INVOICE_TYPES FUNCTION REMOVED FROM PMS PROPERTY MODEL -->
+
+<!-- <record id="scheduled_action_previous_inv_types" model="ir.cron">
+        <field name="name">Previous Invoice Types Update</field>
+        <field name="model_id" ref="model_pms_property"/>
+        <field name="state">code</field>
+        <field name="code">
+model.search([]).update_invoice_types()
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False"/>
+</record> -->
+
+
+<record id="pms_properties_view" model="ir.actions.act_window">
+    <field name="name">Property</field>
+    <field name="res_model">pms.property</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="pms.pms_properties_view_search"/>
+    <field name="context">{"search_default_activefilter": 1}</field>
+</record>
+
+
+    <record id="pms_property_update_arv_form" model="ir.ui.view">
+        <field name="name">pms.property.update.arv.form</field>
+        <field name="model">pms.property.arv.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update ARV">
+                    <group name="general details" class="o_group">
+                        <field name="arv" placeholder="Any"/>
+                    </group>
+                <footer>
+                    <button name="update_arv" string="UPDATE" type="object" class="btn-success"/>
+                    <button special="cancel" string="BACK" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="pms_property_update_arv" model="ir.actions.act_window">
+        <field name="name">PMS Property Update ARV Wizard</field>
+        <field name="res_model">pms.property.arv.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

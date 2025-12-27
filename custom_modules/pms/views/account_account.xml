@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit account account form view to show Allow Reconciliation for bank/cash/credit card accounts -->
+    <record id="view_account_form_inherit" model="ir.ui.view">
+        <field name="name">account.account.form.inherit.pms</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account_accountant.view_account_form"/>
+        <field name="arch" type="xml">
+            <!-- Show reconcile field and button for bank/cash/credit card accounts -->
+            <!-- Replace the label attrs to show for all reconcilable accounts -->
+            <xpath expr="//label[@for='reconcile']" position="attributes">
+                <attribute name="attrs">{'invisible': [('internal_group', '=', 'off_balance')]}</attribute>
+            </xpath>
+            <!-- Replace the div attrs to show for all reconcilable accounts -->
+            <xpath expr="//div[./field[@name='reconcile']]" position="attributes">
+                <attribute name="attrs">{'invisible': [('internal_group', '=', 'off_balance')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit account account list view to show Allow Reconciliation toggle for bank/cash/credit card accounts -->
+    <record id="view_account_list_inherit" model="ir.ui.view">
+        <field name="name">account.account.list.inherit.pms</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="arch" type="xml">
+            <!-- Show reconcile field for bank/cash/credit card accounts -->
+            <xpath expr="//field[@name='reconcile']" position="replace">
+                <field name="reconcile" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

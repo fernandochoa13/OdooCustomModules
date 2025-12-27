@@ -1,0 +1,105 @@
+<odoo>
+
+<record id="purchase_property_report_search" model="ir.ui.view">
+        <field name="name">pms.purchase.report.search</field>
+        <field name="model">pms.purchase.report</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="address"/>
+                <field name="house_model"/>
+                <field name="vendor"/>
+                <field name="ref"/>
+                <field name="state_ids"/>
+                <field name="county"/>
+                <field name="status_property"/>
+                <field name="date_order"/>
+                <field name="order_type"/>
+                <field name="date_approved"/>
+                <field name="date_planned"/>
+                <field name="effective_date"/>
+                <field name="receipt_status"/>
+                <field name="product_category"/>
+                <field name="product"/>
+                <field name="quantity"/>
+                <field name="price_unit"/>
+                <field name="total_amount"/>
+            </search>
+        </field>
+</record>
+
+<record id="purchase_property_report" model="ir.actions.act_window">
+    <field name="name">Puchase Report</field>
+    <field name="res_model">pms.purchase.report</field>
+    <field name="view_mode">tree,graph</field>
+</record>
+
+<record model="ir.ui.view" id="view_pms_purchase_graph">
+    <field name="name">purchase.graph</field>
+    <field name="model">pms.purchase.report</field>
+    <field name="arch" type="xml">
+        <graph string="Purchase Analysis" type="bar" sample="1">
+            <field name="vendor" type="measure"/>
+            <field name="total_amount" type="measure"/>
+        </graph>
+    </field>
+</record>
+
+<record id="purchase_property_view_tree" model="ir.ui.view">
+    <field name="name">pms.purchase.report.tree</field>
+    <field name="model">pms.purchase.report</field>
+    <field name="arch" type="xml">
+        <list string="Purchase Report" create="false">
+        <header>
+        <button name="print_materials_report" type="object" string="Print Materials Report" class="oe_highlight"/>
+        </header>
+            <field name="address"/>
+            <field name="house_model"/>
+            <field name="vendor"/>
+            <field name="ref"/>
+            <field name="state_ids"/>
+            <field name="county"/>
+            <field name="status_property"/>
+            <field name="date_order"/>
+            <field name="order_type"/>
+            <field name="date_approved"/>
+            <field name="date_planned"/>
+            <field name="effective_date"/>
+            <field name="receipt_status"/>
+            <field name="product_category"/>
+            <field name="product"/>
+            <field name="quantity"/>
+            <field name="price_unit"/>
+            <field name="total_amount"/>
+        </list>
+    </field>
+</record>
+<!--
+<record id="email_template_weekly_purchase_report" model="mail.template">
+        <field name="name">Purchase Weekly Report: Send by mail</field>
+        <field name="model_id" ref="pms.model_pms_purchase_report"/>
+        <field name="subject">Weekly Purchase Report</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Good Morning, this is your weekly purchase Report
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record id="email_template_purchase_report_daily" model="mail.template">
+        <field name="name">Daily Purchase Report: Send by mail</field>
+        <field name="model_id" ref="pms.model_pms_purchase_report"/>
+        <field name="subject">Daily Purchase Report</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Good Morning, this is your daily purchase Report
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+-->
+</odoo>

@@ -1,0 +1,45 @@
+<odoo>
+
+    <template id="inspections_general_report">
+         <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                <t t-set="status" t-value="['failed', 'passed', 'passed_after', 'ordered']"/>
+                <t t-foreach="status" t-as="st">
+                <t t-set="final_records" t-value="docs.filtered(lambda r: r.status == st)"/>
+                <t t-if="final_records">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Address</th>
+                                <th>Write Date</th>
+                                <th>County</th>
+                                <th>Inspections Type</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="final_records" t-as="record">
+                                <tr>
+                                    <td> <span t-field="record.name"/> </td>
+                                    <td> <span t-field="record.date"/> </td>
+                                    <td> <span t-field="record.status"/> </td>
+                                    <td> <span t-field="record.address"/> </td>
+                                    <td> <span t-field="record.write_date"/> </td>
+                                    <td> <span t-field="record.county"/> </td>
+                                    <td> <span t-field="record.inspections_type"/> </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    </t>
+                    </t>   
+                </div>            
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+
+    <menuitem name="Material Orders" id="material_orders_root" action="orders_selection_wizard" web_icon="create_material_orders,static/description/icon.png">
+        <menuitem id="create_material_orders_wizard" action="create_order_wizard">
+        </menuitem>
+
+        <!-- <menuitem id="open_orders_menu_item" action="open_orders_wizard">
+        </menuitem> -->
+
+        <!-- <menuitem id="verify_material_orders_report_wizard" action="verify_order_report_wizard">
+        </menuitem> -->
+    </menuitem>
+
+</odoo>

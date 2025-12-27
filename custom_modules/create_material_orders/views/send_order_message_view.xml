@@ -1,0 +1,20 @@
+<odoo>
+
+<record id="send_order_message_wizard_form" model="ir.ui.view">
+        <field name="name">send.order.message.wizard.form</field>
+        <field name="model">send.order.message.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send Order Message">
+                    <group name="general details" class="o_group">
+                        <field name="message"/>
+                    </group>
+                <footer>
+                    <button name="send_message" string="Send Message" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                </footer>
+            </form>
+        </field>
+</record>
+
+
+</odoo>

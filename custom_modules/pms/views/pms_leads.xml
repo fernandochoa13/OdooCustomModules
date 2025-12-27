@@ -1,0 +1,109 @@
+<odoo>
+
+<record id="pms_leads_view_tree" model="ir.ui.view">
+    <field name="name">pms.leads.tree</field>
+    <field name="model">pms.leads</field>
+    <field name="arch" type="xml">
+        <list string="Leads List">
+            <field name="name" optional="show"/>
+            <field name="property_address" optional="show"/>
+            <field name="county" optional="show"/>
+            <field name="client" optional="show"/>
+            <field name="salesperson" optional="show"/>
+            <field name="lead_type" optional="show"/>
+            <field name="lot_parcel_id" optional="show"/>
+            <field name="sent_survey" optional="show"/>
+            <field name="lot_inspection" optional="show"/>
+            <field name="escrow_request" optional="show"/>
+            <field name="escrow_status" optional="show"/>
+            <field name="initial_proposal" optional="show"/>
+            <field name="business_decision" optional="show"/>
+            <field name="loan" optional="show"/>
+            <field name="file_opened" optional="show"/>
+            <field name="week_number" optional="show"/>
+            <field name="closing_date" optional="show"/>
+            <field name="acquisition_status" optional="show"/>
+            <field name="turtle_tree_inspection" optional="show"/>
+            <field name="scrub_jays" optional="show"/>
+            <field name="hoa" optional="show"/> 
+            <field name="inspection_due_date" optional="show"/>  
+            <field name="comments" optional="show"/>
+            
+        </list>
+    </field>
+</record>
+
+<record id="pms_leads_view_form" model="ir.ui.view">
+    <field name="name">pms.leads.form</field>
+    <field name="model">pms.leads</field>
+    <field name="arch" type="xml">
+        <form string="Leads Form">
+        <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" widget="char" class="o_bold_title"/>
+                    </h1>
+                </div>
+        <header>
+
+        <button name="convert_lead_to_transaction" string="Convert Lead to Transaction"
+        type="object" class="btn-primary"/>
+
+         <field name="lead_state" widget="statusbar" statusbar_visible="lead,converted"/>
+        </header>
+        <group name="general details" class="o_group">
+                <field name="property_address" />
+                <field name="county"/>
+                <field name="lead_type" />
+                <field name="client" />
+                <field name="salesperson" />
+                <field name="lot_parcel_id"/>
+                <field name="sent_survey"/>
+                <field name="lot_inspection"/>
+                <field name="escrow_request" widget="monetary"/>
+                <field name="escrow_status"/>
+                <field name="initial_proposal" widget="monetary"/>
+                <field name="business_decision"/>
+                <field name="loan"/>
+                <field name="file_opened"/>
+                <field name="week_number"/>
+                <field name="closing_date"/>
+                <field name="acquisition_status"/>
+                <field name="turtle_tree_inspection"/>
+                <field name="scrub_jays"/>
+                <field name="hoa"/> 
+                <field name="inspection_due_date"/> 
+                <field name="comments" />
+        </group>
+        </sheet>
+        <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+<record id="pms_leads_view_search" model="ir.ui.view">
+        <field name="name">pms.leads.search</field>
+        <field name="model">pms.leads</field>
+        <field name="arch" type="xml">
+            <search string="Lead Search">
+                <field name="name" string="Lead Name" />
+                <field name="property_address"/>
+                <field name="lead_type"/>
+                <field name="client"/>
+                <field name="salesperson"/>
+            </search>
+        </field>
+</record>
+
+<record id="pms_leads_view" model="ir.actions.act_window">
+    <field name="name">Leads</field>
+    <field name="res_model">pms.leads</field>
+    <field name="view_mode">list,form</field>
+</record>
+
+
+</odoo>

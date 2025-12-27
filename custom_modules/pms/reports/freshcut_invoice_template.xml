@@ -1,0 +1,198 @@
+<odoo>
+
+    <record id="action_sale_order_freshcut_report" model="ir.actions.report">
+        <field name="name">Freshcut Quotation / Order</field>
+        <field name="model">sale.order</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.sale_order_freshcut_report</field>
+        <!-- <field name="attachment">'sale_order_new_report.pdf'</field> -->
+        <!-- <field name="attachment_use">True</field> -->
+        <field name="binding_view_types">form,list</field>
+        <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>
+
+    </record>
+
+    <template id="sale_order_freshcut_report">
+        <t t-call="web.html_container">
+            <meta charset="UTF-8"/>
+            <!-- <t t-call="web.external_layout"> -->
+                <head>
+                    <style type="text/css">
+                        body {
+                            font-family: Arial, sans-serif;
+                        }
+                    </style>
+                </head>
+                <t t-foreach="docs" t-as="record">
+                    <div class="page" style="">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="width: 50%; vertical-align: middle; text-align: left; padding-right: 10px;">
+                                    <img t-attf-src="{{ 'https://adanordonezp.com' }}/pms/static/description/freshcut.jpg"
+                                        style="max-height: 160px; max-width: 400px; object-fit: contain;"
+                                    />
+                                </td>
+                                <td style="width: 50%; vertical-align: middle; text-align: right; padding-bottom: 20px; padding-left: 10px;">
+                                    <!-- <p style="margin: 0; line-height: 1.2;"><strong><span t-field="record.company_id.name"/></strong></p> -->
+                                    <p style="margin: 0; line-height: 1.2;"><span t-field="record.company_id.street"/>, <span t-field="record.company_id.city"/> <span t-field="record.company_id.zip"/></p>
+                                    <p style="margin: 0; line-height: 1.2;"><span t-field="record.company_id.phone"/></p>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/><br/><hr/><br/>
+                        <h1 style="margin: 10px 0 0 0;">Estimate <span t-field="record.name"/></h1>
+                        <p style="margin: 0;"><strong>Date:</strong> <span t-field="record.date_order" t-options='{"widget": "date"}'/></p>
+                        <br/><br/>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="width: 50%; vertical-align: top; text-align: left; padding-right: 10px;">
+                                    <p style="margin: 0; line-height: 1.2;"><i>Billing Address</i></p>
+                                    <p style="margin: 0; line-height: 1.2;"><strong><span t-field="record.partner_id.name"/></strong></p>
+                                    <p style="margin: 0; line-height: 1.2;"><span t-field="record.partner_id.street"/>, <span t-field="record.partner_id.city"/> <span t-field="record.partner_id.zip"/></p>
+                                    <!-- <p style="margin: 0; line-height: 1.2;"><span t-field="record.partner_id.phone"/></p> -->
+                                </td>
+                                <td style="width: 50%; vertical-align: top; text-align: right; padding-left: 10px;">
+                                    <p style="margin: 0; line-height: 1.2;"><i>Job Address</i></p>
+                                    <p style="margin: 0; line-height: 1.2;"><strong><span t-field="record.partner_shipping_id.name"/></strong></p>
+                                    <p style="margin: 0; line-height: 1.2;"><span t-field="record.partner_shipping_id.street"/>, <span t-field="record.partner_shipping_id.city"/> <span t-field="record.partner_shipping_id.zip"/></p>
+                                    <!-- <p style="margin: 0; line-height: 1.2;"><span t-field="record.partner_shipping_id.phone"/></p> -->
+                                </td>
+                            </tr>
+                        </table>
+                        <br/><br/>
+                        <table class="table" style="width: 100%; border-collapse: collapse;">
+                            <thead style="padding: 8px;">
+                                <tr style="padding: 8px;">
+                                    <th colspan="3" style="text-align: left; padding-top: 15px; padding-bottom: 15px;">
+                                        <p style="margin: 0;"><strong>Customer:</strong> <span t-field="record.partner_id.name"/></p>
+                                    </th>
+                                    <th colspan="2" style="text-align: right; padding-top: 15px; padding-bottom: 15px;">
+                                        <p style="margin: 0;"><strong>Job:</strong> <span t-field="record.name"/></p>
+                                    </th>
+                                </tr>
+                                <tr style="background-color: #f2f2f2;">
+                                    <th style="padding: 8px;  width: 80%;">Description</th>
+                                    <th style="padding: 8px;  text-align: right; with: 10%;">Quantity</th>
+                                    <th style="padding: 8px;  width: 10%;">Unit Price</th> 
+                                    <th style="padding: 8px;  width: 10%;">Taxes</th> 
+                                    <th style="padding: 8px;  width: 10%;">Amount</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="record.order_line" t-as="line">
+                                    <t t-if="line.display_type == 'line_section'">
+                                        <tr class="section-row">
+                                            <td colspan="5" style="padding: 8px; ">
+                                                <strong><span t-field="line.name"/></strong>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-elif="line.display_type == 'line_note'">
+                                        <tr>
+                                            <td colspan="5" style="font-style: italic; padding: 8px; "><span t-field="line.name"/></td>
+                                        </tr>
+                                    </t>
+                                    <t t-else="">
+                                        <tr>
+                                            <td style="padding: 8px; width: 80%;"><span t-field="line.name"/></td>
+                                            <td style="padding: 8px; text-align: right;"><span t-field="line.product_uom_qty"/></td>
+                                            <td style="padding: 8px; text-align: right;"><span t-field="line.price_unit"/></td> 
+                                            <td style="padding: 8px; text-align: right;"><span t-field="line.tax_id"/></td> 
+                                            <td style="padding: 8px; text-align: right;"><span t-field="line.price_subtotal"/></td> 
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr>
+                                    <td colspan="5" style="padding: 8px; text-align: right;"><strong><span t-field="record.amount_total"/></strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/><br/><hr/><br/>
+                        <!-- font weight the scope, cuadrito en customer/job, quitar header y footer, date without time?, address less line height o gap -->
+                        <!-- <div class="scope-of-work" style="padding-top: 20px; font-size:9pt;">
+                            <strong>Scope of Work and Unforeseen Conditions</strong>
+                            <div style="font-weight:100;">
+                                <p>The Client acknowledges that the scope of work in this estimate is based solely on visible conditions and the information available at the time of assessment.</p>
+                                <p>If concealed or unforeseen conditions arise during the project, <span t-field="record.company_id.name"/> reserves the right to modify the project scope, schedule, and pricing as necessary.</p>
+                                <p>No work beyond the original scope will proceed without the Client’s approval.</p>
+                            </div>
+                            <strong>Additional Costs and Adjustments</strong>
+                            <div style="font-weight:100;">
+                                <p>The rates listed for common unforeseen repairs (e.g., rotted decking, extra tear-off layers, structural framing repairs) are estimates only.</p>
+                                <p>Final costs shall be determined based on actual conditions encountered.</p>
+                                <p>The Client agrees that <span t-field="record.company_id.name"/> is not liable for additional costs arising from unknown or concealed damages, including those requiring additional materials or labor.</p>
+                            </div>
+                            <strong>Owner’s Responsibility</strong>
+                            <div style="font-weight:100;">
+                                <p>The Owner is responsible for providing accurate information about existing conditions and for making accessible any areas required for inspection or repair.</p>
+                                <p><span t-field="record.company_id.name"/> shall not  be held responsible for delays, damages, or expenses caused by information or conditions that were undisclosed or impossible to detect prior to the start of work.</p>
+                            </div>
+                            <strong>Method of Payment</strong>
+                            <div style="font-weight:100;">
+                                <p>Payment for the project shall be made in three installments as follows:</p>
+                                <ul>
+                                    <li>An initial payment of fifty percent (50%) of the total contract price is due prior to commencing work.</li>
+                                    <li>A second payment of twenty-five percent (25%) is due upon completion of the dry-in stage.</li>
+                                    <li>The remaining twenty-five percent (25%) is due immediately upon final completion of the project.</li>
+                                </ul>
+                            </div>
+                            <strong>Five (5) Year Labor Warranty</strong>
+                            <div style="font-weight:100;">
+                                <p><strong>a. Scope of Warranty:</strong> <span t-field="record.company_id.name"/> warrants its labor for a period of five (5) years from the date of final completion.</p>
+                                <p>This warranty is strictly limited to defects in workmanship and does not extend to materials, normal wear and tear, or damage resulting from external factors (e.g., severe weather, acts of nature, accidents, misuse, or alterations by unauthorized persons).</p>
+                                <p><strong>b. Warranty Claims:</strong> The Client must notify <span t-field="record.company_id.name"/> in writing of any alleged defect in workmanship within fourteen (14) days of discovery.</p>
+                                <p><span t-field="record.company_id.name"/> reserves the right to inspect and investigate any claim before determining the appropriate remedy.</p>
+                                <p><strong>c. Exclusions and Conditions:</strong> This warranty is void if the Client fails to pay all invoices in full, or if any repairs or alterations are performed by parties not authorized by <span t-field="record.company_id.name"/>.</p>
+                                <p>This warranty does not cover any indirect, incidental, or consequential damages.</p>
+                                <p><span t-field="record.company_id.name"/>’s obligation under this warranty is limited to the labor necessary to correct any proven defect in workmanship.</p>
+                                <p>No other express or implied warranties, including any implied warranty of merchantability or fitness for a particular purpose, are granted beyond what is stated herein.</p>
+                            </div>
+                            <strong>No Guarantee of Final Cost</strong>
+                            <div style="font-weight:100;">
+                                <p>This document supplements the principal Construction Agreement and does not bind <span t-field="record.company_id.name"/> to a fixed price.</p>
+                                <p>Any unforeseen condition that necessitates additional work or materials will be documented and billed at the rates set forth herein—or at an agreed-upon rate—and must be paid in accordance with the terms of the Construction Agreement.</p>
+                            </div>
+                            <strong>Acceptance</strong>
+                            <div style="font-weight:100;">
+                                <p>By signing the Construction Agreement incorporating this supplemental text, the Client agrees to the terms and conditions regarding unforeseen conditions, associated costs, and the method of payment.</p>
+                                <p>This estimate remains valid for thirty (30) days from the date of issuance and will be deemed void if the Construction Agreement is not executed within that timeframe.</p>
+                            </div>
+                        </div>
+                        <br/><hr/><br/> -->
+                        <!-- <div class="signatures" style="padding-top: 50px;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px 0; border-top: 1px solid #ddd; width: 60%;">
+                                            <p style="margin: 0;"><strong>Company Authorized Signature</strong></p>
+                                        </td>
+                                        <td style="padding: 10px 0; border-top: 1px solid #ddd; text-align: right; width: 40%;">
+                                            <p style="margin: 0;"><strong>Date</strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 0; border-top: 1px solid #ddd;">
+                                            <p style="margin: 0;"><strong>Customer Signature</strong></p>
+                                        </td>
+                                        <td style="padding: 10px 0; border-top: 1px solid #ddd; text-align: right;">
+                                            <p style="margin: 0;"><strong>Date</strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 0; border-top: 1px solid #ddd;">
+                                            <p style="margin: 0;"><strong>Customer Signature</strong></p>
+                                        </td>
+                                        <td style="padding: 10px 0; border-top: 1px solid #ddd; text-align: right;">
+                                            <p style="margin: 0;"><strong>Date</strong></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+                    </div>
+                </t>
+            <!-- </t> -->
+        </t>
+    </template>
+</odoo>

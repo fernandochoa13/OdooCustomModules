@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form View for ProjectChecklistTemplate -->
+        <record id="project_checklist_template_view_form" model="ir.ui.view">
+            <field name="name">project.checklist.template.view.form</field>
+            <field name="model">project.checklist.template</field>
+            <field name="arch" type="xml">
+                <form string="Checklist Template">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g. New Project Onboarding Checklist"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="active" widget="boolean_toggle"/>
+                                <field name="description"/>
+                            </group>
+                            <group/>
+                        </group>
+                        <notebook>
+                            <page string="Checklist Items" name="checklist_items">
+                                <field name="template_line_ids">
+                                    <list string="Checklist Template Lines" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name" required="1"/>
+                                        <!-- <field name="responsible_user_id"/> -->
+                                        <field name="stage_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View for ProjectChecklistTemplate -->
+        <record id="project_checklist_template_view_tree" model="ir.ui.view">
+            <field name="name">project.checklist.template.view.tree</field>
+            <field name="model">project.checklist.template</field>
+            <field name="arch" type="xml">
+                <list string="Checklist Templates">
+                    <field name="name"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Search View for ProjectChecklistTemplate -->
+        <record id="project_checklist_template_view_search" model="ir.ui.view">
+            <field name="name">project.checklist.template.view.search</field>
+            <field name="model">project.checklist.template</field>
+            <field name="arch" type="xml">
+                <search string="Search Checklist Templates">
+                    <field name="name"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action for ProjectChecklistTemplate -->
+        <record id="project_checklist_template_action" model="ir.actions.act_window">
+            <field name="name">Checklist Templates</field>
+            <field name="res_model">project.checklist.template</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first checklist template!
+                </p><p>
+                    Define reusable sets of tasks for various records or projects.
+                </p>
+            </field>
+        </record>
+
+        <!-- Form View for ProjectChecklist -->
+        <record id="project_checklist_view_form" model="ir.ui.view">
+            <field name="name">project.checklist.view.form</field>
+            <field name="model">project.checklist</field>
+            <field name="arch" type="xml">
+                <form string="Project Checklist">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <!-- Corrected: Using project_id directly -->
+                                <field name="project_id" string="Project" options="{'no_create': True, 'no_open': True}"/>
+                                <!-- <field name="user_id"/> -->
+                                <!-- <field name="date_assigned"/> -->
+                            </group>
+                            <group>
+                                <field name="template_id" options="{'no_create': True, 'no_open': True}"/>
+                                <!-- <field name="date_completed"/> -->
+                                <field name="progress" widget="progressbar"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Checklist Tasks" name="checklist_tasks">
+                                <field name="checklist_line_ids" options="{'no_open': True}">
+                                    <list string="Checklist Tasks" editable="bottom">
+                                        <!-- <field name="is_admin" invisible="1"/> -->
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name" />
+                                        <!-- <field name="name"/> -->
+                                        <field name="is_done" widget="boolean_toggle"/>
+                                        <!-- <field name="is_done" widget="boolean_toggle"/> -->
+                                        <!-- <field name="responsible_user_id"/> -->
+                                        <!-- <field name="completed_by_id" invisible="1"/> -->
+                                        <!-- <field name="completion_date" invisible="1"/> -->
+                                        <field name="stage_id" />
+                                        <!-- <field name="stage_id"/> -->
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View for ProjectChecklist -->
+        <record id="project_checklist_view_tree" model="ir.ui.view">
+            <field name="name">project.checklist.view.tree</field>
+            <field name="model">project.checklist</field>
+            <field name="arch" type="xml">
+                <list string="Project Checklists" decoration-success="progress == 100" decoration-danger="state == 'cancelled'">
+                    <field name="name"/>
+                    <!-- Corrected: Using project_id directly -->
+                    <field name="project_id"/>
+                    <!-- <field name="user_id"/> -->
+                    <!-- <field name="date_assigned"/> -->
+                    <field name="progress" widget="progressbar"/>
+                    <field name="state"/>
+                    <field name="template_id"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Kanban View for ProjectChecklist -->
+        <record id="project_checklist_view_kanban" model="ir.ui.view">
+            <field name="name">project.checklist.view.kanban</field>
+            <field name="model">project.checklist</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state">
+                    <field name="state"/>
+                    <!-- Corrected: Using project_id directly -->
+                    <field name="project_id"/>
+                    <!-- <field name="user_id"/> -->
+                    <field name="progress"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_card_content">
+                                    <div class="o_kanban_primary_left">
+                                        <field name="name"/>
+                                    </div>
+                                    <div class="o_kanban_primary_right">
+                                        <field name="progress" widget="progressbar"/>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <!-- Corrected: Using project_id directly -->
+                                            <field name="project_id"/>
+                                            <!-- <field name="date_assigned"/> -->
+                                        </div>
+                                        <!-- <div class="oe_kanban_bottom_right">
+                                            <field name="user_id" widget="many2one_avatar_user"/>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="checklist_line_ids" widget="many2many_tags" />
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Search View for ProjectChecklist -->
+        <record id="project_checklist_view_search" model="ir.ui.view">
+            <field name="name">project.checklist.view.search</field>
+            <field name="model">project.checklist</field>
+            <field name="arch" type="xml">
+                <search string="Search Project Checklists">
+                    <field name="name"/>
+                    <!-- Corrected: Using project_id directly -->
+                    <field name="project_id"/>
+                    <!-- <field name="user_id"/> -->
+                    <!-- <filter string="My Checklists" name="my_checklists" domain="[('user_id', '=', uid)]"/> -->
+                    <separator/>
+                    <filter string="Draft" name="state_draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="In Progress" name="state_in_progress" domain="[('state', '=', 'in_progress')]"/>
+                    <filter string="Completed" name="state_completed" domain="[('state', '=', 'completed')]"/>
+                    <filter string="Cancelled" name="state_cancelled" domain="[('state', '=', 'cancelled')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+                        <!-- <filter string="Assigned To" name="group_by_user" context="{'group_by': 'user_id'}"/> -->
+                        <!-- Corrected: Using project_id directly for grouping -->
+                        <filter string="Project" name="group_by_project" context="{'group_by': 'project_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action for ProjectChecklist -->
+        <record id="project_checklist_action" model="ir.actions.act_window">
+            <field name="name">Project Checklists</field>
+            <field name="res_model">project.checklist</field>
+            <field name="view_mode">list,kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new checklist for your projects!
+                </p><p>
+                    Track critical tasks and ensure project readiness for field operations.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_project_checklists_root" name="Checklists" action="project_checklist_action" web_icon="pms,static/description/checklist.png">
+            <menuitem id="menu_project_checklists_root_records" name="Checklists" action="project_checklist_action" />
+            <menuitem id="menu_project_checklists_root_templates" name="Templates" action="project_checklist_template_action"/>
+        </menuitem> 
+
+        <menuitem id="project_checklist_list" name="Checklist" parent="pms.pms_menu_jobs" sequence="10">
+            <menuitem id="menu_project_checklists_records" 
+                    name="Record Checklists" 
+                    action="project_checklist_action" 
+                    sequence="10"/>
+            <menuitem id="menu_project_checklists_templates" 
+                    name="Checklist Templates" 
+                    action="project_checklist_template_action" 
+                    sequence="20"/>
+        </menuitem>
+    </data>
+</odoo>

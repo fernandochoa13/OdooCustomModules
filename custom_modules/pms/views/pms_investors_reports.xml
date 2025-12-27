@@ -1,0 +1,846 @@
+<odoo>
+    <data>
+        <template id="pms_investors_joint_venture_agreement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class='WordSection1'>
+                <p class='MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                line-height:normal;text-autospace:none'><b><span style='font-size:12.0pt;
+                font-family:TimesNewRomanPSMT'>JOINT VENTURE AGREEMENT</span></b></p>
+                <p class='MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                line-height:normal;text-autospace:none'><b><span style='font-size:12.0pt;
+                font-family:TimesNewRomanPSMT' t-field="o.partner_id"></span></b></p>
+
+                <p class='MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                line-height:normal;text-autospace:none'><b><span style='font-size:12.0pt;
+                font-family:TimesNewRomanPSMT'>ACRISTO INVESTMENTS LLC</span></b></p>
+
+                <p class='MsoNormal' align='center' style='text-align:center;text-autospace:none'><a
+                name="_Hlk153815314"><b><span style='font-size:12.0pt;line-height:115%;
+                font-family:TimesNewRomanPSMT'>August 30th, 202</span></b></a><b><span
+                style='font-size:12.0pt;line-height:115%;font-family:TimesNewRomanPSMT'>4</span></b></p>
+
+                <p class='MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                line-height:normal;text-autospace:none'><b><span style='font-size:12.0pt;
+                font-family:TimesNewRomanPSMT'></span></b></p>
+
+                <p class='MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                line-height:normal;text-autospace:none'><b><span style='font-size:12.0pt;
+                font-family:TimesNewRomanPSMT'></span></b></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>This
+                Joint Venture Agreement (the "Agreement") is entered into as of August 30th,
+                2024 and sets forth the basic terms of our joint venture for the lot
+                acquisition, construction and sale by the undersigned parties (each a
+                "Venturer" and collectively the "Venturers") of selected single family
+                properties located in <b>Charlotte</b> County, Florida or any other agreed upon
+                location (collectively, the "Property").</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>1.         <u>Parties
+                and Name</u>. The joint venture parties are <b>Acristo Investments LLC,</b> a
+                Florida Corporation ('Developer'), and <b> Inversiones Avila Mata </b>('Investor').
+                The name of the joint venture (the 'Venture') shall be </span><b><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;
+                background:white'>12223 Van Gough Ave Port Charlotte, Florida 33981</span></b><b><span
+                style='font-size:10.5pt;font-family:"Segoe UI",sans-serif;color:black;
+                letter-spacing:-.2pt;background:#EFEFEF'> </span></b><span style='font-size:
+                12.0pt;font-family:TimesNewRomanPSMT'>Construction.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>2.         <u>Role
+                and Responsibilities</u>. Investor will finance the lot acquisition of the
+                Property as well as the construction to the Property. Developer shall be responsible
+                for identifying, acquiring, building and selling the Property. Investor shall
+                be responsible for contributing and providing equity funds for use in
+                acquiring, building and carrying the Property through the date of resale, upon
+                the terms set forth herein.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>3.         <u>Equity
+                Funds</u>. Investor shall contribute the sum of <u>$53,389.20</u> equity funds
+                to be used for the acquisition, building, carrying costs and closing fees, and
+                other costs related to the Property located at </span><b><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;
+                background:white'>12223 Van Gough Ave Port Charlotte, Florida 33981</span></b><b><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif'>.</span></b></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>4.         <u>Preference
+                Return; Allocation of Profit; Distributions</u>. </span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT;
+                color:red'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>Profits
+                shall be equal to the sales price of the Properties, less the acquisition
+                costs, building costs, carrying costs, closing fees, and other costs
+                specifically related to the Property, and no general management fees or
+                allocations shall apply ( 'Profits '). ' Profits shall be allocated in accordance
+                with their Initial Investment, which shall provide for an 13% preference return
+                of the Initial Investment to Investor of the Initial Investment and the
+                remainder of the Profit shall be allocated to Developer. </span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>5.                 <u>Collateral
+                Security</u>.   A Promissory Note (Schedule A). </span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>6.                 <u>Arbitration</u>.  
+                Any action to enforce or interpret this Agreement or to resolve disputes
+                between the parties or by or against any Venturer shall be settled by
+                arbitration in accordance with the rules of the American Arbitration
+                Association. Arbitration shall be the exclusive dispute resolution process. Any
+                party may commence arbitration by sending a written demand for arbitration to
+                the other parties. Such demand shall set forth the nature of the matter to be
+                resolved by arbitration. Arbitration shall be conducted in Wyoming. The
+                substantive law of the State of Wyoming shall be applied by the arbitrator to
+                the resolution of the dispute. The parties shall share equally all initial
+                costs of arbitration. The prevailing party shall be entitled to reimbursement of
+                attorney fees, costs, and expenses incurred in connection with the arbitration.
+                All decisions of the arbitrator shall be final, binding, and conclusive on all
+                parties. Judgment may be entered upon any such decision in accordance with
+                applicable law in any court having jurisdiction thereof.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>7.                 <u>Miscellaneous</u>.  
+                </span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>                       (a)             This
+                Agreement may be executed in one or more counterparts, each of which shall be
+                deemed an original, but all of which together shall constitute one and the same
+                instrument.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>                       (b)             This
+                Agreement shall be construed and enforced in accordance with the internal laws
+                of the State of Nevada. If any provision of this Agreement is determined by any
+                court of competent jurisdiction or arbitrator to be invalid, illegal, or
+                unenforceable to any extent, that provision shall, if possible, be construed as
+                though more narrowly drawn, if a narrower construction would avoid such
+                invalidity, illegality, or unenforceability or, if that is not possible, such
+                provision shall, to the extent of such invalidity, illegality, or
+                unenforceability, be severed, and the remaining provisions of this Agreement
+                shall remain in effect.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>                       (c)             This
+                Agreement shall be binding on and inure to the benefit of the parties and their
+                heirs, personal representatives, and permitted successors and assigns.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>                       (d)             Except
+                as provided herein, no provision of this Agreement shall be construed to limit
+                the Venture in any manner in the carrying on of its own respective businesses
+                or activities.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>                       (e)             The
+                Venturers intend the joint venture to be a general partnership under the
+                California Uniform Partnership Act. No Venturer shall take any action
+                inconsistent with the express intent of the parties to this Agreement.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>                       </span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>IN
+                WITNESS WHEREOF, the parties have executed or caused to be executed this
+                Agreement on the day and year first above written.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:12.0pt;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>'Developer'</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>By:
+                ___________________________                                   Date:
+                ____________________</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>Name:
+                <u>Adan Ordonez</u></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>Title:
+                <u>__MGR_______________</u></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>Address:
+                <u>1911 Morning dr</u></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>              
+                <u>Orlando Fl 32809</u></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'> 
+                </span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>  Investor </span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>By:
+                ____________________________                                 Date:
+                ____________________</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'>Name:</span><b><span
+                style='color:black;background:white'> </span></b><u><span style='font-size:
+                12.0pt;font-family:"Times New Roman",serif;color:black'>Victor Avila</span></u></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;line-height:normal'><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;line-height:normal'><span
+                style='font-size:12.0pt'></span></p>
+
+                <p class='MsoNormal' style='text-autospace:none'><b><span style='font-family:
+                "Times New Roman",serif;color:black'></span></b></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><u><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'><span
+                style='text-decoration:none'></span></span></u></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:TimesNewRomanPSMT'></span></p>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+        <record id="investors_joint_venture" model="ir.actions.report">
+            <field name="name">Investors Joint Venture</field>
+            <field name="model">pms.investors</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pms.pms_investors_joint_venture_agreement</field>
+            <field name="report_file">pms.pms_investors_joint_venture_agreement</field>
+            <field name="binding_model_id" ref="pms.model_pms_investors"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    <template id="pms_investors_mortgage_agreement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class='WordSection1'>
+
+                    <p class='MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                    none'><u><span style='font-size:10.0pt;font-family:"Times New Roman",serif'>Prepared
+                    by and return to</span></u><span style='font-size:10.0pt;font-family:"Times New Roman",serif'>:</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                    none'><span style='font-size:10.0pt;font-family:"Times New Roman",serif'>Adan
+                    Ordonez</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                    none'><span style='font-size:10.0pt;font-family:"Times New Roman",serif'>1911
+                    Morning dr</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                    none'><span style='font-size:10.0pt;font-family:"Times New Roman",serif'>Orlando
+                    FL 32809</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                    none'><span style='font-size:10.0pt;font-family:"Times New Roman",serif'>;</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                    none'><span style='font-size:8.0pt;font-family:"Times New Roman",serif;
+                    color:black'>____________________________________________[Space Above This Line
+                    For Recording Data]___________________________________________</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span
+                    style='font-size:10.0pt;font-family:"Times New Roman",serif;color:black'> </span></p>
+
+                    <p class= 'MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                    line-height:normal;text-autospace:none'><b><span style='font-size:20.0pt;
+                    font-family:"Times New Roman",serif'>MORTGAGE</span></b></p>
+
+                    <p class= 'MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                    line-height:normal;text-autospace:none'><b><span style='font-size:20.0pt;
+                    font-family:"Times New Roman",serif'>This is an Investment Property</span></b></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    10.0pt;font-family:"Times New Roman",serif'>;</span></p>
+
+                    <p class= 'MsoNormal' style='text-align:justify;text-justify:inter-ideograph'><b><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>This
+                    Indenture</span></b><span style='font-size:12.0pt;line-height:115%;font-family:
+                    "Times New Roman",serif'>, Made this August 30th, 2024, by and between <b>Acristo
+                    Investments, LLC</b>, whose address is </span><i><span style='font-size:12.0pt;
+                    line-height:115%;font-family:"Times New Roman",serif;color:black;background:
+                    white'>1911 Morning Dr, Orlando FL 32809</span></i><span style='font-size:12.0pt;
+                    line-height:115%;font-family:"Times New Roman",serif'>,<b> </b>hereinafter
+                    called the Mortgagor, and </span><b><span style='font-size:12.0pt;line-height:
+                    115%;font-family:TimesNewRomanPSMT'>Inversiones Avila Mata</span></b><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif;
+                    color:black;background:white'> hereinafter</span><span style='font-size:14.0pt;
+                    line-height:115%;font-family:"Times New Roman",serif'> </span><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>called
+                    the Mortgagee:</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                    none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-top:0in;margin-right:.5in;margin-bottom:0in;
+                    margin-left:.5in;text-align:justify;text-justify:inter-ideograph;line-height:
+                    normal;text-autospace:none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>The
+                    terms &quot;Mortgagor&quot; and &quot;Mortgagee&quot;, shall include heirs,
+                    personal representatives, successors, legal representatives and assigns, and
+                    shall denote the singular and/or the plural, and the masculine and/or the
+                    feminine and natural and/or artificial persons, whenever and wherever the
+                    context so admits or requires.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='text-align:justify;text-justify:inter-ideograph'><b><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>Witnesseth</span></b><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>,
+                    that the said Mortgagor, for and in consideration of the aggregate sum named in
+                    the promissory note, a copy of which is attached hereto the receipt of which is
+                    hereby acknowledged, does grant, bargain and sell to the said Mortgagee, his
+                    successors and assigns, in fee simple, the following described land, situate,
+                    lying and being in </span><b><span style='font-size:12.0pt;line-height:115%;
+                    font-family:"Helvetica Neue";color:black;letter-spacing:-.2pt;background:white'>Charlotte</span></b><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>
+                    County, </span><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'><b>Florida</b></span><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>,
+                    to-wit:</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                    line-height:normal;text-autospace:none'><b><span style='font-size:12.0pt;
+                    font-family:"Times New Roman",serif'>SEE ATACHED LEGAL DESCRIPTION</span></b></p>
+
+                    <p class= 'MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                    line-height:normal;text-autospace:none'><b><span style='font-size:12.0pt;
+                    font-family:"Times New Roman",serif'></span></b></p>
+
+                    <p class= 'MsoNormal'><b>�a/k/a� </b><b><span style='font-size:12.0pt;line-height:
+                    115%;font-family:"Times New Roman",serif;color:black;background:white'>12223
+                    Van Gough Ave Port Charlotte, Florida 33981</span></b></p>
+
+                    <p class= 'MsoNormal'><b><span style='font-size:12.0pt;line-height:115%;
+                    font-family:"Times New Roman",serif'>Folio:</span></b><b><span
+                    style='font-size:10.5pt;line-height:115%;font-family:"Helvetica Neue";
+                    color:#3A3A3A;letter-spacing:-.2pt;background:white'></span></b><b><span
+                    style='font-size:10.5pt;line-height:115%;font-family:"Segoe UI",sans-serif;
+                    color:#3A3A3A;letter-spacing:-.2pt;background:white'></span></b><b><span
+                    style='font-family:"Segoe UI",sans-serif;color:#3A3A3A;letter-spacing:-.2pt;
+                    background:white'>412106333011</span></b></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%;font-family:
+                    "Times New Roman",serif'>And the said Mortgagor does hereby fully warrant the
+                    title to said land, and will defend the same against the lawful claims of all
+                    persons whomsoever.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><b><span
+                    style='font-size:12.0pt;font-family:"Times New Roman",serif'>Provided always</span></b><span
+                    style='font-size:12.0pt;font-family:"Times New Roman",serif'>, that if said
+                    Mortgagor, his successors or assigns, shall pay unto the said Mortgagee, his
+                    successors or assigns, that certain promissory note, of which a true and
+                    correct copy is attached, and Mortgagor shall perform, comply with and abide by
+                    each and every stipulation, agreement, condition and covenant of said
+                    promissory note and of this mortgage, and shall duly pay all taxes, all
+                    insurance premiums reasonably required, all costs and expenses including
+                    reasonable attorneys fees that Mortgagee may incur in collecting money secured
+                    by this mortgage, and also in enforcing this mortgage by suit or otherwise,
+                    then this mortgage and the estate hereby created shall cease and be null and
+                    void.</span></p>
+
+                    </div>
+
+                    <span style='font-size:12.0pt;font-family:"Arial",sans-serif;color:black'><br
+                    clear='all' style='page-break-before:auto'></br>
+                    </span>
+
+                    <div class='WordSection2'>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'>Mortgagor hereby covenants and
+                    agrees:</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                    margin-left:.25in;text-align:justify;text-justify:inter-ideograph;text-indent:
+                    -.25in;line-height:normal;text-autospace:none'><span style='font-size:12.0pt;
+                    font-family:"Times New Roman",serif'>To pay the principal and interest and
+                    other sums of money payable by virtue of said promissory note and this
+                    mortgage, or either, promptly on the days respectively the same severally come
+                    due.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'>To keep the buildings now or
+                    hereafter on the land insured for fire and extended coverage in a sum at least
+                    equal to the amount owed on the above described promissory note, and name the
+                    Mortgagee as loss payees, and to furnish Mortgagee with a copy of all current
+                    policies. If Mortgagor does not provide Mortgagee with copies of the policies
+                    showing Mortgagee as loss payees after 14 days written demand by Mortgagee,
+                    then Mortgagee may purchase such insurance and shall add any payments made for
+                    such policy to the principal balance owed on the mortgage, and such payments
+                    shall accrue interest at the maximum rate of interest allowed by law. In the
+                    event any sum of money becomes payable under such policy, Mortgagee, his legal
+                    representatives or assigns, shall have the option to receive and apply the same
+                    on account of the indebtedness hereby secured or to permit Mortgagor to receive
+                    and use it or any part thereof for repair or replacement, without hereby
+                    waiving or impairing any equity, lien or right under or by virtue of this
+                    mortgage.� In the event of loss Mortgagor shall give immediate notice to
+                    Mortgagee.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                    margin-left:.25in;text-align:justify;text-justify:inter-ideograph;text-indent:
+                    -.25in;line-height:normal;text-autospace:none'><span style='font-size:12.0pt;
+                    font-family:"Times New Roman",serif'>To permit, commit or suffer no waste,
+                    impairment or deterioration of the property, or any part thereof.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                    margin-left:.25in;text-align:justify;text-justify:inter-ideograph;text-indent:
+                    -.25in;line-height:normal;text-autospace:none'><span style='font-size:12.0pt;
+                    font-family:"Times New Roman",serif'>Mortgagor shall provide proof of payment
+                    of annual real estate taxes by March 15, for the preceding years taxes. In the
+                    event that Mortgagor does not pay the taxes by such date, the Mortgagee may pay
+                    the taxes and the full amount of such payment by Mortgagee shall be added to
+                    the principal balance owed on the mortgage, and shall accrue interest at the
+                    maximum rate allowed by law.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                    margin-left:.25in;text-align:justify;text-justify:inter-ideograph;text-indent:
+                    -.25in;line-height:normal;text-autospace:none'><span style='font-size:12.0pt;
+                    font-family:"Times New Roman",serif'>The Mortgagee may, at any time pending a
+                    suit upon this mortgage, apply to the court having jurisdiction thereof for the
+                    appointment of a receiver, and such court shall forthwith appoint a receiver,
+                    and such receiver shall have all the broad and effective functions and powers
+                    in anywise entrusted by a court to a receiver, and such appointment shall be
+                    made by such court as an admitted equity and a matter of absolute right to said
+                    Mortgagee. The rents, profits, income, issues, and revenues shall be applied by
+                    such receiver according to the lien of this mortgage.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                    margin-left:.25in;text-align:justify;text-justify:inter-ideograph;text-indent:
+                    -.25in;line-height:normal;text-autospace:none'><span style='font-size:12.0pt;
+                    font-family:"Times New Roman",serif'>If any of the sums of money due and owing
+                    to Mortgagee under the terms of the promissory note and this mortgage,
+                    including but not limited to any advance made by Mortgagee for the payment of
+                    insurance or taxes, are not paid within 15 days after the same become due and
+                    payable, or if each of the stipulations, agreements, conditions and covenants
+                    of the promissory note and this mortgage, or either, are not fully performed or
+                    complied with the aggregate sum owed on the promissory note shall become due
+                    and payable forthwith or thereafter at the option of Mortgagee, his successors,
+                    legal representatives, or assigns.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'>This mortgage and the note hereby
+                    secured shall be construed and enforced according to the laws of the State of
+                    Florida.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;page-break-after:avoid;text-autospace:none'><span
+                    style='font-size:12.0pt;font-family:"Times New Roman",serif'>The principal sum
+                    secured hereby, along with any interest to be paid in accordance with the terms
+                    of the note secured hereby, shall immediately become due and payable without
+                    notice, if a transfer of title to the premises by sale or otherwise is made without
+                    the Mortgagee's written consent, while this mortgage remains a lien thereon, at
+                    the option of Mortgagee, his successors, legal representatives, or assigns.</span></p>
+
+                    <p class= 'MsoNormal' style='margin-bottom:0in;text-align:justify;text-justify:
+                    inter-ideograph;line-height:normal;text-autospace:none'><span style='font-size:
+                    11.5pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='text-align:justify;text-justify:inter-ideograph'><span
+                    style='font-size:11.5pt;line-height:115%;font-family:"Times New Roman",serif'>This
+                    mortgage secures a promissory note of even date herewith, given by the
+                    Mortgagor herein in favor of the Mortgagee herein, in the original principal
+                    amount of <b>FIFTY-THREE THOUSAND THREE HUNDRED EIGHTY-NINE and 20/100 Dollars
+                    ($53,389.20)</b>, bearing a maturity date of August 29th, 2025.</span></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%;font-family:
+                    "Times New Roman",serif'>IN WITNESS WHEREOF, the Mortgagor has executed this
+                    Mortgage as of the date first above set forth.� Signed, sealed and delivered in
+                    our presence.</span></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%;font-family:
+                    "Times New Roman",serif'></span></p>
+
+                    <p class='MsoNoSpacing'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>WITNESSES:������������������������������������������������������������ ���
+                    <b>Acristo Investments, </b></span></p>
+
+                    <p class='MsoNoSpacing' style='margin-left:3.0in;text-indent:.5in'><b><span
+                    style='font-size:12.0pt;font-family:"Times New Roman",serif'>�� LLC, a Florida
+                    Company</span></b></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%;font-family:
+                    "Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%;font-family:
+                    "Times New Roman",serif'>�___________________________�������������������������������
+                    _____________________________________�������������������������������������������������������������������������������
+                    Witness Name:���������������������������������������������������������� �� <b>Adan
+                    Ordonez, as its Manager (Borrower)</b></span></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%;font-family:
+                    "Times New Roman",serif'></span></p>
+
+                    <p class='MsoNoSpacing'>__________________________���������������� ������� </p>
+
+                    <p class='MsoNoSpacing'><span style='font-family:"Times New Roman",serif'>Witness
+                    Name:������������������������������������ </span></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%;font-family:
+                    "Times New Roman",serif'></span></p>
+
+                    <p class='MsoNoSpacing'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>STATE
+                    OF FLORIDA</span></p>
+
+                    <p class='MsoNoSpacing'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>COUNTY
+                    OF ORANGE</span></p>
+
+                    <p class='MsoNoSpacing'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class='MsoNoSpacing'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='text-align:justify;text-justify:inter-ideograph'><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>����������� I,
+                    am an officer authorized to take acknowledgments of mortgages according to the
+                    laws of the State of Florida, duly qualified and acting, <b>Adan Ordonez, as
+                    Manager of Acristo Investments LLC, a Florida Company</b>, who produced a
+                    Florida driver's license as identification, this day personally appeared and
+                    acknowledged before me that he executed the foregoing Mortgage, for the
+                    purposes therein expressed.</span></p>
+
+                    <p class= 'MsoNormal' style='text-align:justify;text-justify:inter-ideograph'><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='text-align:justify;text-justify:inter-ideograph'><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>����������� �IN
+                    WITNESS WHEREOF, I hereunto set my hand and official seal in the County and
+                    State aforesaid, this 30th of August, 2024.</span></p>
+
+                    <p class= 'MsoNormal' style='text-align:justify;text-justify:inter-ideograph'><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'></span></p>
+
+                    <p class= 'MsoNormal' style='text-align:justify;text-justify:inter-ideograph'><span
+                    style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>__________________________________</span></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%;font-family:
+                    "Times New Roman",serif'>Notary Public, State of Florida at Large</span></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%'></span></p>
+
+                    <p class= 'MsoNormal'><span style='font-size:12.0pt;line-height:115%'></span></p>
+
+                    </div>
+
+            </t>
+        </t>
+    </template>
+
+    <record id="investors_mortgage" model="ir.actions.report">
+            <field name="name">Investors Mortgage</field>
+            <field name="model">pms.investors</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pms.pms_investors_mortgage_agreement</field>
+            <field name="report_file">pms.pms_investors_mortgage_agreement</field>
+            <field name="binding_model_id" ref="pms.model_pms_investors"/>
+            <field name="binding_type">report</field>
+        </record>
+     
+     <template id="pms_investors_promise_agreement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class='WordSection1'>
+
+                <p class='MsoNormal' align='center' style='margin-bottom:0in;text-align:center;
+                line-height:normal;text-autospace:none'><b><span style='font-size:20.0pt;
+                font-family:"Times New Roman",serif;color:black'>PROMISSORY NOTE</span></b></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:10.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                <p class='MsoNormal'><span style='font-size:12.0pt;line-height:115%;font-family:
+                "Times New Roman",serif'>$53,389.20</span><span style='font-size:12.0pt;
+                line-height:115%;font-family:"Times New Roman",serif'> </span><span
+                style='font-family:"Times New Roman",serif'>������������������</span><b><span
+                style='font-family:"Times New Roman",serif;color:#262626;background:white'>12223
+                Van Gough Ave Port Charlotte, Florida 33981</span></b><b><span
+                style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif;
+                color:#262626;background:white'>������ </span></b><span style='color:#444444;
+                background:white'>�</span><span style='font-size:12.0pt;line-height:115%;
+                font-family:"Times New Roman",serif'>August 30th, 2024</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:10.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:10.0pt;font-family:"Times New Roman",serif'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><b><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'>FOR VALUE RECEIVED</span></b><span style='font-size:12.0pt;
+                font-family:"Times New Roman",serif;color:black'>, the undersigned promise to
+                pay to the order of <b>Huli Investments llc</b>, in the manner hereinafter
+                specified, the principal sum of </span><b><span style='font-size:12.0pt;
+                font-family:"Times New Roman",serif'>FIFTY-THREE THOUSAND THREE HUNDRED
+                EIGHTY-NINE and 20/100 Dollars ($53,389.20),</span></b><span style='font-size:
+                12.0pt;font-family:"Times New Roman",serif'> </span><span style='font-size:
+                12.0pt;font-family:"Times New Roman",serif;color:black'>with interest from the
+                date hereof, at the rate of0.00</span><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif'><span
+                style='color:black'>percent (</span>0.00<span style='color:black'>%) per annum
+                on the balance from time to time remaining unpaid. The said principal and
+                interest shall be payable in lawful money of the United States of America, on
+                the date and in the following manner:</span></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-top:0in;margin-right:.5in;margin-bottom:0in;
+                margin-left:.5in;text-align:justify;line-height:normal;text-autospace:none'><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif'>No payments shall
+                be due until the Maturity Date at which time the full amount shall be due and
+                payable. The Maturity Date shall be August 29th, 2025 (the �Maturity Date�), at
+                which time the entire principal balance then outstanding, together with all
+                accrued interest, if any, shall be due and payable.</span></p>
+
+                <p class='MsoNormal' style='margin-top:0in;margin-right:.5in;margin-bottom:0in;
+                margin-left:.5in;text-align:justify;line-height:normal;text-autospace:none'><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-top:0in;margin-right:.5in;margin-bottom:0in;
+                margin-left:.5in;text-align:justify;line-height:normal;text-autospace:none'><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'>All payments
+                shall be first applied to late charges, if any, then to the payment of accrued
+                interest, and the balance remaining, if any, shall be applied to the payment of
+                the principal sum.</span></p>
+
+                <p class='MsoNormal' style='margin-top:0in;margin-right:.5in;margin-bottom:0in;
+                margin-left:.5in;text-align:justify;line-height:normal;text-autospace:none'><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-top:0in;margin-right:.5in;margin-bottom:0in;
+                margin-left:.5in;text-align:justify;line-height:normal;text-autospace:none'><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'>This
+                note may be prepaid, in whole or in part, without penalty, at any time prior to
+                maturity.</span></p>
+
+                <p class='MsoNormal' style='margin-top:0in;margin-right:.5in;margin-bottom:0in;
+                margin-left:.5in;text-align:justify;line-height:normal;text-autospace:none'><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-top:0in;margin-right:.5in;margin-bottom:0in;
+                margin-left:.5in;text-align:justify;line-height:normal;text-autospace:none'><b><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'> </span></b></p>
+
+                <p class='MsoNormal' style='margin-top:0in;margin-right:.5in;margin-bottom:0in;
+                margin-left:0in;text-align:justify;line-height:normal;text-autospace:none'><span
+                style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'>This
+                note with interest is secured by a mortgage on real estate, of even date
+                herewith, made by the makers hereof in favor of the said payee, and shall be
+                construed and enforced according to the laws of the State of Florida.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'>If default be made in the payment under this note, and if such
+                default is not made good within 15 days, the entire principal sum and accrued
+                interest shall at once become due and payable. </span><span style='font-size:
+                12.0pt;font-family:"Times New Roman",serif'>In the event Lender accelerates
+                this Note, then the entire unpaid principal balance of this obligation,
+                together with all interest accrued, shall bear interest from the date of
+                default at the maximum rate permitted by law.  The Maker agrees to pay all costs
+                of collection incurred in enforcing this Note, including attorneys' fees and
+                costs at both trial and appellate levels.</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;text-align:justify;line-height:
+                normal;text-autospace:none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'>Acristo Investments, LLC</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;line-height:normal;text-autospace:
+                none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'></span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0inline-height:normaltext-autospace:
+                none'><span style='font-size:12.0ptfont-family:"Times New Roman",serif
+                color:black'>__________________________________</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0inline-height:normal;text-autospace:
+                none'><span style='font-size:12.0pt;font-family:"Times New Roman",serif;
+                color:black'>Adan Ordonez, as its Manager (Borrower)</span></p>
+
+                <p class='MsoNormal' style='margin-bottom:0in;line-height:normal;page-break-after:
+                avoid;text-autospace:none'></p>
+
+                </div>
+
+
+
+            </t>
+        </t>
+    </template>
+
+    <record id="investors_promise" model="ir.actions.report">
+            <field name="name">Investors Promisory Note</field>
+            <field name="model">pms.investors</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pms.pms_investors_promise_agreement</field>
+            <field name="report_file">pms.pms_investors_promise_agreement</field>
+            <field name="binding_model_id" ref="pms.model_pms_investors"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+    </data>
+</odoo>

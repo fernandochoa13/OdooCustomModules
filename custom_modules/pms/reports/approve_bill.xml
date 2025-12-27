@@ -1,0 +1,210 @@
+<odoo>
+
+    <record id="update_bill_priority_wizard_form" model="ir.ui.view">
+        <field name="name">update.bill.priority.wizard.form</field>
+        <field name="model">update.bill.priority.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update Bill Priority Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="priority" widget="priority" />
+                    </group>
+                <footer>
+                    <button name="update_priority" string="UPDATE" type="object" class="btn-success"/>
+                    <button special="cancel" string="BACK" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="add_comment_wizard" model="ir.ui.view">
+        <field name="name">add.comment.wizard</field>
+        <field name="model">add.approve.bills.comments</field>
+        <field name="arch" type="xml">
+            <form string="Add Comment Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="comments" placeholder="Comment..." />
+                    </group>
+                <footer>
+                    <button name="add_approve_bills_comments" string="UPDATE" type="object" class="btn-success" invisible="comments == 'None'"/>
+                    <button special="cancel" string="BACK" type="object" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- <record id="view_pms_units_calendar" model="ir.ui.view">
+        <field name="name">pms.units.calendar</field>
+        <field name="model">pms.units</field>
+        <field name="arch" type="xml">
+            <calendar string="Units Calendar" date_start="date" mode="month" quick_add="false" date_end="invoice_date_due" color="status">
+                <field name="payment_reference"/>
+            </calendar>
+        </field>
+    </record> -->
+
+    <record id="approve_bills_search" model="ir.ui.view">
+        <field name="name">approve.bill.search</field>
+        <field name="model">approve.bills</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="payment_reference"/>
+                <field name="date"/>
+                <field name="amount_due"/>
+                <field name="partner"/>
+                <field name="reference"/>
+                <field name="company"/>
+                <field name="activity_completed"/>
+                <field name="property_address"/>
+                <field name="county_name"/>
+                <field name="user_id"/>
+                <field name="approved"/>
+                <separator/>
+                <filter name="over_60_days" string="Over 60 Days ago" domain="[('date', '&lt;=', (context_today() - relativedelta(days=60)).strftime('%Y-%m-%d'))]" />
+                <filter name="between_30_and_60_days" string="Between 30 and 60 Days ago" domain="[('date', '&gt;=', (context_today() - relativedelta(days=60)).strftime('%Y-%m-%d')), ('date', '&lt;=', (context_today() - relativedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                <filter name="less_than_30_days" string="Less Than 30 Days ago" domain="[('date', '&gt;=', (context_today() - relativedelta(days=30)).strftime('%Y-%m-%d')), ('date', '&lt;=', context_today().strftime('%Y-%m-%d'))]" />
+                <filter name="invoice_date_not_empty" string="With Invoice Date" domain="[('invoice_date', '!=', False)]" />
+                <separator/>
+                <filter name="priority_none" string="Priority: None" domain="['|', ('priority', '=', '0'), ('priority', '=', False)]" />
+                <filter name="priority_low" string="Priority: Low" domain="[('priority', '=', '1')]" />
+                <filter name="priority_normal" string="Priority: Normal" domain="[('priority', '=', '2')]" />
+                <filter name="priority_high" string="Priority: High" domain="[('priority', '=', '3')]" />
+                <separator/>
+                <group string="Priority Level">
+                    <field name="priority" type="row"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="approve_bills_tree" model="ir.ui.view">
+        <field name="name">approve.bills.tree</field>
+        <field name="model">approve.bills</field>
+        <field name="arch" type="xml">
+            <list string="Bill Approval Report" create="false" default_order='payment_reference asc, partner asc'>
+                <field name="id" invisible="1"/>
+                <!-- Reorganized Columns -->
+                <field name="priority" optional="show" widget="priority"/>
+                <field name="payment_reference" optional="show"/>
+                <field name="date" optional="show"/>
+                <field name="invoice_date" optional="show"/>
+                <!-- New Field -->
+                <field name="invoice_date_due" optional="show" widget="remaining_days"/>
+                <field name="amount_total" sum="Total Amount" optional="show"/>
+                <field name="amount_due" sum="Amount Due" optional="show"/>
+                <field name="price_estimate" optional="show"/>
+                <field name="price_difference" optional="show"/>
+                <field name="payment_state" optional="hidden"/>
+                <field name="partner" optional="show"/>
+                <field name="property_address" optional="show"/>
+                <field name="product" optional="show"/>
+                <field name="company" optional="show"/>
+                <field name="linked_activities"  optional="show"/>
+                <field name="activity_completed" optional="show"/>
+                <!-- Remaining Columns -->
+                <field name="payment_type_bills" optional="show"/>
+                <field name="reference" optional="show"/>
+                <field name="on_hold" optional="show"/>
+                <field name="county_name" optional="show"/>
+                <field name="user_id" widget="many2one_avatar_user"  optional="show"/>
+                <field name="approved" optional="show"/>
+                <field name="comments" optional="show"/>
+                <button name="open_record" type="object" string="Open Record" class="oe_highlight"/>
+                <button name="create_check_button" string="CREATE CHECK" type="object" class="btn-success" invisible="not approved"/>
+                <button name="approve_bills" type="object" string="APPROVE" class="btn-success" invisible="approved"/>
+            </list>
+           </field>
+    </record>
+
+
+    <record id="approve_bills_action" model="ir.actions.act_window">
+        <field name="name">Bill Approval Report</field>
+        <field name="res_model">approve.bills</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="pms.approve_bills_search"/>
+    </record>
+
+    <!-- <record id="action_server_create_check" model="ir.actions.server">
+        <field name="name">Create Check</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_approve_bills"/>
+        <field name="binding_model_id" ref="pms.model_approve_bills"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.create_check()
+        </field>
+    </record> -->
+
+    <record id="action_server_bill_priority_action" model="ir.actions.server">
+        <field name="name">Update Bill Priority</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_approve_bills"/>
+        <field name="binding_model_id" ref="pms.model_approve_bills"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.update_bill_priority()
+        </field>
+    </record>
+
+    <record id="action_server_approve" model="ir.actions.server">
+        <field name="name">Approve Bills</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_approve_bills"/>
+        <field name="binding_model_id" ref="pms.model_approve_bills"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.approve_bills_all()
+        </field>
+    </record>
+
+    <record id="action_server_unapprove" model="ir.actions.server">
+        <field name="name">Unapprove Bills</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_approve_bills"/>
+        <field name="binding_model_id" ref="pms.model_approve_bills"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.unapprove_bills_all()
+        </field>
+    </record>
+
+    <record id="action_server_add_approve_bills_comments" model="ir.actions.server">
+        <field name="name">Add Approve Bills Comments</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_approve_bills"/>
+        <field name="binding_model_id" ref="pms.model_approve_bills"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.add_comment()
+        </field>
+    </record>
+
+    <record id="update_bill_user_wizard_form" model="ir.ui.view">
+        <field name="name">update.bill.user.wizard.form</field>
+        <field name="model">update.bill.user.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update Bill User">
+                <group>
+                    <field name="user_id" widget="many2one" options="{'no_create': True}"/>
+                </group>
+                <footer>
+                    <button name="update_user" string="Update User" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_server_bill_user_action" model="ir.actions.server">
+        <field name="name">Update Bill User</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_approve_bills"/>
+        <field name="binding_model_id" ref="pms.model_approve_bills"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.update_bill_user()
+        </field>
+    </record>
+
+</odoo>

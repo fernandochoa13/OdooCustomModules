@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pms_draw_lines_tree" model="ir.ui.view">
+    <field name="name">pms.draw.lines.tree</field>
+    <field name="model">pms.draw.lines</field>
+    <field name="arch" type="xml">
+        <list string="Projects Draw lines" editable="top">
+        <field name="steps" optional="show"/>
+        <field name="amount_drawed" optional="show"/>
+        <field name="property_draw" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_draw_lines_view" model="ir.actions.act_window">
+    <field name="name">Draw Lines</field>
+    <field name="res_model">pms.draw.lines</field>
+    <field name="view_mode">list</field>
+</record>
+
+</odoo>

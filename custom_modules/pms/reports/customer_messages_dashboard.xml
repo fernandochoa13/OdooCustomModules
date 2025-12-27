@@ -1,0 +1,47 @@
+<odoo>
+<data>
+        <record id="view_account_message_general_search" model="ir.ui.view">
+            <field name="name">customer.messages.dashboard.search</field>
+            <field name="model">customer.messages.dashboard</field>
+            <field name="arch" type="xml">
+                <search string="Default Search">
+                    <field name="date"/>
+                    <field name="subject_id"/>
+                    <field name="author"/>
+                    <field name="doc_model" invisible="1"/>
+                    <field name="doc_id" invisible="1"/>
+                    <field name="body_message"/>
+                    <field name="partner_name"/>
+                    <field name="move_name"/>
+                </search>
+            </field>
+            </record>
+        
+        <record id="view_account_message_general_tree" model="ir.ui.view" >
+            <field name="name">customer.messages.dashboard.tree</field>
+            <field name="model">customer.messages.dashboard</field>
+            <field name="arch" type="xml">
+                <list string="Messages" default_order='date desc'>
+                    <field name="date"/>
+                    <field name="subject_id"/>
+                    <field name="author"/>
+                    <field name="doc_model" invisible="1"/>
+                    <field name="doc_id" invisible="1"/>
+                    <field name="body_message"/>
+                    <field name="partner_name"/>
+                    <field name="move_name"/>
+                    <button name="view_document" type="object" string="View Document" class="oe_highlight"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_view_account_message_general" model="ir.actions.act_window">
+            <field name="name">General Customer Messages</field>
+            <field name="res_model">customer.messages.dashboard</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_account_message_general" name="Customer Messages General" parent="account.menu_finance_receivables" action="action_view_account_message_general" sequence="100"/>
+        
+</data>
+</odoo>

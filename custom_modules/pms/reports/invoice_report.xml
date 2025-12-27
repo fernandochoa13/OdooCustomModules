@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_invoice_report_search" model="ir.ui.view">
+        <field name="name">invoice.report.search</field>
+        <field name="model">invoice.report</field>
+        <field name="arch" type="xml">
+            <search string="Invoice Report">
+                <field name="invoice_date"/>
+                <field name="analytic_accounts" string="Analytic Accounts"/>
+                <field name="house_model"/>
+                <field name="invoice_partner_display_name"/>
+                <field name="salesperson"/>
+                <field name="contractor"/>
+                <field name="name"/>
+                <filter domain="[('invoice_user_id', '=', uid)]" name="myinvoices" help="My Invoices"/>
+                <separator />
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="posted" string="Posted" domain="[('state', '=', 'posted')]"/>
+                <filter name="cancel" string="Cancelled" domain="[('state', '=', 'cancel')]"/>
+                <separator/>
+                <filter string="To Check" name="to_check" domain="[('to_check', '=', True)]"/>
+                <separator/>
+                <!-- not_paid & partial -->
+                <filter name="open" string="Unpaid" domain="[('state', '=', 'posted'), ('payment_state', 'in', ('not_paid', 'partial'))]"/>
+                <!-- in_payment & paid -->
+                <filter name="closed" string="Paid" domain="[('state', '=', 'posted'), ('payment_state', 'in', ('in_payment', 'paid'))]"/>
+                <!-- overdue -->
+                <filter name="late" string="Overdue" domain="[
+                    ('invoice_date_due', '&lt;', time.strftime('%Y-%m-%d')),
+                    ('state', '=', 'posted'),
+                    ('payment_state', 'in', ('not_paid', 'partial'))
+                ]" help="Overdue invoices, maturity date passed"/>
+                <group expand="0" string="Group By">
+                    <filter name="status" string="Status" context="{'group_by':'state'}"/>
+                    <separator/>
+                    <filter string="Invoice Date" name="invoicedate" context="{'group_by': 'invoice_date'}"/>
+                    <filter string="Due Date" name="duedate" context="{'group_by': 'invoice_date_due'}"/>
+                    <filter string="Customer" name="customer" context="{'group_by': 'invoice_partner_display_name'}"/>
+                    <filter string="Contractor" name="contractor" context="{'group_by': 'contractor'}"/>
+                    <filter string="Company" name="company" context="{'group_by': 'company_id'}"/>
+                    <filter string="Invoice Type" name="invoice_type" context="{'group_by': 'invoice_type'}"/>
+                    <filter string="Invoice Category" name="invoice_category" context="{'group_by': 'invoice_category'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_invoice_report_pivot" model="ir.ui.view">
+        <field name="name">view.invoice.report.pivot</field>
+        <field name="model">invoice.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Invoice Report" sample="1">
+                <field name="invoice_partner_display_name" type="row"/>
+                <field name="invoice_type" type="col"/>
+                <field name="amount_residual_signed" type="measure"/>
+                <field name="amount_total_signed" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- <record id="view_invoice_report_tree_action" model="ir.ui.view">
+       <field name="name">view.invoice.report.tree.action</field>
+       <field name="model">invoice.report</field>
+       <field name="inherit_id" ref="pms.view_invoice_report_tree"/>
+       <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="js_class">tree_view_redirect</attribute>
+        </xpath>
+       </field>
+   </record> -->
+
+    <record id="view_invoice_report_tree" model="ir.ui.view">
+        <field name="name">invoice.report.tree</field>
+        <field name="model">invoice.report</field>
+        <field name="arch" type="xml">
+            <list string="Invoice Report" create="true" edit="false" delete="false" default_order="name">
+            <!-- js_class="click_view_invoice_report_tree" -->
+                <!-- <field name="house_model" optional="show"/> -->
+                <!-- <field name="on_hold_comments" optional="hidden"/> -->
+                <field name="id" invisible="1"/>
+                <field name="invoice_user_id" invisible="1"/>
+                <field name="invoice_id" widget="many2one"/>
+                <!-- <field name="name" optional="show"/> -->
+                <field name="invoice_partner_display_name" optional="show"/>
+                <field name="house_model" optional="show"/>
+                <field name="invoice_date" optional="show"/>
+                <field name="date_paid" optional="show"/>
+                <field name="invoice_payment_term_id" optional="show"/>
+                <field name="invoice_category" optional="show"/>
+                <field name="date" optional="hidden"/>
+                <field name="activity_completed" optional="show"/>
+                <field name="completed_date" optional="show"/>
+                <field name="invoice_type" optional="show"/>
+                <field name="salesperson" optional="hidden" widget="many2one_avatar_user"/>
+                <field name="analytic_accounts" string="Analytic Accounts" optional="show"/>
+                <field name="product_inv" string="Products" optional="show"/>
+                <field name="analytic_accounts_html" string="Analytic Accounts" widget="html" optional="hidden"/>
+                <field name="product_inv_html" string="Products" widget="html" optional="hidden"/>
+                <field name="contractor" optional="show"/>
+                <field name="invoice_date_due" optional="show" widget="remaining_days"/>
+                <field name="invoice_origin" optional="hidden"/>
+                <field name="ref" optional="hidden"/>
+                <field name="company_id" optional="show"/>
+                <field name="amount_untaxed_signed" optional="show" sum="Tax Excluded"/>
+                <field name="amount_tax_signed" optional="hidden" sum="Tax"/>
+                <field name="amount_total_signed" optional="show" sum="Total"/>
+                <field name="amount_residual_signed" optional="show" sum="Amount Due"/>
+                <field name="to_check" optional="hidden" widget="boolean_toggle"/>
+                <field name="payment_state" optional="show" widget="badge"
+                    decoration-danger="payment_state == 'not_paid'"
+                    decoration-warning="payment_state in ('partial', 'in_payment')"
+                    decoration-success="payment_state in ('paid', 'reversed')"
+                />
+                <field name="state" optional="show" widget="badge"
+                    decoration-info="state == 'draft'" 
+                    decoration-success="state == 'posted'"
+                />
+                <field name="last_customer_message" optional="show"/>
+                <field name="bill_alert" optional="hidden"/>
+                <field name="note_inv" optional="show"/>
+                <button name="open_invoice" string="✚"  type="object" class="btn-info" />
+            </list>
+        </field>
+    </record>
+
+    <record id="invoice_report_view_button" model="ir.ui.view">
+       <field name="name">invoice.report.view.button</field>
+       <field name="model">invoice.report</field>
+       <field name="inherit_id" ref="pms.view_invoice_report_tree"/>
+       <field name="arch" type="xml">
+           <xpath expr="//tree" position="attributes">
+               <attribute name="js_class">button_in_invoice_report_tree</attribute>
+           </xpath>
+       </field>
+   </record>
+
+    <record id="invoice_report_multicompany_rule" model="ir.rule">
+        <field name="name">Invoice Report - Multicompany Rule</field>
+        <field ref="pms.model_invoice_report" name="model_id"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="active" eval="True"/> 
+    </record>
+
+        <!-- <record id="account_invoices_report" model="ir.actions.report">
+            <field name="name">Invoices ()</field>
+            <field name="model">invoice.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account.report_invoice_with_payments</field>
+            <field name="report_file">account.report_invoice_with_payments</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+            <field name="binding_model_id" ref="model_invoice_report"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
+ (4, ref('account.group_account_readonly'))]"/>
+        </record> -->
+
+        <record id="action_invoice_report_original_vendor_bill" model="ir.actions.report">
+            <field name="name">Original Bills ()</field>
+            <field name="model">invoice.report</field>
+            <field name="binding_model_id" ref="model_invoice_report"/>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account.report_original_vendor_bill</field>
+            <field name="report_file">account.report_original_vendor_bill</field>
+            <field name="attachment">'original_vendor_bill.pdf'</field>
+            <field name="attachment_use">True</field>
+            <field name="binding_view_types">list</field>
+        </record>
+
+        <!-- <record id="account_invoices_without_payment" model="ir.actions.report">
+            <field name="name">Invoices without Payment ()</field>
+            <field name="model">invoice.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account.report_invoice</field>
+            <field name="report_file">account.report_invoice</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+            <field name="binding_model_id" ref="model_invoice_report"/>
+            <field name="binding_type">report</field>
+        </record> -->
+
+        
+        <!-- <record id="account_invoices_report_w_property" model="ir.actions.report">
+            <field name="name">Invoices w Property ()</field>
+            <field name="model">invoice.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pms.invoice_template_w_property</field>
+            <field name="report_file">pms.invoice_template_w_property</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+            <field name="binding_model_id" ref="model_invoice_report"/>
+            <field name="binding_type">report</field>
+        </record> -->
+
+    <record id="invoice_report_action_view_move_tree_cancel_inherit" model="ir.actions.server">
+        <field name="name">Cancel Journal</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_invoice_report"/>
+        <field name="binding_model_id" ref="pms.model_invoice_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.cancel_journal()
+        </field> 
+    </record>
+
+    <record id="invoice_report_action_register_payment_inherit" model="ir.actions.server">
+        <field name="name">Register Payment</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_invoice_report"/>
+        <field name="binding_model_id" ref="pms.model_invoice_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_register_payment()
+        </field> 
+    </record>
+
+    <record id="invoice_report_action_send_and_print_inherit" model="ir.actions.server">
+        <field name="name">Send &amp; Print</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_invoice_report"/>
+        <field name="binding_model_id" ref="pms.model_invoice_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_send_and_print()
+        </field> 
+    </record>
+
+    <record id="invoice_report_action_server_request_payment" model="ir.actions.server">
+        <field name="name">Request Payment</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_invoice_report"/>
+        <field name="binding_model_id" ref="pms.model_invoice_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                if record:
+                    action = record.request_payment()
+        </field>
+    </record>
+
+    <record id="invoice_report_action_server_service_fee" model="ir.actions.server">
+        <field name="name">Calculate Service Fee</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_invoice_report"/>
+        <field name="binding_model_id" ref="pms.model_invoice_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                if record:
+                    action = record.calculate_service_fee()
+        </field>
+    </record>
+
+    <record id="invoice_report_action_server_sales_tax" model="ir.actions.server">
+        <field name="name">Calculate Sales Tax</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_invoice_report"/>
+        <field name="binding_model_id" ref="pms.model_invoice_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                if record:
+                    action = record.calculate_tax()
+        </field>
+    </record>
+
+    <record id="invoice_report_action_update_payment_terms" model="ir.actions.server">
+        <field name="name">Update Payment Terms</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pms.model_invoice_report"/>
+        <field name="binding_model_id" ref="pms.model_invoice_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.view_update_payment_terms()
+        </field>
+    </record>
+
+    <record id="action_pms_invoice_report" model="ir.actions.act_window">
+        <field name="name">Invoice Report</field>
+        <field name="res_model">invoice.report</field>
+        <field name="view_mode">tree,pivot</field>
+            <!-- <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree'}),
+                (0, 0, {'view_mode': 'pivot'}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('account.view_move_form')})]"/> -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data available for the Invoice Report
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_invoice_report"
+        name="Invoices Report"
+        action="action_pms_invoice_report"
+        parent="account.menu_finance_receivables"
+        sequence="1"
+    />
+
+
+
+                                                        <!-- UPDATE PAYMENT TERM VIEWS -->
+
+
+
+    <record id="update_payment_terms_view_form" model="ir.ui.view">
+        <field name="name">update.payment.terms.form</field>
+        <field name="model">update.payment.terms</field>
+        <field name="arch" type="xml">
+            <form string="Update Payment Terms">
+                <group>
+                    <field name="show" invisible="1"/>
+                    <field name="property_id" invisible="not show"/>
+                    <field name="payment_terms_id"/>
+              
+                    <field name="memo"/>
+                </group>
+                <footer>
+                    <button name="update_invoice_payment_terms" string="Update" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_update_payment_terms" model="ir.actions.act_window">
+        <field name="name">Update Payment Term Wizard</field>
+        <field name="res_model">update.payment.terms</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="invoice_update_wizard" name="Wizards" parent="account.menu_finance_receivables" sequence="1">
+        <menuitem id="menu_update_payment_terms" name="Update Payment Terms" action="action_update_payment_terms" sequence="1"/>
+    </menuitem>
+
+</odoo>

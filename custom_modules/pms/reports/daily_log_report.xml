@@ -1,0 +1,55 @@
+<odoo>
+
+<record id="daily_log_search" model="ir.ui.view">
+        <field name="name">daily.log.search</field>
+        <field name="model">pms.daily.log.report</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="date"/>
+                <field name="author"/>
+                <field name="subject_id" invisible="1"/>
+                <field name="doc_model" invisible="1"/>
+                <field name="doc_id" invisible="1"/>
+                <field name="body_message"/>
+                <field name="property_id" invisible="1"/>
+                <field name="property_name"/>
+                <field name="county_name"/>
+                <field name="superintendent_name"/>
+                <field name="zone_coordinator_name"/>
+                <field name="project_manager_name"/>
+            </search>
+        </field>
+</record>
+
+<record id="pms_daily_log_tree" model="ir.ui.view">
+    <field name="name">pms.daily.log.tree</field>
+    <field name="model">pms.daily.log.report</field>
+    <field name="arch" type="xml">
+        <list string="PMS Daily Log Report" create="false" default_order='date desc'>
+            <field name="date"/>
+            <field name="author"/>
+            <field name="subject_id" invisible="1"/>
+            <field name="doc_model" invisible="1"/>
+            <field name="doc_id" invisible="1"/>
+            <field name="body_message"/>
+            <field name="property_id" invisible="1"/>
+            <field name="property_name"/>
+            <field name="county_name"/>
+            <field name="superintendent_name"/>
+            <field name="zone_coordinator_name"/>
+            <field name="project_manager_name"/>
+            <button name="view_document" type="object" string="View Document" class="oe_highlight"/>
+        </list>
+    </field>
+</record>
+
+
+<record id="pms_daily_log_action" model="ir.actions.act_window">
+    <field name="name">Daily Log Report</field>
+    <field name="res_model">pms.daily.log.report</field>
+    <field name="view_mode">tree</field>
+    <field name="search_view_id" ref="pms.daily_log_search"/>
+</record>
+
+
+</odoo>

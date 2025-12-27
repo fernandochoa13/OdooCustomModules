@@ -1,0 +1,68 @@
+<!-- Tree view for pms_visit_report.py -->
+<odoo>
+
+<record id="visit_reports_search" model="ir.ui.view">
+        <field name="name">visit.reports.search</field>
+        <field name="model">visit.reports</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="property_address"/>
+                <field name="planned_visit_date"/>
+                <field name="planned_visitor"/>
+                <field name="visit_date"/>
+                <field name="visited_by"/>
+            </search>
+        </field>
+</record>
+
+<record id="pms_visit_reports_tree" model="ir.ui.view">
+    <field name="name">visit.reports.tree</field>
+    <field name="model">visit.reports</field>
+    <field name="arch" type="xml">
+        <list string="Visit Days Report" create="false">
+            <field name="property_address"/>
+            <field name="real_property"/>
+            <field name="project_phase"/>
+            <field name="property_on_hold"/>
+            <field name="planned_visit_date"/>
+            <field name="planned_visitor"/>
+            <field name="visit_date"/>
+            <field name="visited_by"/>
+        </list>
+    </field>
+</record>
+
+
+<record id="pms_visit_days_report" model="ir.actions.act_window">
+    <field name="name">Visit Days Report</field>
+    <field name="res_model">visit.reports</field>
+    <field name="view_mode">tree</field>
+    <field name="search_view_id" ref="pms.visit_reports_search"/>
+</record>
+
+
+ <record id="view_visit_report_wizard_form" model="ir.ui.view">
+        <field name="name">visit.report.wizard.form</field>
+        <field name="model">visit.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Visit Report">
+                <group>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+                <footer>
+                    <button string="Generate" type="object" name="generate_report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_visit_report_wizard" model="ir.actions.act_window">
+        <field name="name">Visit Report Wizard</field>
+        <field name="res_model">visit.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

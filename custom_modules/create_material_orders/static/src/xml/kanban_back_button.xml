@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+   <t t-name="button_back.KanbanView.Buttons" t-inherit="web.KanbanView.Buttons">
+       <xpath position="replace" expr="//*[@class='btn btn-primary o-kanban-button-new']">
+            <button type="button" class="btn btn-primary mr10" t-on-click="GoBack">
+                BACK
+            </button>
+            <button type="button" class="btn btn-success" t-on-click="NewOrder">
+                NEW ORDER
+            </button>
+       </xpath>
+   </t>
+
+    <t t-name="button_back.ListView.Buttons" t-inherit="web.ListView.Buttons">
+       <xpath position="replace" expr="//*[@class='btn btn-primary o_list_button_add']">
+            <button type="button" class="btn btn-primary mr10" t-on-click="GoBack">
+                BACK
+            </button>
+            <button type="button" class="btn btn-success" t-on-click="NewOrder">
+                NEW ORDER
+            </button>
+       </xpath>
+   </t>
+
+</templates>

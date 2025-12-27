@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record id="second_wizard_tree" model="ir.ui.view">
+            <field name="name">second.wizard.tree</field>
+            <field name="model">second.wizard</field>
+            <field name="arch" type="xml">
+                <list string="Second Wizard" editable="bottom">
+                    <field name="property_account"  options="{'no_create': True, 'no_create_edit': True}"/>
+                    <field name="product" options="{'no_create': True, 'no_create_edit': True}"/>
+                    <field name="account" options="{'no_create': True, 'no_create_edit': True}"/>
+                    <field name="amount" />
+                </list>
+            </field>
+        </record>
+
+        <record id="second_wizard_form" model="ir.ui.view">
+            <field name="name">second.wizard.form</field>
+            <field name="model">second.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Simple Check Second Wizard">
+                        <group name="second_wizard_details" class="o_group">
+                            <field name="property_account" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="product" domain="['|', ('company_id', '=', context.get('default_company')), ('company_id','=', False)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="account" domain="[('company_id', '=', context.get('default_company'))]" options="{'no_create': True, 'no_create_edit': True}"/> 
+                            <field name="amount" />
+                        </group>
+                     <footer>
+                        <button name="confirm" string="Confirm" type="object" class="oe_highlight"/>
+                        <button name="split" string="Split" type="object" class="oe_highlight"/>
+                        <button name="go_back" string="Go Back" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                    </footer> 
+                </form>
+            </field>
+        </record>
+
+    <record id="second_wizard_action" model="ir.actions.act_window">
+        <field name="name">Simple Check Maker</field>
+        <field name="res_model">second.wizard</field>
+        <field name="view_mode">form,tree</field>
+        <field name="target">new</field>
+    </record>
+
+    </data>
+</odoo>

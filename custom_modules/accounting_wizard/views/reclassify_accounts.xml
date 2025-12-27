@@ -1,0 +1,92 @@
+<odoo>
+
+    <record id="reclassify_accounts_wizard_form" model="ir.ui.view">
+        <field name="name">reclassify.accounts.form</field>
+        <field name="model">reclassify.accounts</field>
+        <field name="arch" type="xml">
+            <form string="Reclassify Accounts Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="employee_id"/>
+                        <field name="employee_pin"/>
+                    </group>
+                <footer>
+                    <button name="open_journal_items" string="Open Journal Items" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="verify_wizard_form" model="ir.ui.view">
+        <field name="name">verify.wizard.form</field>
+        <field name="model">verify.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reclassify Accounts Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="employee_id"/>
+                        <field name="employee_pin"/>
+                    </group>
+                <footer>
+                    <button name="open_accounts_wizard" string="Open Accounts Wizard" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+        <record id="account_selector_wizard_form" model="ir.ui.view">
+        <field name="name">account.selector.wizard.form</field>
+        <field name="model">account.selector.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Account Selector Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="company_id" invisible="1"/>
+                        <field name="account_to_change"/>
+                    </group>
+                <footer>
+                    <button name="change_account" string="Change Account" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_reclassify_accounts" model="ir.actions.act_window">
+        <field name="name">Reclassify Accounts</field>
+        <field name="res_model">reclassify.accounts</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_verify_wizard" model="ir.actions.act_window">
+        <field name="name">Verify Wizard</field>
+        <field name="res_model">verify.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_account_selector_wizard" model="ir.actions.act_window">
+        <field name="name">Account Selector Wizard</field>
+        <field name="res_model">account.selector.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="reclassify_accs" parent="accounting_wizard.acc_wizard_root_menu"
+        sequence="90" action="action_reclassify_accounts">
+    </menuitem>
+    
+<record id="action_server_change_accounts" model="ir.actions.server">
+    <field name="name">Change Accounts</field>
+    <field name="model_id" ref="account.model_account_move_line"/>
+    <field name="binding_model_id" ref="account.model_account_move_line"/>
+    <field name="state">code</field>
+    <field name="code">
+if records:
+    action = records.open_verify_wizard()
+    action
+    </field>
+</record>
+
+
+</odoo>

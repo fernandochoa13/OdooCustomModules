@@ -1,0 +1,28 @@
+
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_pms_orderjobs_wizard_form" model="ir.ui.view">
+            <field name="name">pms.orderjobs.wizard.form</field>
+            <field name="model">pms.orderjobs.wizard</field>
+            <field name="arch" type="xml">
+                <form string="PMS Order Jobs Wizard">
+                    <group>
+                        <field name="vendor_id"/>
+                    </group>
+                    <footer>
+                        <button name="open_order_jobs" string="Order Jobs" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_pms_orderjobs_wizard" model="ir.actions.act_window">
+            <field name="name">Order Jobs Wizard</field>
+            <field name="res_model">pms.orderjobs.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

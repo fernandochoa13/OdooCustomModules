@@ -1,0 +1,108 @@
+<odoo>
+
+    <record id="pms_properties_utility_water_search_view" model="ir.ui.view">
+                <field name="name">pms.utility.search</field>
+                <field name="model">pms.property</field>
+                <field name="arch" type="xml">
+                    <search string="Utility Water Search">
+                        <field name="name"/>
+                        <field name="county"/>
+                        <field name="parcel_id"/>
+                        <field name="on_hold"/>
+                        <separator/>
+                        <filter string="On Hold" name="filteronhold" domain="[('on_hold', '=', True)]"/>
+                    </search>
+                </field>
+    </record>
+
+<record id="pms_properties_utility_water_view_tree" model="ir.ui.view">
+    <field name="name">pms.utility.tree</field>
+    <field name="model">pms.property</field>
+    <field name="arch" type="xml">
+        <list string="Utility Master Table" editable="bottom">
+                                                        <!-- General -->
+            <field name="name" optional="show" readonly="1"/>
+            <field name="county" optional="show" readonly="1"/>
+            <field name="parcel_id" optional="show" readonly="1"/>
+            <field name="house_model" optional="show" readonly="1"/>
+            <field name="partner_id" optional="show" readonly="1"/>
+            <field name="partner_tax_id" optional="show" readonly="1"/>
+            <field name="utility_phase" optional="show" readonly="1"/>
+            <field name="superintendent" optional="show" readonly="1"/>
+            <field name="on_hold" optional="show" readonly="1"/>
+            <field name="general_sunshine" optional="show"/> 
+            
+                                                                <!-- Water -->
+            <field name="w_type" optional="show"/>
+            <field name="w_work_order" optional="show"/>
+            <field name="w_account_number" optional="show"/>
+            <field name="w_app_date" optional="show"/>
+            <field name="water_conn_type" optional="show"/>
+            <field name="w_utility_provider" optional="show"/>
+            <field name="w_price_sheet" optional="show"/>
+            <field name="w_conn_status" optional="show"/>
+            <field name="w_comments" optional="show"/>
+            <field name="water_connection_request" optional="show"/>
+            <field name="w_conn_date" optional="show"/>
+            <field name="co_date" optional="show"/>
+            <field name="w_payment_date" optional="show"/>
+            <field name="w_disconn_date" optional="show"/>
+            <field name="w_invoice" optional="show"/>
+            <field name="w_monthly_bill" optional="show"/>
+            <field name="w_monthly_payment_date" optional="show"/>
+            <field name="w_payment_request" optional="show"/>
+            
+
+        </list>
+    </field>
+</record>
+
+<record id="pms_properties_utility_water_view" model="ir.actions.act_window">
+    <field name="name">Water Utilities</field>
+    <field name="res_model">pms.property</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="pms_properties_utility_water_view_tree"/>
+    <field name="context">{'tree_view_ref' : 'pms_properties_utility_water_view_tree'}</field>
+    <field name="search_view_id" ref="pms_properties_utility_water_search_view"/>
+</record>
+
+
+<record id="action_server_create_water" model="ir.actions.server">
+    <field name="name">Create Water Payment Request</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_property"/>
+    <field name="binding_model_id" ref="pms.model_pms_property"/>
+    <field name="state">code</field>
+    <field name="code">
+    if records:
+    records.wrapper_electric_payment_request()
+    </field>
+</record>
+
+
+<!-- <record id="action_server_pms_utility_connect" model="ir.actions.server">
+    <field name="name">Connect Utility</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_utility"/>
+    <field name="binding_model_id" ref="pms.model_pms_utility"/>
+    <field name="state">code</field>
+    <field name="code">
+    if records:
+    records.connect()
+    </field>
+</record>
+
+<record id="action_server_pms_utility_disconnect" model="ir.actions.server">
+    <field name="name">Disconnect Utility</field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="pms.model_pms_utility"/>
+    <field name="binding_model_id" ref="pms.model_pms_utility"/>
+    <field name="state">code</field>
+    <field name="code">
+    if records:
+    records.disconnect()
+    </field>
+</record> -->
+
+</odoo>
+

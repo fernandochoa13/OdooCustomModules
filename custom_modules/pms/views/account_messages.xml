@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+        <!-- account.message tree: short view !-->
+        <record id="view_account_message_tree" model="ir.ui.view" >
+            <field name="name">account.customer.message.tree</field>
+            <field name="model">account.customer.message</field>
+            <field name="arch" type="xml">
+                <list string="Messages" default_order='date desc'>
+                    <field name="date"/>
+                    <field name="subject_id"/>
+                    <field name="author"/>
+                    <field name="doc_model" invisible="1"/>
+                    <field name="doc_id" invisible="1"/>
+                    <field name="body_message"/>
+                    <field name="partner_name"/>
+                    <field name="move_id"/>
+                    <button name="view_document" type="object" string="View Document" class="oe_highlight"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_view_account_message" model="ir.actions.act_window">
+            <field name="name">Messages</field>
+            <field name="res_model">account.customer.message</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        
+        </data>
+    </odoo>

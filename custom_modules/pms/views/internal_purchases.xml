@@ -1,0 +1,66 @@
+<odoo>
+    <data>
+
+    <record id="internal_purchases_search" model="ir.ui.view">
+        <field name="name">internal.purchases.search</field>
+        <field name="model">internal.purchases</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                    <field name="property_name"/>
+                    <field name="property_model"/>
+                    <field name="property_owner"/>
+                    <field name="property_zone"/>
+                    <field name="paint"/>
+                    <field name="tile"/>
+                    <field name="floors"/>
+                    <field name="cabinets"/>
+                    <field name="accessories"/>
+                    <field name="lamps"/>
+                    <field name="locks"/>
+                    <field name="provisional_lock"/>
+                    <field name="final_lock"/>
+                    <field name="house_numbers"/>
+                    <field name="garbage_disposal_button"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="internal_purchases_tree" model="ir.ui.view">
+            <field name="name">internal.purchases.tree</field>
+            <field name="model">internal.purchases</field>
+            <field name="arch" type="xml">
+                <list string="Internal Purchases" editable="top">
+                    <field name="property_name" optional="show"/>
+                    <field name="property_model" optional="show"/>
+                    <field name="property_owner" optional="show"/>
+                    <field name="property_zone" optional="show"/>
+                    <field name="paint" optional="show"/>
+                    <field name="tile" optional="show"/>
+                    <field name="floors" optional="show"/>
+                    <field name="cabinets" optional="show"/>
+                    <field name="accessories" optional="show"/>
+                    <field name="lamps" optional="show"/>
+                    <field name="locks" optional="show"/>
+                    <field name="provisional_lock" optional="show"/>
+                    <field name="final_lock" optional="show"/>
+                    <field name="house_numbers" optional="show"/>
+                    <field name="garbage_disposal_button" optional="show"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="internal_purchases_search_action" model="ir.actions.act_window">
+            <field name="name">Internal Purchases</field>
+            <field name="res_model">internal.purchases</field>
+            <field name="view_mode">list</field>
+            <field name="search_view_id" ref="pms.internal_purchases_search"/>
+        </record>
+
+        <record id="internal_purchases_view" model="ir.actions.act_window">
+            <field name="name">Internal Purchases</field>
+            <field name="res_model">internal.purchases</field>
+            <field name="view_mode">list</field>
+        </record>
+
+    </data>
+</odoo>

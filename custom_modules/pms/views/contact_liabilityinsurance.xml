@@ -1,0 +1,123 @@
+<odoo>
+
+<data noupdate="1">
+   <record id="ir_cron_days_to_expire_liability" model="ir.cron">
+       <field name="name">days_to_expire_liability</field>
+       <field name="model_id" ref="model_contact_liabilityinsurance"/>
+       <field name="code">
+env['pms.projects'].function_run_log("_compute_days_to_expire")
+model.search([])._compute_days_to_expire()
+</field>
+       <field name="user_id" ref="base.user_root"/>
+       <field name="interval_number">1</field>
+       <field name="interval_type">days</field>
+   </record>
+</data>
+
+<record id="liability_insurance_search" model="ir.ui.view">
+        <field name="name">contact.liabilityinsurance.search</field>
+        <field name="model">contact.liabilityinsurance</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="liability_insurance_name" string="Insurance Name" />
+                <field name="liability_insurance_expiration_date"/>
+                <field name="days_to_expire"/>
+                <field name="insurance_for"/>
+                <field name="original_partner"/>
+                <field name="insurance_type"/>
+                <field name="active"/>
+            </search>
+        </field>
+</record>
+
+<record id="contact_liabilityinsurance" model="ir.actions.act_window">
+    <field name="name">Liability Insurance</field>
+    <field name="res_model">contact.liabilityinsurance</field>
+    <field name="view_mode">list,form</field>
+</record>
+
+
+<record id="liability_insurance_form" model="ir.ui.view">
+        <field name="name">contact.liabilityinsurance.form</field>
+        <field name="model">contact.liabilityinsurance</field>
+        <field name="arch" type="xml">
+            <form string="Liability Insurance Form" class="o_sale_order">
+                <group>
+                    <field name="liability_insurance_name"/>
+                    <field name="liability_insurance_attachment"/>
+                    <field name="original_partner"/>
+                    <field name="insurance_for"/>
+                    <field name="liability_insurance_expiration_date"/>
+                    <field name="days_to_expire"/>
+                    <field name="insurance_type"/>
+                </group>
+            </form>
+        </field>
+</record>
+
+<record id="liability_insurance_tree" model="ir.ui.view">
+    <field name="name">contact.liabilityinsurance.tree</field>
+    <field name="model">contact.liabilityinsurance</field>
+    <field name="arch" type="xml">
+        <list string="Liability Insurance Master">
+            <field name="liability_insurance_name"/>
+            <field name="insurance_type"/>
+            <field name="insurance_for"/>
+            <field name="original_partner"/>
+            <field name="liability_insurance_expiration_date" optional="show"/>
+            <field name="days_to_expire" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="inherited_partner_liability_view" model="ir.ui.view">
+    <field name="name">res.partner.form.liabilityinsurance</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='property_payment_term_id']" position="after">
+            <field name="contractor_payment_terms" />
+        </xpath>
+        <xpath expr="//page[@name='internal_notes']" position="before">
+            <page name="checkmaker" string="Check Maker">
+                <button name="create_check_button" string="Create Check" class="btn-primary" type="object"/>
+                <separator/>
+                <group>
+                    <field name="bank_name"/> 
+                    <field name="bank_address"/> 
+                    <field name="bank_2address"/>
+                    <field name="bank_account_number"/>
+                    <field name="bank_routing_number"/>  
+                    <field name="last_check_number"/> 
+                    <field name="authorized_signature"/>
+                </group>
+            </page>
+            <page name="check_history" string="Check History">
+                <field name="check_history"/>
+            </page>
+            <page name="liability_insurance" string="Liability Insurance">
+                <field name="liability_insurance"/>
+            </page>
+
+            <page name="sms_config" string="SMS Config">
+                <group> 
+                    <field name="contact_id"/>
+                </group>
+            </page>
+        </xpath>
+    </field>
+</record>
+
+
+<record id="action_server_pms_open_message_crm_wizard" model="ir.actions.server">
+        <field name="name">Send Message with CRM</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="code">
+        if records:
+            action = records.open_message_crm_wizard()
+        </field>
+</record>
+
+</odoo>

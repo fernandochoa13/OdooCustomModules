@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="module_category_services_create_material_orders" model="ir.module.category">
+            <field name="name">Create Material Orders</field>
+            <field name="description">Ayuda a manejar permisos de qué usuario tiene acceso a cada elemento</field>
+        </record>			
+
+        <record id="create_material_orders.group_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="category_id" ref="create_material_orders.module_category_services_create_material_orders" />
+        </record>
+
+        <record id="create_material_orders.group_account_purch_manager" model="res.groups">	
+            <field name="name">Purchase Manager</field>
+            <field name="category_id" ref="create_material_orders.module_category_services_create_material_orders" />
+            <field name="implied_ids" eval="[(4, ref('create_material_orders.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>	
+
+        <record id="create_material_orders.group_account_order_creator" model="res.groups">	
+            <field name="name">Order Creator</field>
+            <field name="category_id" ref="create_material_orders.module_category_services_create_material_orders" />
+            <field name="implied_ids" eval="[(4, ref('create_material_orders.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>        
+
+    </data>
+</odoo>

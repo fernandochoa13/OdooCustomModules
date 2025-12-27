@@ -1,0 +1,22 @@
+<odoo>
+
+<record id="pms_inspections_failures_view_tree" model="ir.ui.view">
+    <field name="name">pms.inspections.failures.view.tree</field>
+    <field name="model">pms.inspections.failures</field>
+    <field name="arch" type="xml">
+        <list string="Inspection Failures">
+            <field name="fail_date" readonly="1"/>
+            <field name="fail_reason" readonly="1"/>
+            <field name="failure_number" readonly="1"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_inspections_failures_view" model="ir.actions.act_window">
+    <field name="name">Inspection Failures</field>
+    <field name="res_model">pms.inspections.failures</field>
+    <field name="view_mode">list</field>
+</record>
+
+</odoo>
+

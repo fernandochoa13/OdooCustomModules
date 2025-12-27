@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- <data>
+        <template id="inherit_filter_info_template_cash_cleanup" name="Report Filter Info - Add Cash Cleanup Button">
+            <t t-inherit="account_reports.search_template" t-inherit-mode="extension">
+                <xpath expr="//div[hasclass('o_account_reports_filter_date')]" position="after">
+                    <div class="btn-group" name="cash_data_refresh_button_container">
+                        <button type="button" 
+                                class="btn btn-sm btn-secondary refresh_cash_data_button" 
+                                title="Refresh the cash basis data used in the report">
+                            <i class="fa fa-refresh" />&#160;Refresh Cash Data
+                        </button>
+                    </div>
+                </xpath>
+        </template>
+    </data> -->
+
+
+    <record id="action_cleanup_cash_basis_data_server" model="ir.actions.server">
+        <field name="name">Clean Cash Basis Temporary Tables</field>
+        <field name="model_id" ref="account.model_account_report"/>
+        <field name="binding_model_id" eval="False"/>
+        <field name="state">code</field>
+        <field name="code">
+env['account.report']._cleanup_cash_basis_data()
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_account_cleanup_cash_basis_data"
+        name="Refresh Cash Data"
+        action="action_cleanup_cash_basis_data_server"
+        parent="account.menu_finance_reports"
+        sequence="0"/> <!-- Sequence 1 ensures it is the very first item -->
+
+
+</odoo>

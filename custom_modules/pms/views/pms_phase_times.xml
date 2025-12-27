@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_pms_phase_time_search" model="ir.ui.view">
+            <field name="name">pms.phase.time.search</field>
+            <field name="model">pms.phase.time</field>
+            <field name="arch" type="xml">
+                <search string="Phase Times">
+                    <field name="project_id"/>
+                    <field name="phases" string="Construction Phase"/>
+                    <field name="duration"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <filter string="Started this week" name="this_week_start_date"
+                            domain="[('start_date', '&gt;=', (context_today() + relativedelta(weeks=0, weekday=0)).strftime('%Y-%m-%d 00:00:00')),
+                                    ('start_date', '&lt;=', (context_today() + relativedelta(weeks=0, weekday=6, hour=23, minute=59, second=59)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <filter string="Ended this week" name="this_week_end_date"
+                            domain="[('end_date', '&gt;=', (context_today() + relativedelta(weeks=0, weekday=0)).strftime('%Y-%m-%d 00:00:00')),
+                                    ('end_date', '&lt;=', (context_today() + relativedelta(weeks=0, weekday=6, hour=23, minute=59, second=59)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <filter string="Started this month" name="this_month_start_date"
+                            domain="[('start_date', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d 00:00:00')),
+                                    ('start_date', '&lt;=', (context_today() + relativedelta(months=1, day=1, days=-1, hour=23, minute=59, second=59)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <filter string="Ended this month" name="this_month_end_date"
+                            domain="[('end_date', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d 00:00:00')),
+                                    ('end_date', '&lt;=', (context_today() + relativedelta(months=1, day=1, days=-1, hour=23, minute=59, second=59)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Project" name="group_by_project" context="{'group_by': 'project_id'}"/>
+                        <filter string="Construction Phase" name="group_by_phases" context="{'group_by': 'phases'}"/>
+                        <filter string="Start Date" name="group_by_start_date" context="{'group_by': 'start_date'}"/>
+                        <filter string="End Date" name="group_by_end_date" context="{'group_by': 'end_date'}"/>           
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="pms_phase_time_tree" model="ir.ui.view">
+            <field name="name">pms.phase.time.tree</field>
+            <field name="model">pms.phase.time</field>
+            <field name="arch" type="xml"> 
+                <list string="Phase Times" create="false" edit="false" default_order="project_id, phase_order_index">
+                    <field name="phase_order_index" invisible="1"/>
+                    <field name="project_id"/>
+                    <field name="phases"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="duration"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="pms_projects_phase_view" model="ir.actions.act_window">
+            <field name="name">Phase Times</field>
+            <field name="res_model">pms.phase.time</field>
+            <field name="view_mode">list</field>
+            <field name="context">{'group_by': 'project_id'}</field>
+        </record>
+
+
+        <menuitem id="pms_menu_projects_phases" name="Project Phases" action="pms_projects_phase_view" parent="pms_menu_jobs"/>
+    </data>
+
+</odoo>

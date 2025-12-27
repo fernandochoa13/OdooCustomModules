@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_customer_messages_wizard_form" model="ir.ui.view">
+            <field name="name">account.customer.message.wizard.form</field>
+            <field name="model">account.customer.message.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Customer Messages Wizard">
+                    <group>
+                        <field name="customer"/>
+                    </group>
+                    <footer>
+                        <button name="get_customer_message_view" string="View Customer Messages" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_customer_messages_wizard" model="ir.actions.act_window">
+            <field name="name">Customer Messages Wizard</field>
+            <field name="res_model">account.customer.message.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_customer_message" name="Customer Messages" parent="account.menu_finance_receivables" action="view_customer_messages_wizard" sequence="130"/>
+
+    </data>
+</odoo>

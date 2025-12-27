@@ -1,0 +1,78 @@
+<odoo>
+
+<!-- <record id="template_lines_tree" model="ir.ui.view">
+        <field name="name">create.order.wizard.line.tree</field>
+        <field name="model">create.order.wizard.line</field>
+        <field name="arch" type="xml">
+            <list string="Template Lines" editable="top" >
+                <field name="product" optional="show"/>
+                <field name="subproduct" optional="show"/>
+                <field name="unit_measure" optional="show"/>
+                <field name="quantity" optional="show"/>
+                <field name="amount" optional="show"/>
+                <field name="total" optional="show"/>
+            </list>
+
+        </field>
+    </record>
+
+<record id="template_lines_view" model="ir.actions.act_window">
+    <field name="name">Template Lines</field>
+    <field name="res_model">create.order.wizard.line</field>
+    <field name="view_mode">list</field>
+</record> -->
+
+<record id="create_order_wizard_form" model="ir.ui.view">
+        <field name="name">create.order.wizard.form</field>
+        <field name="model">create.order.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Order Wizard" class="o_sale_order" create='false'>
+                <header>
+                    <button name="go_back" class="btn btn-primary mr10" type="object" string="BACK"/>
+                    <button name="view_orders" class="btn btn-success" type="object" string="VIEW ORDERS" context="{'default_order_creator': order_creator}"/>
+                </header>
+                <sheet class="o_form_sheet">
+                    <group name="general details" class="o_group">
+                        <field name="order_creator"/>
+                        <field name="property_id"/>
+                        <field name="order_date"/>
+                        <field name="house_model" readonly="1"/>
+                        <field name="county" string="County" readonly="1"/>
+                        <field name="purchase_template" domain="[('house_model', '=', house_model), ('county', 'in', county)]" options="{'no_create': True}"/>
+                        <field name="ask_for_measure"/>
+                        <field name="special_order"/>
+                        <field name="comments"/>
+                        <field name="order_wizard_lines" invisible="not purchase_template or not ask_for_measure">
+                            <list editable="bottom" string="Order Lines" create='False' delete='False'>
+                                <field name="product"/>
+                                <field name="subproduct"/>
+                                <field name="unit_measure"/>
+                                <field name="quantity"/>
+                                <field name="amount" optional="hide"/>
+                            </list>
+                        </field>
+                        <field name="order_wizard_lines_ro" invisible="not purchase_template or ask_for_measure">
+                            <list string="Order Lines">
+                                <field name="product"/>
+                                <field name="subproduct"/>
+                                <field name="unit_measure"/>
+                                <field name="quantity"/>
+                                <field name="amount" optional="hide"/>
+                            </list>
+                        </field>
+                    </group>
+                    <button name="create_order" string="Create Order" type="object" class="btn-primary" invisible="(not special_order and not purchase_template) or not property_id"/>
+                </sheet>
+            </form>
+        </field>
+</record>
+
+
+<record id="create_order_wizard" model="ir.actions.act_window">
+    <field name="name">Create Order Wizard</field>
+    <field name="res_model">create.order.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">fullscreen</field>
+</record>
+
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="view_construction_utilities_report_tree" model="ir.ui.view">
+        <field name="name">pms.construction.utilities.report.tree</field>
+        <field name="model">pms.construction.utilities.report</field>
+        <field name="arch" type="xml">
+            <list string="Construction Utilities Report" create="false" edit="false" delete="false">
+                <field name="county_id" optional="show"/>
+                <field name="address_id" optional="show"/>
+                <field name="superintendent_id" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_construction_utilities_report_search" model="ir.ui.view">
+        <field name="name">pms.construction.utilities.report.search</field>
+        <field name="model">pms.construction.utilities.report</field>
+        <field name="arch" type="xml">
+            <search string="Construction Utilities Report">
+                <field name="county_id"/>
+                <field name="address_id"/>
+                <field name="superintendent_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_construction_utilities_report" model="ir.actions.act_window">
+        <field name="name">Construction Utilities Report</field>
+        <field name="res_model">pms.construction.utilities.report</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data available for the Construction Utilities Report
+            </p>
+        </field>
+    </record>
+
+</odoo>

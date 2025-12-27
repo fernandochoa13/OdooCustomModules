@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_account_bill_wizard_form" model="ir.ui.view">
+            <field name="name">account.bill.wizard.form</field>
+            <field name="model">account.bill.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Bill Wizard">
+                    <h3>Another Bill with identical parameters has been found.</h3>
+                    <footer>
+                        <button name="ignore_duplicate" string="Ignore and continue" type="object" class="oe_highlight"/>
+                        <button name="view_similar_bills" string="View Similar Bills" type="object" class="oe_highlight"/>
+                        <button name="cancel_bill" string="Cancel Bill" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_account_bill_wizard" model="ir.actions.act_window">
+            <field name="name">Account Bills Wizard</field>
+            <field name="res_model">account.bill.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

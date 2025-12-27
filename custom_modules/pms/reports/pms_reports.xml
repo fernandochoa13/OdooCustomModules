@@ -1,0 +1,51 @@
+<odoo>
+<record id="report_inspections_action" model="ir.actions.report">
+        <field name="name">Inspections Report</field>
+        <field name="model">pms.inspections</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.report_inspections</field>
+</record>
+
+<record id="report_purchase_pms_action" model="ir.actions.report">
+        <field name="name">Purchase Report</field>
+        <field name="model">account.move.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.report_purchases_pms</field>
+</record>
+
+<record id="report_draws_pms_action" model="ir.actions.report">
+        <field name="name">Draws Report</field>
+        <field name="model">pms.draws</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.report_draws_pms</field>
+</record>
+
+<record id="report_project_activities_pms_action" model="ir.actions.report">
+        <field name="name">Project Activities Report</field>
+        <field name="model">pms.projects.routes</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.report_projects_activities_pms</field>
+</record>
+
+<record id="report_utility_pms_action" model="ir.actions.report">
+        <field name="name">Project Utilities Report</field>
+        <field name="model">pms.property</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.report_utility_pms</field>
+</record>
+
+<record id="report_materials_action" model="ir.actions.report">
+        <field name="name">Materials Report</field>
+        <field name="model">account.move.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.report_materials</field> 
+</record>
+
+<record id="provider_report_pdf_action" model="ir.actions.report">
+        <field name="name">Material Provider Report</field>
+        <field name="model">provider.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.provider_report_pdf_template</field> 
+</record>
+
+</odoo>

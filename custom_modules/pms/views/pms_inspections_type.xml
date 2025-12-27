@@ -1,0 +1,19 @@
+<odoo>
+    <record id="pms_inspections_type_tree_view" model="ir.ui.view">
+        <field name="name">pms.inspections.type.tree</field>
+        <field name="model">pms.inspections.type</field>
+        <field name="arch" type="xml">
+            <list string="Inspections Type">
+                <field name="name"/>
+                <field name="county"/>
+                <field name="add_to_report"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="pms_inspections_type_view" model="ir.actions.act_window">
+        <field name="name">Inspections Type</field>
+        <field name="res_model">pms.inspections.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,142 @@
+<odoo>
+
+<record id="pms_projects_template_view_search" model="ir.ui.view">
+        <field name="name">pms.projects.routes.template.search</field>
+        <field name="model">pms.projects.routes.templates</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="name"/>
+                <field name="house_model"/>
+            </search>
+        </field>
+</record>
+
+<record id="pms_projects_routes_template_tree" model="ir.ui.view">
+    <field name="name">pms.projects.routes.template.tree</field>
+    <field name="model">pms.projects.routes.templates</field>
+    <field name="arch" type="xml">
+        <list string="Projects Routes">
+            <field name="name" optional="show"/>
+            <field name="house_model" optional="show"/>
+            <field name="active" invisible="1"/>
+        </list>
+    </field>
+</record>
+
+<record id="pms_projects_routes_template_form" model="ir.ui.view">
+    <field name="name">pms.projects.routes.template.form</field>
+    <field name="model">pms.projects.routes.templates</field>
+    <field name="arch" type="xml">
+        <form>
+        <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" widget="char" class="o_bold_title"/>
+                    </h1>
+                </div>
+                <group name="general details" class="o_group">
+                <field name="house_model"/>
+                <field name="default_job_name"/>
+                </group>
+                <field name="route_lines"/>
+                
+
+        </sheet>
+
+        <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+        </div>
+
+        </form>
+    </field>
+</record>
+
+
+<record id="pms_projects_routes_template_view" model="ir.actions.act_window">
+    <field name="name">Project Routes</field>
+    <field name="res_model">pms.projects.routes.templates</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="pms.pms_projects_template_view_search"/>
+</record>
+
+
+<record id="pms_projects_routes_template_lines_tree" model="ir.ui.view">
+        <field name="name">pms.projects.routes.templates.lines.tree</field>
+        <field name="model">pms.projects.routes.templates.lines</field>
+        <field name="arch" type="xml">
+            <list string="Activities" editable="top" default_order="id">
+                <field name="id" invisible="0"/>
+                <field name="x_active" invisible="1"/>
+                <field name="name" optional="show"/>
+                <field name="activity" optional="show"/>
+                <!-- <field name="product" optional="show"/> -->
+                <field name="acronym" optional="hide"/>
+                <field name="predecessor" optional="show" widget="many2many_tags"/>
+                <field name="activity_type" optional="show"/>
+                <field name="duration" optional="show"/>
+                <field name="company_id" optional="show"/>
+                <field name="phase" optional="show"/>
+                <field name="sequence" optional="show"/>    
+                <field name="vendor" optional="show"/>
+                <field name="alert" optional="show"/>
+                <field name="alert_type" optional="show"/>
+                <field name="inspection_type" optional="show"/>
+                <!-- New boolean field to show in report -->
+                <field name="add_to_report" optional="show"/>
+                <field name="active" optional="show"/>
+            </list>
+
+        </field>
+    </record>
+
+<record id="pms_projects_routes_template_lines_view" model="ir.actions.act_window">
+    <field name="name">Project Routes Lines</field>
+    <field name="res_model">pms.projects.routes.templates.lines</field>
+    <field name="view_mode">list,graph</field>
+</record>
+
+<!--<record model="ir.ui.view" id="view_pms_activities_graph">
+    <field name="name">activities.graph</field>
+    <field name="model">pms.projects.routes</field>
+    <field name="arch" type="xml">
+        <graph string="Project Activities Analysis" type="line" sample="1">
+            <field name="completed" type="measure"/>
+            <field name="time_spent" interval="day"/>
+            <field name="vendor" type="measure"/>
+        </graph>
+    </field>
+</record> -->
+
+<!--
+    <record id="email_template_activities_report" model="mail.template">
+        <field name="name">Activities Report: Send by mail</field>
+        <field name="model_id" ref="pms.model_pms_projects_routes"/>
+        <field name="subject">Weekly Activities Report</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Good Morning, this is your weekly Activities Report
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+<record id="email_template_activities_report_daily" model="mail.template">
+        <field name="name">Activities Report: Send by mail</field>
+        <field name="model_id" ref="pms.model_pms_projects_routes"/>
+        <field name="subject">Daily Activities Report</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Good Morning, this is your daily Activities Report
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+-->
+
+</odoo>

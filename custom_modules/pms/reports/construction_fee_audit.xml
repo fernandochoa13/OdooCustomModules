@@ -1,0 +1,78 @@
+<odoo>
+
+<record id="construction_fee_audit_search" model="ir.ui.view">
+        <field name="name">construction.fee.audit.search</field>
+        <field name="model">construction.fee.audit</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="property_address"/>
+                <field name="county"/>
+                <field name="project_manager" />
+                <field name="zone_coordinator" />
+                <field name="superintendent" />
+                <field name="house_model"/>
+                <field name="construction_status" />
+                <field name="on_hold"/>
+                <field name="parcel_id"/>
+                <field name="custodial_money"/>
+                <field name="own_third"/>
+                <field name="property_owner"/>
+                 <field name="const_fee_1st_created_date"/>
+                <field name="const_fee_1st_invoiced_date"/>
+                <field name="const_fee_1st_paid_date"/>
+                <field name="const_fee_2nd_created_date"/>
+                <field name="const_fee_2nd_invoiced_date"/>
+                <field name="const_fee_2nd_paid_date"/>
+                <field name="const_fee_3rd_created_date"/>
+                <field name="const_fee_3rd_invoiced_date"/>
+                <field name="const_fee_3rd_paid_date"/>
+                <field name="const_fee_final_created_date"/>
+                <field name="const_fee_final_invoiced_date"/>
+                <field name="const_fee_final_paid_date"/>
+            </search>
+        </field>
+</record>
+
+<record id="construction_fee_audit_tree" model="ir.ui.view">
+    <field name="name">construction.fee.audit.tree</field>
+    <field name="model">construction.fee.audit</field>
+    <field name="arch" type="xml">
+        <list string="Construction Fee Audit" create="false">
+            <field name="property_address"/>
+            <field name="county"/>
+            <field name="project_manager" optional="hide"/>
+            <field name="zone_coordinator" optional="hide"/>
+            <field name="superintendent" optional="hide"/>
+            <field name="house_model"/>
+            <field name="construction_status" />
+            <field name="on_hold"/>
+            <field name="parcel_id" optional="hide"/>
+            <field name="custodial_money" optional="hide"/>
+            <field name="own_third" optional="hide"/>
+            <field name="property_owner" optional="hide"/>
+            <field name="const_fee_1st_created_date" optional="show"/>
+            <field name="const_fee_1st_invoiced_date" optional="show"/>
+            <field name="const_fee_1st_paid_date" optional="show"/>
+            <field name="const_fee_2nd_created_date" optional="show"/>
+            <field name="const_fee_2nd_invoiced_date" optional="show"/>
+            <field name="const_fee_2nd_paid_date" optional="show"/>
+            <field name="const_fee_3rd_created_date" optional="show"/>
+            <field name="const_fee_3rd_invoiced_date" optional="show"/>
+            <field name="const_fee_3rd_paid_date" optional="show"/>
+            <field name="const_fee_final_created_date" optional="show"/>
+            <field name="const_fee_final_invoiced_date" optional="show"/>
+            <field name="const_fee_final_paid_date" optional="show"/> 
+        </list>
+    </field>
+</record>
+
+
+<record id="construction_fee_audit_action" model="ir.actions.act_window">
+    <field name="name">Construction Fee Audit</field>
+    <field name="res_model">construction.fee.audit</field>
+    <field name="view_mode">tree</field>
+    <field name="search_view_id" ref="pms.construction_fee_audit_search"/>
+</record>
+
+
+</odoo>

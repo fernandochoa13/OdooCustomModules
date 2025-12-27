@@ -1,0 +1,21 @@
+<odoo>
+
+    <record id="pms_materials_followup_view_tree" model="ir.ui.view">
+        <field name="name">pms.materials.followup.view.tree</field>
+        <field name="model">material.order.follow.up</field>
+        <field name="arch" type="xml">
+            <list string="Material Order Follow Ups">
+                <field name="comment" readonly="1"/>
+                <field name="date" readonly="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="pms_materials_followup_view" model="ir.actions.act_window">
+        <field name="name">Material Orders Follow Ups</field>
+        <field name="res_model">material.order.follow.up</field>
+        <field name="view_mode">list</field>
+    </record>
+
+</odoo>
+

@@ -1,0 +1,59 @@
+<odoo>
+
+    <!-- tree view -->
+    <record id="tax1099treeview" model="ir.ui.view">
+        <field name="name">tax_1099_reporttree</field>
+        <field name="model">tax.tenninetynine.report</field>
+        <field name="arch" type="xml">
+            <list string="1099 report" create="false" edit="false" delete="false">
+                <field name="vendor" optional="show" class="bold"/>
+                <field name="vendor_address" optional="show"/>
+                <field name="vendor_tax_id" optional="show"/>
+                <field name="type_1099" optional="show"/>
+                <field name="date" optional="show"/>
+                <field name="company" optional="show"/>
+                <field name="name" optional="show"/>
+                <field name="journal_entry" optional="show"/>
+                <field name="account" optional="show"/>
+                <field name="paid_with" optional="show"/>
+                <field name="amount" optional="show" />
+            </list>
+        </field>
+    </record>
+
+
+
+
+    <!-- search view -->
+    <record id="tax1099searchview" model="ir.ui.view">
+        <field name="name">tax1099searchview</field>
+        <field name="model">tax.tenninetynine.report</field>
+        <field name="arch" type="xml">
+            <search string="tax 1099 report">
+                <field name="date"/>
+                <field name="company"/>
+                <field name="vendor"/>
+            </search>
+        </field>
+    </record>
+
+    
+
+    <!-- action -->
+    <record id="action_tax1099_view" model="ir.actions.act_window">
+        <field name="name">tax1099 action view</field>
+        <field name="res_model">tax.tenninetynine.report</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="pms.tax1099searchview"/>
+        <field name="context">{"search_default_activefilter": 1}</field>
+
+    </record>
+
+    <menuitem id="menu_tax_1099" name="1099 Menu Report" parent="account.menu_finance_reports">
+        <menuitem id="tax_1099_report"
+        name="Tax 1099 Report"
+        action="action_tax1099_view"/>
+    </menuitem>    
+
+
+</odoo>

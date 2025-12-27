@@ -1,0 +1,28 @@
+<odoo>
+
+    <record id="verify_order_report_wizard_form" model="ir.ui.view">
+        <field name="name">verify.order.report.wizard.form</field>
+        <field name="model">verify.order.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Verify Order Report Wizard">
+                    <group name="general details" class="o_group">
+                        <field name="employee_id"/>
+                        <field name="employee_pin" password="True"/>
+                    </group>
+                <footer>
+                    <button name="open_orders_wizard" string="Open Orders Report" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="Discard" type="object" class="btn-danger"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="verify_order_report_wizard" model="ir.actions.act_window">
+        <field name="name">Order Report</field>
+        <field name="res_model">verify.order.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>

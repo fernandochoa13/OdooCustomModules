@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="base.module_category_services_pms" model="ir.module.category">	
+			<field name="description">Ayuda a manejar permisos de que usuario tiene acceso a cada elemento</field>
+		</record>			
+
+		<record id="pms.group_user" model="res.groups">
+			<field name="name">User</field>
+			<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+			<field name="category_id" ref="base.module_category_services_pms" />
+		</record>
+
+		<record id="pms.approver" model="res.groups">
+			<field name="name">Approver</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+		</record>
+
+
+		<record id="pms.group_account_manager" model="res.groups">
+			<field name="name">Manager</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		</record>
+
+		<record id="pms.group_account_user" model="res.groups">	
+			<field name="name">Assistant</field>
+			<field name="category_id" ref="base.module_category_services_pms"/>
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+		</record>			
+		
+		<record id="pms.group_account_readonly" model="res.groups">	
+			<field name="name">Auditor</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+		</record>
+
+		<record id="pms.group_account_purch_manager" model="res.groups">	
+			<field name="name">Purchase Manager</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		</record>	
+
+		<record id="pms.group_account_purch_analyst" model="res.groups">	
+			<field name="name">Purchase Analyst</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		</record>
+
+		<record id="pms.group_account_payment_manager" model="res.groups">	
+			<field name="name">Payment Manager</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		</record>
+
+		<record id="pms.group_account_onhold_manager" model="res.groups">	
+			<field name="name">On Hold Manager</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		</record>
+
+		<record id="pms.group_account_route_manager" model="res.groups">	
+			<field name="name">Routes Manager</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		</record>	
+
+		<record id="pms.group_checklist_manager" model="res.groups">	
+			<field name="name">Checklist Manager</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		</record>
+		<record id="pms.group_checklist_template_manager" model="res.groups">	
+			<field name="name">Checklist Template Manager</field>
+			<field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		</record>	
+		<record id="group_invoice_admin" model="res.groups">
+            <field name="name">Invoice Admin</field>
+            <field name="category_id" ref="base.module_category_services_pms" />
+			<field name="implied_ids" eval="[(4, ref('pms.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>		
+	</data>
+</odoo>

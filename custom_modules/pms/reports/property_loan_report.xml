@@ -1,0 +1,81 @@
+<odoo>
+
+    <record id="view_select_property_loan_report_wizard" model="ir.ui.view">
+        <field name="name">Property Loan Report Date Wizard</field>
+        <field name="model">select.property.loan.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select Report Date">
+                <group>
+                    <field name="month"/>
+                    <field name="year" options="{'enable_formatting': false}"/>
+                </group>
+                <footer>
+                    <button name="open_report" string="Open Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_property_loan_report_tree" model="ir.ui.view">
+        <field name="name">view.property.loan.report.tree</field>
+        <field name="model">pms.property.loan.report</field>
+        <field name="arch" type="xml">
+            <list string="Proprety Loans and Transactions Report" edit="false" delete="false">
+                <field name="id" invisible="1"/>
+                <field name="property_id" optional="show"/>
+                <field name="property_owner" optional="show"/>
+                <field name="lender" optional="show"/>
+                <field name="maturity_date" optional="show"/>
+                <field name="project_phase" optional="show"/>
+                <field name="interest_rate" optional="show"/>
+                <field name="loan_type" optional="show"/>
+                <field name="exit_status" optional="show"/>
+                <field name="servicing_company" optional="show"/>
+                <field name="servicing_loan_number" optional="show"/>
+                <field name="first_mortgage_payment_date" optional="show"/>
+                <field name="extension_requested" optional="show"/>
+                <field name="refinancing_process_check" optional="show"/>
+                <field name="max_date_to_pay" optional="show"/>
+                <field name="transaction_type" optional="show"/>
+                <field name="mortgage_payment" optional="show"/>
+                <field name="matched_payment" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_property_loan_report_button_inherit" model="ir.ui.view">
+       <field name="name">action.property.loan.report.button.inherit</field>
+       <field name="model">pms.property.loan.report</field>
+       <field name="inherit_id" ref="pms.view_property_loan_report_tree"/>
+       <field name="arch" type="xml">
+           <xpath expr="//tree" position="attributes">
+               <attribute name="js_class">button_in_property_loan_report_tree</attribute>
+           </xpath>
+       </field>
+   </record>
+
+    <record id="action_property_loan_report" model="ir.actions.act_window">
+        <field name="name">Proprety Loans and Transactions Report</field>
+        <field name="res_model">pms.property.loan.report</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data available for the Proprety Loans and Transactions Report
+            </p>
+        </field>
+    </record>
+
+    <record id="action_select_property_loan_report_wizard" model="ir.actions.act_window">
+        <field name="name">Select Proprety Loans and Transactions Report Wizard</field>
+        <field name="res_model">select.property.loan.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_property_loan_report"
+        name="Property Loans and Transactions Report"
+        action="action_select_property_loan_report_wizard"
+        parent="pms.pms_menu_reports"
+    />
+</odoo>

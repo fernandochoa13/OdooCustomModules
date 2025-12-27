@@ -1,0 +1,14 @@
+<odoo>
+
+<record id="view_documents_search_inherit" model="ir.ui.view">
+    <field name="name">documents.search.inherit</field>
+    <field name="model">documents.document</field>
+    <field name="inherit_id" ref="documents.document_view_search"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='index_content']" position="after">
+            <field name="amount"/>
+        </xpath>
+    </field>
+</record>
+
+</odoo>

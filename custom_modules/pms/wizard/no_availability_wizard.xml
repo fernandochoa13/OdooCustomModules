@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record id="no_availability_wizard_form" model="ir.ui.view">
+            <field name="name">no.availability.wizard.form</field>
+            <field name="model">no.availability.wizard</field>
+            <field name="arch" type="xml">
+                <form string="No Availability Wizard">
+                <h3>Do you want to confirm that the provider doesn't have the material availability for this order?</h3>
+                    <footer>
+                        <button name="continue_no_availability" string="Confirm" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="no_availability_wizard_action" model="ir.actions.act_window">
+            <field name="name">No Availability Wizard</field>
+            <field name="res_model">no.availability.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

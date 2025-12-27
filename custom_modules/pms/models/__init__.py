@@ -40,8 +40,10 @@ from . import account_journal
 from . import account_batch_payment
 from . import account_payment_method
 from . import document
+from . import document_invoice
 from . import product_subproduct
 from . import pms_leads
+from . import crm_lead
 from . import pms_visit_days
 from . import internal_purchases
 from . import accounting

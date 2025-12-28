@@ -401,8 +401,7 @@
    <field name="model">pms.projects.routes</field>
    <field eval="2" name="priority"/>
    <field name="arch" type="xml">
-       <calendar date_start="expected_end_date" string="Project Activities" mode="month" color="act_work_order" event_limit="5"
-                 hide_time="true" js_class="materials_calendar" event_open_popup="true" quick_add="false">
+       <calendar date_start="expected_end_date" string="Project Activities" mode="month" color="act_work_order">
            <field name="act_work_order"/>
                 <field name="project_property"/>
                 <field name="name"/>

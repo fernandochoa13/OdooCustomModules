@@ -32,8 +32,7 @@
    <field name="model">pms.draws</field>
    <field eval="2" name="priority"/>
    <field name="arch" type="xml">
-       <calendar date_start="date" string="Draws" mode="month" color="display_name" event_limit="5"
-                 hide_time="true" js_class="materials_calendar" event_open_popup="true" quick_add="false">
+       <calendar date_start="date" string="Draws" mode="month" color="display_name">
             <field name="address"/>
             <field name="county"/>
             <field name="project_phase"/>

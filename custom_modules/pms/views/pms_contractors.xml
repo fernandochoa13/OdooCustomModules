@@ -458,8 +458,7 @@
         <field name="model">pms.contractor.job</field>
         <field eval="2" name="priority"/>
         <field name="arch" type="xml">
-            <calendar date_start="deadline" string="Job Orders" mode="month" color="property_id" event_limit="5"
-                        hide_time="true" event_open_popup="true" quick_add="false">
+            <calendar date_start="deadline" string="Job Orders" mode="month" color="property_id">
                 <field name="deadline"/>
                 <field name="property_id"/>
             </calendar>

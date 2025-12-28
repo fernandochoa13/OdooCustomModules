@@ -174,8 +174,7 @@
         <field name="name">material.orders.view.calendar</field>
         <field name="model">pms.materials</field>
         <field name="arch" type="xml">
-            <calendar date_start="estimated_delivery_date" string="Materials" mode="month" color="property_id" event_limit="5"
-                        hide_time="true" event_open_popup="true" quick_add="false">
+            <calendar date_start="estimated_delivery_date" string="Materials" mode="month" color="property_id">
                 <field name="order_creator"/>
                 <field name="property_id"/>
                 <field name="property_status"/>

@@ -181,7 +181,6 @@ model.search([])._days_to_expire_loan()
        <field name="user_id" ref="base.user_root"/>
        <field name="interval_number">1</field>
        <field name="interval_type">days</field>
-       <field name="numbercall">-1</field>
    </record>
 </data>
 

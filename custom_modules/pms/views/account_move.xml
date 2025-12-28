@@ -451,7 +451,6 @@ model.send_unpaid_invoices_email_weekly()
 </field>
             <field name="interval_number">7</field>
             <field name="interval_type">days</field>
-            <field name="numbercall">-1</field>
             <field name="active" eval="False"/>
             <field name="doall" eval="False"/>
 </record>
@@ -467,7 +466,6 @@ invoices.send_daily_reminder()
             </field>
             <field name="interval_number">2</field>
             <field name="interval_type">days</field>
-            <field name="numbercall">-1</field>
             <field name="active" eval="False"/>
             <field name="doall" eval="False"/>
 </record>
@@ -481,7 +479,6 @@ invoices.send_daily_reminder()
     </field>
     <field name="interval_number">1</field>
     <field name="interval_type">days</field>
-    <field name="numbercall">-1</field>
     <!-- <field name="active" eval="True"/> -->
 </record>
 
@@ -710,7 +707,6 @@ model.check_on_hold()
             </field>
             <field name="interval_number">12</field>
             <field name="interval_type">hours</field>
-            <field name="numbercall">-1</field>
             <field name="active" eval="True"/>
             <field name="doall" eval="False"/>
 </record>
@@ -725,7 +721,6 @@ env['account.report']._cleanup_cash_basis_data()
             </field>
             <field name="interval_number">2</field>
             <field name="interval_type">hours</field>
-            <field name="numbercall">-1</field>
             <field name="active" eval="True"/>
             <field name="doall" eval="False"/>
 </record>

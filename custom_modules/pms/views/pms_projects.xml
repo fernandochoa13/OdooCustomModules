@@ -828,7 +828,6 @@ model.search([])._end_start()
         <field name="user_id" ref="base.user_root"/>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
    </record>
 </data>
 
@@ -844,7 +843,6 @@ model.search([])._duration_time_spent()
        <field name="user_id" ref="base.user_root"/>
        <field name="interval_number">1</field>
        <field name="interval_type">days</field>
-       <field name="numbercall">-1</field>
    </record>
 </data>
 
@@ -858,7 +856,6 @@ model.action_recompute_invoice_fields()
        <field name="user_id" ref="base.user_root"/>
        <field name="interval_number">1</field>
        <field name="interval_type">hours</field>
-       <field name="numbercall">-1</field>
        <field name="active" eval="False"/>
    </record>
 
@@ -892,7 +889,6 @@ model.search([])._update_days_since_last_visit()
         </field>
             <field name="interval_number">1</field>
             <field name="interval_type">days</field>
-            <field name="numbercall">-1</field>
             <!-- <field name="active" eval="True"/> -->
     </record>
 
@@ -908,7 +904,6 @@ model._send_expiration_date_reminders()
         <field name="user_id" ref="base.user_root"/>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
         <field name="active" eval="True"/>
     </record>
 

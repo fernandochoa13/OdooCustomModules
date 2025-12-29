@@ -58,7 +58,7 @@
        <field name="model">expectedco.report</field>
        <field name="inherit_id" ref="pms.expectedco_tree"/>
        <field name="arch" type="xml">
-        <xpath expr="//tree" position="attributes">
+        <xpath expr="//list" position="attributes">
             <attribute name="js_class">button_in_expectedco_report_tree</attribute>
         </xpath>
        </field>

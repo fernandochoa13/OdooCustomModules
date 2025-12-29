@@ -129,7 +129,7 @@
        <field name="model">invoice.report</field>
        <field name="inherit_id" ref="pms.view_invoice_report_tree"/>
        <field name="arch" type="xml">
-           <xpath expr="//tree" position="attributes">
+           <xpath expr="//list" position="attributes">
                <attribute name="js_class">button_in_invoice_report_tree</attribute>
            </xpath>
        </field>

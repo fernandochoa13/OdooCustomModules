@@ -216,7 +216,7 @@
         <field name="model">pms.materials</field>
         <field name="inherit_id" ref="create_material_orders.material_orders_view_tree"/>  
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="attributes">  
+            <xpath expr="//list" position="attributes">  
                 <attribute name="js_class">button_in_tree</attribute>  
             </xpath>
         </field>

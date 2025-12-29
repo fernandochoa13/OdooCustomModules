@@ -101,7 +101,7 @@
                         </group>
                         <group string="Property Outstanding Invoices">
                             <field name="invoice_ids" readonly="1">
-                                <list editable="False" create="False" delete="False">
+                                <list create="False" delete="False">
                                     <field name="name"/>
                                     <field name="invoice_date"/>
                                     <field name="invoice_date_due"/>

@@ -55,7 +55,5 @@
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="pms_property_units_menu" name="PMS Units" parent="pms.pms_menu_properties"
-        sequence="205" action="action_pms_units"/> 
 
 </odoo>

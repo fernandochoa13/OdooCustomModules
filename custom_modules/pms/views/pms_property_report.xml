@@ -110,8 +110,6 @@
                 <field name="search_view_id" ref="pms_property_reports_search"/>
             </record>
 
-            <menuitem id="pms_property_report_menu" name="PMS Property Report" parent="pms.pms_menu_properties"
-                sequence="200" action="pms_property_report_pin_wizard_action"/> 
 
     </data>
 </odoo>

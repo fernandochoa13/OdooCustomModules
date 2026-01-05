@@ -73,9 +73,5 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem id="menu_property_loan_report"
-        name="Property Loans and Transactions Report"
-        action="action_select_property_loan_report_wizard"
-        parent="pms.pms_menu_reports"
-    />
+
 </odoo>

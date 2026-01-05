@@ -37,7 +37,13 @@
         </menuitem>
 
         <menuitem id="pms_utility_sewage_menu" action="pms_properties_utility_sewage_view">
-        </menuitem>       
+        </menuitem>
+
+        <menuitem id="pms_property_report_menu" name="PMS Property Report" sequence="200" action="pms_property_report_pin_wizard_action"/>
+
+        <menuitem id="pms_portfolio_menu" name="PMS Portfolio" sequence="205" action="action_pms_portfolio"/>
+
+        <menuitem id="pms_property_units_menu" name="PMS Units" sequence="205" action="action_pms_units"/>
 
     </menuitem>
 
@@ -180,6 +186,10 @@
 
         <menuitem id="menu_commission_calculation" name="Commission Calculation" action="action_commission_calculation_wizard">
         </menuitem>
+
+        <menuitem id="menu_property_loan_report" name="Property Loans and Transactions Report" action="action_select_property_loan_report_wizard"/>
+
+        <menuitem id="menu_rent_report" name="Rent Report" action="action_select_rent_report_wizard"/>
 
         <!-- replaces accounting > customers > Invoices but doesnt show up, not an access problem -->
         <!-- <menuitem id="account.menu_finance_receivables"

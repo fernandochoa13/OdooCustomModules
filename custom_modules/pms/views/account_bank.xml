@@ -1,6 +1,7 @@
 <odoo>
     <data>
 
+        <!-- Commented out: requires account_accountant (Enterprise module)
         <record id="view_bank_rec_widget_form_inherited" model="ir.ui.view">
             <field name="name">bank.rec.widget.form.inherited</field>
             <field name="model">bank.rec.widget</field>
@@ -14,6 +15,7 @@
 
             </field>
         </record>
+        -->
 
         <!-- Search view on aml to be injected inside the form (view_bank_rec_widget_form) -->
         <record id="view_account_move_line_search_budget_matching" model="ir.ui.view">
@@ -96,6 +98,7 @@
         </record>
 
 
+        <!-- Commented out: requires account_accountant (Enterprise module)
         <record id="view_bank_rec_wdiget_notebook_inherited" model="ir.ui.view">
             <field name="name">view.bank.rec.wdiget.notebook.inherited</field>
             <field name="model">bank.rec.widget</field>
@@ -103,17 +106,16 @@
             <field name="arch" type="xml">
                 <xpath expr="//notebook/page[1]" position="before">
                     <page name="match_budget_tab" string="Match Budget">
-                       <!-- Replace with account.move.line table -->
                         <field name="amlsbudget_widget" invisible="1"/>
                         <field name="selected_aml_ids" invisible="1"/>
                         <div class="bank_rec_widget_form_amls_list_anchor">
                             <widget name="bank_rec_form_list" resModel="account.move.line" dataField="amlsbudget_widget"/>
                         </div>
-                        <!-- Replace -->
                     </page>
                 </xpath>
             </field>
         </record>
+        -->
 
 
 

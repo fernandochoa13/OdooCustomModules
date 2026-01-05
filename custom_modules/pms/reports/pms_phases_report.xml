@@ -49,8 +49,5 @@
             </field>
         </record>
 
-        <menuitem id="menu_pms_phases_report"
-                  name="Project Phase Summary"
-                  parent="pms_menu_reports" action="action_pms_phases_report"
-                  sequence="10"/> </data>
+    </data>
 </odoo>

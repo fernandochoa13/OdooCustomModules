@@ -114,6 +114,8 @@
         <menuitem id="menu_act_costs" name="Activity Costs" action="pms_activity_costs_view">
         </menuitem>
 
+        <menuitem id="pms_menu_projects_phases" name="Project Phases" action="pms_projects_phase_view"/>
+
     </menuitem>
 
     <menuitem name="House Details" id="pms_menu_housedetails" sequence="50">
@@ -190,6 +192,8 @@
         <menuitem id="menu_property_loan_report" name="Property Loans and Transactions Report" action="action_select_property_loan_report_wizard"/>
 
         <menuitem id="menu_rent_report" name="Rent Report" action="action_select_rent_report_wizard"/>
+
+        <menuitem id="menu_pms_phases_report" name="Project Phase Summary" action="action_pms_phases_report" sequence="10"/>
 
         <!-- replaces accounting > customers > Invoices but doesnt show up, not an access problem -->
         <!-- <menuitem id="account.menu_finance_receivables"

@@ -56,7 +56,6 @@
         </record>
 
 
-        <menuitem id="pms_menu_projects_phases" name="Project Phases" action="pms_projects_phase_view" parent="pms_menu_jobs"/>
     </data>
 
 </odoo>

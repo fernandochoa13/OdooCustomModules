@@ -78,8 +78,9 @@
         <!-- <menuitem id="pms_menu_projects_action" action="pms_projects_view">
         </menuitem>  -->
 
+        <!-- Commented: pms_projects.xml is disabled
         <menuitem id="pms_menu_projects_activities_action" action="pms_projects_routes_view">
-        </menuitem>
+        </menuitem> -->
 
         <menuitem id="pms_menu_bulk" action="view_new_bulk_wizard">
         </menuitem>

@@ -17,8 +17,6 @@
                 <filter name="posted" string="Posted" domain="[('state', '=', 'posted')]"/>
                 <filter name="cancel" string="Cancelled" domain="[('state', '=', 'cancel')]"/>
                 <separator/>
-                <filter string="To Check" name="to_check" domain="[('to_check', '=', True)]"/>
-                <separator/>
                 <!-- not_paid & partial -->
                 <filter name="open" string="Unpaid" domain="[('state', '=', 'posted'), ('payment_state', 'in', ('not_paid', 'partial'))]"/>
                 <!-- in_payment & paid -->
@@ -86,7 +84,6 @@
                 <field name="amount_tax_signed" optional="hidden" sum="Tax"/>
                 <field name="amount_total_signed" optional="show" sum="Total"/>
                 <field name="amount_residual_signed" optional="show" sum="Amount Due"/>
-                <field name="to_check" optional="hidden" widget="boolean_toggle"/>
                 <field name="payment_state" optional="show" widget="badge"
                     decoration-danger="payment_state == 'not_paid'"
                     decoration-warning="payment_state in ('partial', 'in_payment')"

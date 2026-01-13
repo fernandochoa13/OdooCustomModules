@@ -305,7 +305,7 @@ class bill_report(models.Model):
         
         return {
             'name': _('Send Invoice'),
-            'res_model': 'account.invoice.send',
+            'res_model': 'account.move.send',
             'view_mode': 'form',
             'context': {
                 'default_email_layout_xmlid': 'mail.mail_notification_layout_with_responsible_signature',

@@ -119,7 +119,7 @@
             <record id="daily_report_action" model="ir.actions.act_window">
                 <field name="name">Daily Report</field>
                 <field name="res_model">daily.report</field>
-                <field name="view_mode">tree,form</field>
+                <field name="view_mode">list,form</field>
                 <field name="view_id" ref="daily_report_tree"/>
                 <field name="context">{'search_default_sentreports': 1}</field>
                 <field name="search_view_id" ref="daily_reports_search"/>
@@ -150,7 +150,7 @@
             <!-- <record id="daily_report_action_user" model="ir.actions.act_window">
                 <field name="name">My Reports</field>
                 <field name="res_model">daily.report</field>
-                <field name="view_mode">tree,form</field>
+                <field name="view_mode">list,form</field>
                 <field name="view_id" ref="daily_report_tree"/>
                 <field name="domain">[('create_uid', '=', uid)]</field>
             </record> -->

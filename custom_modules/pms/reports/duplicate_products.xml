@@ -44,7 +44,7 @@
 <record id="duplicate_products_action" model="ir.actions.act_window">
     <field name="name">Possible Duplicates Report (Products)</field>
     <field name="res_model">duplicate.products</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">list,form</field>
     <field name="search_view_id" ref="pms.duplicate_products_search"/>
 </record>
 

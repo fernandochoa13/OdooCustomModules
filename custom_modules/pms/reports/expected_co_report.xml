@@ -67,7 +67,7 @@
     <record id="expectedco_report_action" model="ir.actions.act_window">
         <field name="name">Expected CO Report</field>
         <field name="res_model">expectedco.report</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="pms.expectedco_search"/>
     </record>
 

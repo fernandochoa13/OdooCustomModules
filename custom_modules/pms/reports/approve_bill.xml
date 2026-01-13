@@ -119,7 +119,7 @@
     <record id="approve_bills_action" model="ir.actions.act_window">
         <field name="name">Bill Approval Report</field>
         <field name="res_model">approve.bills</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="pms.approve_bills_search"/>
     </record>
 

@@ -38,7 +38,7 @@
         <record id="action_view_account_message_general" model="ir.actions.act_window">
             <field name="name">General Customer Messages</field>
             <field name="res_model">customer.messages.dashboard</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
 
         <menuitem id="menu_account_message_general" name="Customer Messages General" parent="account.menu_finance_receivables" action="action_view_account_message_general" sequence="100"/>

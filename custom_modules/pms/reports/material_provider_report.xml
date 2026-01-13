@@ -42,7 +42,7 @@
 <record id="provider_report_action" model="ir.actions.act_window">
     <field name="name">Material Provider Report</field>
     <field name="res_model">provider.report</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">list,form</field>
     <field name="search_view_id" ref="pms.provider_search"/>
 </record>
 

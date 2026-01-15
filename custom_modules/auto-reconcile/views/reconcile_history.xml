@@ -1,0 +1,180 @@
+<odoo>
+    <record id="view_reconcile_history_tree" model="ir.ui.view">
+        <field name="name">reconcile.history.tree</field>
+        <field name="model">reconcile.history</field>
+        <field name="arch" type="xml">
+            <list create="false" js_class="button_in_reconcile_history">
+                <field name="name"/>
+                <field name="fileone_label"/>
+                <field name="filetwo_label"/>
+                <field name="result"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_reconcile_history_form" model="ir.ui.view">
+        <field name="name">reconcile.history.form</field>
+        <field name="model">reconcile.history</field>
+        <field name="arch" type="xml"> 
+            <form string="Reconcile Statements" create="false">
+                <div class="d-flex flex-sm-row flex-column justify-content-evenly mx-5">
+                    <div class="d-flex flex-sm-row flex-column w-100 justify-content-evenly align-items-center">
+                        <div class="d-flex flex-column">
+                            <div>
+                                <!-- <label for="name" string="Reconciliation name"/> -->
+                                <field name="name" string="Reconciliation name" style="font-size:20px; margin-left: -4px"/>
+                            </div>
+                            <div>
+                                <field name="net"/>
+                                <label for="net" string="Balances should add"/>
+                            </div>
+                        </div>
+ 
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-evenly align-items-center mb-3 w-100">
+                                <div class="d-flex flex-column border border-primary rounded mx-2 p-3">
+                                    <div>
+                                        <label for="fileone_label" string="Label:&#160;"/>
+                                        <field name="fileone_label"/>
+                                    </div>
+                                    <div>
+                                        <label for="fileone" string="File:&#160;"/>
+                                        <field name="fileone" />
+                                    </div>
+                                    <div>
+                                        <label for="df1_initial_balance" string="Initial Balance:&#160;"/>
+                                        <field name="df1_initial_balance"/>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column border border-primary rounded mx-2 p-3">
+                                    <div>
+                                        <label for="filetwo_label" string="Label:&#160;"/>
+                                        <field name="filetwo_label" string="Label:&#160;"/>
+                                    </div>
+                                    <div>
+                                        <label for="filetwo" string="File:&#160;"/>
+                                        <field name="filetwo" string="File:&#160;"/>
+                                    </div>
+                                    <div>
+                                        <label for="df2_initial_balance" string="Initial Balance:&#160;"/>
+                                        <field name="df2_initial_balance" string="Initial Balance:&#160;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full mx-2">
+                                <button class="btn-primary w-100 rounded" name="reconcile_statements" string="Reconcile" type="object"/>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center flex-column mx-3">
+                                <div style="height: 37.5px">
+                                    <field name="result" invisible="1"/>
+                                    <img src='/auto-reconcile/static/src/img/greencheck.png' class="mh-100"
+                                        invisible="result != True" draggable="false"/>
+                                    <img src='/auto-reconcile/static/src/img/warning.png' class="mh-100"
+                                        invisible="result != False" draggable="false"/>
+                                </div>
+                            <div class="d-flex align-items-center">
+                                <field name="difference" style="font-size:28px; font-weight:500;"/>
+                            </div>
+                            <span class="mb-0">DIFFERENCE</span>
+                        </div>
+                    </div>
+                </div>
+                <notebook>
+                    <page id="differences" name="differences_tab" string="Differences">
+                        <div class="d-flex w-100 mb-3 justify-content-evenly">
+                            <button type="object" string="MATCH" class="btn-outline-secondary rounded" name="match_records"/>
+                        </div>
+                        <div style="width: 95vw; max-width:95vw; position: relative;">
+                            <div style="position: absolute; left: 0; top:0; width: 50%; max-width: 50%;">
+                                <div class="d-flex" style="width: 50%; position: relative;">
+                                    <label class=" mb-5 mx-5" style="font-weight: 500;" string="FILE ONE:&#160;" for="fileone_label"/>
+                                    <field name="fileone_label" nolabel="1" style="font-weight: 500;" readonly="1"/>
+                                </div>
+                                <field name="details" widget="one2manyreconcile" class="mx-2">
+                                    <list string="Transaction Details file one" default_order="date, id" class="mx-5 border border-secondary rounded">
+                                        <field name="date"                           
+                                            decoration-warning="status == 'bad'"
+                                        />
+                                        <field name="amount"
+                                            decoration-warning="status == 'bad'"
+                                        />
+                                        <field name="memo"
+                                            decoration-warning="status == 'bad'"
+                                        />
+                                        <field name="transaction_id"
+                                            decoration-warning="status == 'bad'"
+                                        />
+                                        <field name="status"/>
+                                        <field name="match"/>
+                                        <button type="object" name="set_match_true" string="Select" invisible="status == 'ok' or match == True"/>
+                                        <button type="object" name="set_match_true" string="Deselect" invisible="status == 'ok' or match == False"/>
+                                    </list>
+                                </field>
+                            </div>
+                            <div style="position: absolute; left: 53%; top:0; width: 50%; max-width: 50%;">
+                                <div class="d-flex" style="width: 50%; position: relative;">
+                                    <label class=" mb-5 mx-5" style="font-weight: 500;" string="FILE TWO:&#160;" for="filetwo_label"/>
+                                    <field name="filetwo_label" nolabel="1" style="font-weight: 500;" readonly="1"/>
+                                </div>
+                                <field name="details_two" widget="one2manyreconcile" class="mx-5">
+                                    <list string="Transaction Details file two" default_order="date, id" class=" border border-secondary rounded">
+                                        <field name="date"
+                                            decoration-warning="status == 'bad'"
+                                        />
+                                        <field name="amount"
+                                            decoration-warning="status == 'bad'"
+                                        />
+                                        <field name="memo"
+                                            decoration-warning="status == 'bad'"
+                                        />
+                                        <field name="transaction_id"
+                                            decoration-warning="status == 'bad'"
+                                        />
+                                        <field name="status"/>
+                                        <field name="match"/>
+                                        <button type="object" name="set_match_true" string="Select" invisible="status == 'ok' or match == True"/>
+                                        <button type="object" name="set_match_true" string="Deselect" invisible="status == 'ok' or match == False"/>
+                                    </list>
+                                </field>
+                            </div>
+                        </div>
+                    </page>
+                    <page id="day" name="day_tab" string="Day">
+                        <div class="" style="position: absolute;">
+                            <button type="object" string="MATCH" class="btn-primary" name="match_day_records"/>
+                            <div class="d-flex" style="width: 50%; position: relative;">
+                                <label class=" mb-5 mx-5" style="font-weight: 500;" string="Reconciliation by day" for="filetwo_label"/>
+                            </div>
+                            <field name="day_details" widget="one2manyreconcile" class="mx-5">
+                                <list string="Totals by day" default_order="date, id"  class="mx-5 border border-secondary rounded">
+                                    <field name="date"
+                                                decoration-warning="status == 'bad'" width="350px"
+                                    />
+                                    <field name="amount_df1"
+                                                decoration-warning="status == 'bad'" width="200px"
+                                    />
+                                    <field name="amount_df2"
+                                                decoration-warning="status == 'bad'" width="200px"
+                                    />
+                                    <field name="difference"
+                                                decoration-warning="status == 'bad'" width="150px"
+                                    />
+                                    <field name="status"/>
+                                    <field name="match"/>
+                                    <button type="object" name="set_match_true" string="Match" invisible="status == 'ok'"/>
+                                </list>
+                            </field>
+                        </div>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_reconcile_history" model="ir.actions.act_window">
+        <field name="name">Reconcile History</field>
+        <field name="res_model">reconcile.history</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

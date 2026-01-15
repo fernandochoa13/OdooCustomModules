@@ -1,0 +1,84 @@
+<odoo>
+
+<record id="audit_result_view_tree" model="ir.ui.view">
+    <field name="name">audit.result.tree</field>
+    <field name="model">audit.result</field>
+    <field name="arch" type="xml">
+        <list string="Audit Results">
+            <field name="name" optional="show"/>
+            <field name="memo" optional="show"/>
+            <field name="company" optional="show"/>
+            <field name="reason" optional="show"/>
+            <field name="solved" optional="show"/>
+            <field name="date" optional="show"/>
+            <button string="View Record" type="object" name="view_record" class="oe_highlight"/>
+        </list>
+    </field>
+</record>
+
+<record id="audit_result_view_search" model="ir.ui.view">
+        <field name="name">audit.result.search</field>
+        <field name="model">audit.result</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+            <field name="name" optional="show"/>
+            <field name="test_name" optional="hide"/>
+            <field name="memo" optional="show"/>
+            <field name="company" optional="show"/>
+            <field name="reason" optional="show"/>
+            <field name="solved" optional="show"/>
+            <field name="date" optional="show"/>
+            <separator/>
+            <filter string="Solved" name="solvedissue" domain="[('solved', '!=', True)]"/>
+            <filter string="Test Name" name="testname" context="{'group_by': 'test_name'}"/>
+            </search>
+        </field>
+</record>
+
+
+<record id="audit_result_view_form" model="ir.ui.view">
+        <field name="name">audit.result.form</field>
+        <field name="model">audit.result</field>
+        <field name="arch" type="xml">
+            <form string="Audit result Form" class="o_sale_order">
+
+            <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" widget="char" class="o_bold_title" readonly="1"/>
+                    </h1>
+                </div>
+
+            <header>
+
+            </header>
+            <group name="general details" class="o_group">
+            <field name="company" />
+            <field name="memo" />
+            <field name="reason" />
+            <field name="solved" />
+            <field name="date" />
+            </group>
+
+            </sheet>
+
+            <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+            </form>
+        </field>
+
+</record>
+
+
+<record id="audit_result_view_action" model="ir.actions.act_window">
+    <field name="name">Audit Result</field>
+    <field name="res_model">audit.result</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="financial_audit.audit_result_view_search"/>
+    <field name="context">{'search_default_solvedissue': 1, 'search_default_testname': 1}</field>
+</record>
+
+</odoo>

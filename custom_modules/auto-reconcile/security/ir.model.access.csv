@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_reconcile_history_admin,access_reconcile_history_admin,model_reconcile_history,auto-reconcile.group_account_manager,1,1,1,1
+access_reconcile_history_user,access_reconcile_history_user,model_reconcile_history,auto-reconcile.group_user,1,0,0,0
+access_reconcile_day_admin,access_reconcile_day_admin,model_reconcile_day,auto-reconcile.group_account_manager,1,1,1,1
+access_reconcile_detail_admin,access_reconcile_detail_admin,model_reconcile_details,auto-reconcile.group_account_manager,1,1,1,1

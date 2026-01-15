@@ -1,0 +1,5 @@
+<odoo>
+    <menuitem name="Auto Reconcile" id="auto_reconcile_root" action="action_reconcile_history" web_icon="auto-reconcile,static/description/icon.png">
+        <menuitem id="action_reconcile_history_id" action="action_reconcile_history"/>
+    </menuitem>
+</odoo>

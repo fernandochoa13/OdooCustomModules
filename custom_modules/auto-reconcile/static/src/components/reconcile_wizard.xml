@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="auto-reconcile.ReconcileWizard" owl="1">
+        <div>
+            <h2 class="text-center mt-2">Select two files to reconcile</h2>
+            <p class="text-center">The files must follow the format specified in <a href="https://www.w3schools.com" style="border-bottom: #2c4d9c 1px dotted;">Format</a></p>
+            <div class="d-flex flex-sm-row flex-column justify-content-around align-items-center">
+                <div>
+                    <div class="mt-3 d-flex flex-column rounded border border-primary">
+                        <input type="text" placeholder="Name for the first file" class="o_input cursor-pointer mb-2 p-1" t-model="state.file1_label"/>
+                        <input type="text" placeholder="Initial balance" class="o_input mb-2 p-1" t-model="state.file1_initial_balance"/>
+                        <div style="height: 200px" class="d-flex justify-content-center">
+                            <t t-if="state.file1 == false">
+                                <img src='/auto-reconcile/static/src/img/excelfile.png' class="mh-100" draggable="false"/>
+                            </t>
+                            <t t-else="">
+                                <img src='/auto-reconcile/static/src/img/greencheck.png' class="mh-100" draggable="false"/>
+                            </t>
+                        </div>
+                        <!-- <button class="btn btn-secondary">Select File in Documents</button> -->
+                    </div>
+                    <div class="w-full">
+                        <FileUploader fileUploadClass="'o-mail-Chatter-fileUploader'" multiUpload="false" onUploaded.bind="onUploaded" acceptedFileExtensions="'.xlsx'">
+                            <t t-set-slot="toggler">
+                                <button class="btn btn-primary mt-3 w-100" t-att-filen="'file1'" t-on-click="onUploadAttachmentClick">Upload</button>
+                            </t>
+                        </FileUploader>
+                    </div>
+                </div>
+                <div>
+                    <div class="mt-2 d-flex flex-column rounded border border-primary">
+                        <input type="text" placeholder="Name for the second file" class="o_input cursor-pointer mb-2 p-1" t-model="state.file2_label"/>
+                        <input type="text" placeholder="Initial balance" class="o_input mb-2 p-1" t-model="state.file2_initial_balance"/>
+                        <div style="height: 200px" class="d-flex justify-content-center">
+                            <t t-if="state.file2 == false">
+                                <img src='/auto-reconcile/static/src/img/excelfile.png' class="mh-100" draggable="false"/>
+                            </t>
+                            <t t-else="">
+                                <img src='/auto-reconcile/static/src/img/greencheck.png' class="mh-100" draggable="false"/>
+                            </t>
+                        </div>
+                        <!-- <button class="btn btn-secondary">Select File in Documents</button> -->
+                    </div>
+                    <div class="w-full">
+                        <FileUploader fileUploadClass="'o-mail-Chatter-fileUploader'" multiUpload="false" onUploaded.bind="onUploaded" acceptedFileExtensions="'.xlsx'">
+                            <t t-set-slot="toggler">
+                                <button class="btn btn-primary mt-3 w-100" t-att-filen="'file2'" t-on-click="onUploadAttachmentClick">Upload</button>
+                            </t>
+                        </FileUploader>
+                    </div>
+                </div>
+            </div>
+            <div class='d-flex flex-column align-items-center justify-content-center'>
+                <div class="o-checkbox form-check d-inline-block mt-5">
+                    <input class="form-check-input" type="checkbox" t-model="state.net"/>
+                    <label class="o_form_label">Balances should add</label>
+                </div>
+                <button class="btn btn-primary mt-2" t-if="state.readysubmit == true" t-on-click="onSubmit">Reconcile</button>
+            </div>
+        </div>
+    </t>
+</templates>

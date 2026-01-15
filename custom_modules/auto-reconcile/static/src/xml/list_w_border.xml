@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="auto-reconcile.listwborders" t-inherit="web.ListRenderer" t-inherit-mode="primary" owl="1">
+        <xpath expr="//div[@t-ref='root']" position="attributes">
+<attribute name="style" add="border: 1px solid #D3D3D3; border-radius: 5px; margin-left: 1px; margin-right: 1px;"></attribute>
+        </xpath>
+    </t>
+
+    <t t-name="auto-reconcile.x2manylistwborders" t-inherit="web.X2ManyField" t-inherit-mode="primary" owl="1">
+        <xpath expr="//ListRenderer" position="replace">
+            <AutoReconcileListBorder t-if="props.viewMode === 'list'" t-props="this.rendererProps"/>
+        </xpath>
+    </t>
+</templates>

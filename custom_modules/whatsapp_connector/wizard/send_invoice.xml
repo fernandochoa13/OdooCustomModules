@@ -1,0 +1,17 @@
+<odoo>
+
+<record id="view_action_invoice_send_inherit" model="ir.ui.view">
+    <field name="name">action.invoice.send.inherit</field>
+    <field name="model">account.move.send</field>
+    <field name="inherit_id" ref="account.account_move_send_wizard_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='mail_server_id']" position="after">
+            <field name="send_whatsapp"/>
+            <b><label for="send_whatsapp"/></b>
+            <field name="whatsapp_body" invisible="not send_whatsapp"/>
+            <b><label for="whatsapp_body"/></b>
+        </xpath>
+    </field>
+</record>
+
+</odoo>

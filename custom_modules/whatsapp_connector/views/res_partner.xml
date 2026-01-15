@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <!-- Define the action -->
+        <record id="action_send_whatsapp_message" model="ir.actions.server">
+            <field name="name">Send WhatsApp Message</field>
+            <field name="model_id" ref="whatsapp_connector.model_res_partner"/>
+            <field name="binding_model_id" ref="whatsapp_connector.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.action_send_whatsapp_message()
+            </field>
+        </record>
+
+
+        <!-- Define the tree view -->
+        <record id="view_whatsapp_templates_tree" model="ir.ui.view">
+            <field name="name">whatsapp.templates.tree</field>
+            <field name="model">whatsapp.templates</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="body"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Define the form view -->
+        <record id="view_whatsapp_templates_form" model="ir.ui.view">
+            <field name="name">whatsapp.templates.form</field>
+            <field name="model">whatsapp.templates</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="body"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Define the action -->
+        <record id="action_whatsapp_templates" model="ir.actions.act_window">
+            <field name="name">WhatsApp Templates</field>
+            <field name="res_model">whatsapp.templates</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Define the menu item -->
+        <menuitem id="menu_whatsapp_templates" name="WhatsApp Templates" parent="menu_whatsapp_connector" action="action_whatsapp_templates"/>
+
+    </data>
+</odoo>

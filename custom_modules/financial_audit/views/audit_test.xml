@@ -1,0 +1,81 @@
+<odoo>
+
+<record id="audit_test_view_tree" model="ir.ui.view">
+    <field name="name">audit.test.tree</field>
+    <field name="model">audit.test</field>
+    <field name="arch" type="xml">
+        <list string="Audit Test">
+            <field name="test_name" optional="show"/>
+            <field name="test_frequency" optional="show"/>
+            <field name="active" optional="show"/>
+        </list>
+    </field>
+</record>
+
+<record id="audit_test_view_search" model="ir.ui.view">
+        <field name="name">audit.test.search</field>
+        <field name="model">audit.test</field>
+        <field name="arch" type="xml">
+            <search string="Default Search">
+                <field name="name"/>
+                <field name="test_frequency"/>
+            </search>
+        </field>
+</record>
+
+
+<record id="audit_test_view_form" model="ir.ui.view">
+        <field name="name">audit.test.form</field>
+        <field name="model">audit.test</field>
+        <field name="arch" type="xml">
+            <form string="Audit Test Form" class="o_sale_order">
+
+            <sheet class="o_form_sheet">
+                <div class="oe_title">
+                    <h1>
+                        <field name="test_name" widget="char" class="o_bold_title" readonly="1"/>
+                    </h1>
+                </div>
+
+            <header>
+                <button string="Run Test" type="object" name="run_test" class="oe_highlight"/>  
+            </header>
+            <group name="general details" class="o_group">
+            <field name="name"/>
+            <field name="test_frequency"/>
+            <field name="all_models"/>
+            <field name="xml_view"/>
+            <field name="active" widget="boolean_toggle"/>
+            <field name="next_date"/>
+            <field name="last_executed_on"/>
+            </group>
+
+            <notebook>
+                <page string="Search Records">
+                <group>
+                    <field name="search_record" widget="ace" options="{'mode': 'python'}" placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document." on_change="1"/>
+                </group>
+                </page>
+            </notebook>
+
+            </sheet>
+
+            <div class="oe_chatter">
+                <field name="message_follower_ids" groups="base.group_user"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+            </form>
+        </field>
+
+</record>
+
+
+<record id="audit_test_view_action" model="ir.actions.act_window">
+    <field name="name">Audit Test</field>
+    <field name="res_model">audit.test</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="financial_audit.audit_test_view_search"/>
+</record>
+
+</odoo>

@@ -1,0 +1,33 @@
+{
+    'name': 'Auto Reconcile',
+    'price': 149.99,
+    'currency': 'USD',
+    'version': '1.0',
+    'license': 'LGPL-3',
+    'summary': 'Tool for reconciling statements and accounts',
+    'description': 'A module to automate the reconciliation of accounting entries in Odoo.',
+    'depends': ['base_setup'],
+    'author': 'Diego Rincon',
+    'category': 'Accounting',
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'data': [
+        'security/group.xml',
+        'security/ir.model.access.csv',
+        'views/reconcile_actions.xml',
+        'views/reconcile_history.xml',
+        'views/reconcile_menu.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            # 'auto-reconcile/static/src/xml/list_w_border.xml',
+            'auto-reconcile/static/src/js/reconcile_history.js',
+            # 'auto-reconcile/static/src/js/list_w_border.js',
+            'auto-reconcile/static/src/xml/button_create.xml',
+            'auto-reconcile/static/src/components/reconcile_wizard.js',
+            'auto-reconcile/static/src/components/reconcile_wizard.xml',
+        ],
+    },
+    'images': [],
+}

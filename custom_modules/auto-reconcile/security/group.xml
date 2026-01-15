@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.module.category" id="module_category_services_auto_reconcile">
+		<field name="name">Auto Reconcile</field>
+		<field name="description">Ayuda a manejar permisos de que usuario tiene acceso a cada elemento</field>
+		<field name="sequence">13</field>
+	</record>
+
+	<record id="auto-reconcile.group_user" model="res.groups">
+		<field name="name">User</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+		<field name="category_id" ref="module_category_services_auto_reconcile" />
+	</record>
+
+	<record id="auto-reconcile.group_account_manager" model="res.groups">
+		<field name="name">Admin</field>
+		<field name="category_id" ref="module_category_services_auto_reconcile" />
+        <field name="implied_ids" eval="[(4, ref('auto-reconcile.group_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+	</record>
+
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="button_create_reconcile.ListView.Buttons" t-inherit="web.ListView.Buttons">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+            <button type="button" style="margin-right: 10px;" class="btn btn-primary" t-on-click="OnCreateReconcile">
+                Add
+            </button>
+        </xpath>
+    </t>
+</templates>
+        <!-- <xpath expr="//*[@class='o_list_buttons d-flex gap-1 d-empty-none align-items-baseline']" position="after"> -->

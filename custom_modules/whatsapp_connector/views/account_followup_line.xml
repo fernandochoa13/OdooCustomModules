@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <!-- Inherit from the form view -->
+        <record id="view_account_followup_followup_line_form_inherit" model="ir.ui.view">
+            <field name="name">account.followup.line.form.inherit</field>
+            <field name="model">account_followup.followup.line</field>
+            <field name="inherit_id" ref="account_followup.view_account_followup_followup_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='send_sms']" position="after">
+                    <!-- Add the send_whatsapp field -->
+                    <field name="send_whatsapp"/>
+                    <field name="whatsapp_template_id"/>
+                    <!-- Your field definition goes here -->
+                </xpath>
+            </field>
+        </record>
+
+        
+
+
+    </data>
+</odoo>

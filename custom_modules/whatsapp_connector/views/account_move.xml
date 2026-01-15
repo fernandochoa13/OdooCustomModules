@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <!-- Define the action -->
+        <record id="action_send_whatsapp_message_account" model="ir.actions.server">
+            <field name="name">Send WhatsApp Message</field>
+            <field name="model_id" ref="whatsapp_connector.model_account_move"/>
+            <field name="binding_model_id" ref="whatsapp_connector.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.send_whatsapp_to_partner()
+            </field>
+        </record>
+
+    </data>
+</odoo>

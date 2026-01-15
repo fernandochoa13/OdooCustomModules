@@ -1,0 +1,11 @@
+<odoo>
+<menuitem name="Audit" id="audit_root_menu" web_icon="financial_audit,static/description/icon.png">
+    <menuitem name="Audit" id="audit_menu">
+        <menuitem id="audit_test_action" action="audit_test_view_action">
+        </menuitem>
+
+        <menuitem id="audit_result_action" action="audit_result_view_action">
+        </menuitem>
+    </menuitem>
+</menuitem>
+</odoo>

@@ -1,17 +1,30 @@
 <odoo>
 
-<record id="view_action_invoice_send_inherit" model="ir.ui.view">
-    <field name="name">action.invoice.send.inherit</field>
-    <field name="model">account.move.send</field>
-    <field name="inherit_id" ref="account.account_move_send_wizard_form"/>
+<record id="view_account_move_send_whatsapp_form" model="ir.ui.view">
+    <field name="name">account.move.send.whatsapp.form</field>
+    <field name="model">account.move.send.whatsapp</field>
     <field name="arch" type="xml">
-        <xpath expr="//field[@name='mail_server_id']" position="after">
-            <field name="send_whatsapp"/>
-            <b><label for="send_whatsapp"/></b>
-            <field name="whatsapp_body" invisible="not send_whatsapp"/>
-            <b><label for="whatsapp_body"/></b>
-        </xpath>
+        <form string="Send Invoice via WhatsApp">
+            <group>
+                <field name="move_ids" widget="many2many_tags" readonly="1"/>
+                <field name="send_whatsapp"/>
+                <field name="whatsapp_body" placeholder="Enter your WhatsApp message here..." invisible="not send_whatsapp"/>
+            </group>
+            <footer>
+                <button name="action_send_whatsapp" string="Send WhatsApp" type="object" class="btn-primary" invisible="not send_whatsapp"/>
+                <button string="Cancel" class="btn-secondary" special="cancel"/>
+            </footer>
+        </form>
     </field>
+</record>
+
+<record id="action_account_move_send_whatsapp" model="ir.actions.act_window">
+    <field name="name">Send via WhatsApp</field>
+    <field name="res_model">account.move.send.whatsapp</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="binding_model_id" ref="account.model_account_move"/>
+    <field name="binding_view_types">list,form</field>
 </record>
 
 </odoo>

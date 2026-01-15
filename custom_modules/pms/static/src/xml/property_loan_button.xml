@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
     <t t-name="button_property_loan_report.ListView.Buttons" t-inherit="web.ListView.Buttons">
-        <xpath expr="//*[@class='btn btn-primary o_list_button_add']" position="replace">
-            <button type="button" class="btn btn-primary" t-on-click="OnChangeLoanReport">
+        <xpath expr="//button[hasclass('o_list_button_add')]" position="replace">
+            <button type="button" class="btn btn-primary o_list_button_add" t-on-click="OnChangeLoanReport">
                 New Report
             </button>
         </xpath>

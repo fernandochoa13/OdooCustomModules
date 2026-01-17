@@ -53,7 +53,7 @@ class Partner(models.Model):
         """Prepare message domain to display"""
         domain = [
             ("message_type", "in", ["email", "comment"]),
-            ("model", "!=", "mail.channel"),
+            ("model", "not in", ["mail.channel", "discuss.channel"]),
         ]
         author_id_domain = ("author_id", "child_of", record_from_id)
         partner_ids_domain = ("partner_ids", "in", record_to_ids)

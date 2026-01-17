@@ -34,7 +34,7 @@ from .tools import _prepare_date_display, _prepare_notification
 _logger = logging.getLogger(__name__)
 
 # List of forbidden models
-FORBIDDEN_MODELS = ["mail.channel", "mail.message"]
+FORBIDDEN_MODELS = ["discuss.channel", "mail.channel", "mail.message"]
 
 # Search for 'ghost' models is performed
 GHOSTS_CHECKED = False
@@ -758,7 +758,7 @@ class MailMessage(models.Model):
         user actually has access to
         Following key in context is used:
         - 'check_messages_access': if not set legacy 'search' is performed
-        For the moment we do not show messages posted to mail.channel
+        For the moment we do not show messages posted to discuss.channel
          Model (Discussion Channels)
         Finally we check the following:
         After having received ids of a classic search, keep only:

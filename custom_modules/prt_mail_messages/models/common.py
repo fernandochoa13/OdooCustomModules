@@ -41,7 +41,7 @@ MONTHS = {
 }
 
 # List of forbidden models
-FORBIDDEN_MODELS = ["mail.channel", "mail.message"]
+FORBIDDEN_MODELS = ["discuss.channel", "mail.channel", "mail.message"]
 
 # Search for 'ghost' models is performed
 GHOSTS_CHECKED = False
